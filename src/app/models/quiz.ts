@@ -11,18 +11,26 @@ export type QuestionStatus =
   (typeof QuestionStatus)[keyof typeof QuestionStatus];
 
 type Question = {
+  id: number;
+  quizId: string;
   question: string;
   answer: string;
-  question_id: string;
-  question_index: number;
-  quesiton_key: string;
+  questionKey: string;
   user_answer?: string | null;
   status?: QuestionStatus;
 };
 
 type Quiz = {
+  title: string;
   id: number;
   questions: Question[];
 };
+type NewQuestionInput = Omit<Question, "id" | "quizId">;
 
-export type { Question, Quiz };
+type NewQuizInput = {
+  title: string;
+  id: number;
+  questions: NewQuestionInput[];
+};
+
+export type { Question, Quiz, NewQuizInput };

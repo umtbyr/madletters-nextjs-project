@@ -3,17 +3,17 @@ import { Question, QuestionStatus } from "@/app/models/quiz";
 import { useQuizStore } from "@/app/store/quizStore";
 import { useMemo, useRef } from "react";
 export function QuestionKeyBox(props: { question: Question }) {
-  const { quesiton_key, question_id } = props.question;
+  const { questionKey, id } = props.question;
 
   const questions = useQuizStore((state) => state.questions);
 
   const currentQuestion = useQuizStore((state) => state.currentQuestion);
 
-  const isCurrent = currentQuestion?.question_id === question_id;
+  const isCurrent = currentQuestion?.id === id;
 
   const keyBoxStatus = useMemo(() => {
-    return questions.find((item) => item.question_id === question_id)?.status;
-  }, [question_id, questions]);
+    return questions.find((item) => item.id === id)?.status;
+  }, [id, questions]);
 
   const keyBoxClass = useRef("white");
 
@@ -41,7 +41,7 @@ export function QuestionKeyBox(props: { question: Question }) {
           : `border-amber-400 text-amber-400 ${keyBoxClass.current}`
       }`}
     >
-      {quesiton_key}
+      {questionKey}
     </li>
   );
 }

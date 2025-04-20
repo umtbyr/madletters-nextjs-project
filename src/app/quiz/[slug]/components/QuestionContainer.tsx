@@ -49,14 +49,14 @@ export function QuestionContainer(props: QuestionCardProps) {
   const handleAnswerQuestion = (answer: string) => {
     setUserAnswer("");
     if (answer === "" || answer === null) {
-      setQuestionStatus(currentQuestion.question_id, QuestionStatus.SKIPPED);
+      setQuestionStatus(currentQuestion.id, QuestionStatus.SKIPPED);
     } else if (
       currentQuestion?.answer.toLocaleLowerCase().trim() ===
       userAnswer.toLocaleLowerCase().trim()
     ) {
-      setQuestionStatus(currentQuestion.question_id, QuestionStatus.CORRECT);
+      setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
     } else {
-      setQuestionStatus(currentQuestion.question_id, QuestionStatus.INCORRECT);
+      setQuestionStatus(currentQuestion.id, QuestionStatus.INCORRECT);
     }
 
     setCurrentQuestionIndex(currentQuestionIndex + 1);

@@ -8,7 +8,7 @@ export type QuizStore = {
   questions: Question[];
   setCurrentQuestionIndex: (index: number) => void;
   setQuestions: (questions: Question[]) => void;
-  setQuestionStatus: (questionId: string, status: QuestionStatus) => void;
+  setQuestionStatus: (questionId: number, status: QuestionStatus) => void;
 };
 
 export const useQuizStore = create<QuizStore>((set) => ({
@@ -27,7 +27,7 @@ export const useQuizStore = create<QuizStore>((set) => ({
   setQuestionStatus: (questionId, status) =>
     set((state) => ({
       questions: state.questions.map((question) =>
-        question.question_id === questionId ? { ...question, status } : question
+        question.id === questionId ? { ...question, status } : question
       ),
     })),
 }));
