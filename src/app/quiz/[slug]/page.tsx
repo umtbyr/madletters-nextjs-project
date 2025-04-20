@@ -6,6 +6,7 @@ type QuestionPageProps = {
 
 export default async function Page(props: QuestionPageProps) {
   //const { slug } = await props.params;
+  console.log(props);
 
   //database call with quiz-id to get Questions
 

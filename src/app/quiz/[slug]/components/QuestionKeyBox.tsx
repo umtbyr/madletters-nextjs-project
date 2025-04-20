@@ -3,7 +3,7 @@ import { Question, QuestionStatus } from "@/app/models/quiz";
 import { useQuizStore } from "@/app/store/quizStore";
 import { useMemo, useRef } from "react";
 export function QuestionKeyBox(props: { question: Question }) {
-  const { quesiton_key, question_index, question_id } = props.question;
+  const { quesiton_key, question_id } = props.question;
 
   const questions = useQuizStore((state) => state.questions);
 
