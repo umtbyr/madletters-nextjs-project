@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import type { ChatCompletionMessageParam } from "openai/resources";
 /* import { Quiz } from "../models/quiz"; */
 
-const AtoZ = [..."ABCDEFGHIJKLMNOPRSTUVYZ"];
+/* const AtoZ = [..."ABCDEFGHIJKLMNOPRSTUVYZ"]; */
 
 async function generateQuizFromOenAI(
   retries = 1
