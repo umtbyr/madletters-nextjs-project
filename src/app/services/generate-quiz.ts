@@ -192,7 +192,7 @@ export async function checkGeneratedQuizAndSave() {
     }
   }
  */
-  let finalQuizQuestions = generatedQuiz
+  const finalQuizQuestions = generatedQuiz
     .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
     .map((q) => ({
       question: q.question,
