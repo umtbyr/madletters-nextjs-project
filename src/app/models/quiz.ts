@@ -22,7 +22,7 @@ type Question = {
 
 type Quiz = {
   title: string;
-  id: number;
+  id: string;
   questions: Question[];
 };
 type NewQuestionInput = Omit<Question, "id" | "quizId">;
