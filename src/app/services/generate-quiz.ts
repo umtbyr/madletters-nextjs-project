@@ -180,7 +180,7 @@ async function generateQuizFromOenAI(
   ];
 
   const res = await openai.chat.completions.create({
-    model: "gpt-4o",
+    model: "gpt-4.1",
     messages,
     temperature: 0.7,
     max_tokens: 2000,
