@@ -11,12 +11,12 @@ export async function GET(request: NextRequest) {
   }
   try {
     const result = await checkGeneratedQuizAndSave();
-    return Response.json({
+    return NextResponse.json({
       status: "Quiz generated and saved",
       ...result,
     });
   } catch (error) {
     console.error("Error during quiz generation", error);
-    return new Response("Internal Server Error", { status: 500 });
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
