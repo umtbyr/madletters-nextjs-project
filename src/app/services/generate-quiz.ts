@@ -231,24 +231,32 @@ export async function generateQuestionsForLetters(
     {
       role: "user",
       content: `
-Aşağıdaki kurallara uygun olarak **${missingKeys.length} adet benzersiz tıbbi bilgi sorusu ve cevabı** üret:
+Aşağıdaki kurallara uygun olarak **${
+        missingKeys.length
+      } adet benzersiz tıbbi bilgi sorusu ve cevabı** üret:
 
 Kurallar:
-- Her soru yalnızca **tek bir doğru cevaba** sahip olmalıdır.
-- Soruların cevapları şu harflerle başlamalı: ${letters}
-- Cevaplar belirtilen sırayla olmalı (1. ${missingKeys[0]}, 2. ${missingKeys[1]}, ...)
-- Türk alfabesinde olmayan karakterler (örneğin "Q", "W", "X") kullanılmamalıdır.
-- Tüm içerik **Türkçe** olmalıdır.
-- Sorular, tıp öğrencileri için uygun zorlukta ve **klinik olarak anlamlı** olmalıdır.
-- Format: **Sadece JSON dizisi**, örneğin:
-
-[
+ - Her cevabın baş harfi sırasıyla aşağıdaki harflerle başlamalı:
+  ${missingKeys.map((char, index) => `${index + 1}. ${char}`).join(", ")}
+  - Cevaplar sadece 1-2 kelime uzunluğunda olmalı.
+  - Her soru nesnesi şu formatta olmalı:
+    {
+      "question": "......?",
+      "answer": "..."
+    }
+    örnek çıktı:[
   {
     "question": "Hipofiz bezinde en sık görülen tümör tipi nedir?",
     "answer": "Adenom"
   },
   ...
 ]
+- Türk alfabesinde olmayan karakterler (örneğin "Q", "W", "X") kullanılmamalıdır.
+- Tüm içerik **Türkçe** olmalıdır.
+- Sorular, tıp öğrencileri için uygun zorlukta ve **klinik olarak anlamlı** olmalıdır.
+- Format: **Sadece JSON dizisi**, örneğin:
+
+
 
 ⛔️ **Açıklama ekleme. Sadece JSON çıktısı ver.**
       `.trim(),
@@ -256,9 +264,9 @@ Kurallar:
   ];
 
   const res = await openai.chat.completions.create({
-    model: "gpt-4o",
+    model: "gpt-4.1",
     messages,
-    temperature: 0.2,
+    temperature: 0.7,
     max_tokens: 1000,
   });
 
@@ -336,32 +344,48 @@ export async function checkGeneratedQuizAndSave() {
     }
   }
  */
-  const finalQuizQuestions = generatedQuiz
+
+  function removeDuplicatesByFirstWord(
+    arr: { question: string; answer: string }[]
+  ) {
+    const seen = new Set<string>();
+
+    return arr.filter((item) => {
+      const firstWord = item.answer[0].toLowerCase();
+      if (seen.has(firstWord)) return false;
+      seen.add(firstWord);
+      return true;
+    });
+  }
+
+  const quizWithUniqueQuestions = removeDuplicatesByFirstWord(generatedQuiz);
+  let missingKeys = alphabet.filter(
+    (key) => !quizWithUniqueQuestions.some((quiz) => quiz.answer[0] === key)
+  );
+
+  let retires = 0;
+  const MAX_RETRIES = 3;
+  while (missingKeys.length > 0 && retires < MAX_RETRIES) {
+    const regeneratedQuestions = await generateQuestionsForLetters(missingKeys);
+
+    quizWithUniqueQuestions.push(...regeneratedQuestions);
+
+    missingKeys = alphabet.filter((key) =>
+      quizWithUniqueQuestions.some((question) => question.answer[0] === key)
+    );
+    retires++;
+  }
+
+  if (missingKeys.length > 0) {
+    console.warn("⚠️ Still missing keys after retries:", missingKeys);
+  }
+  const finalQuizQuestions = quizWithUniqueQuestions
     .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
     .map((q) => ({
       question: q.question,
       answer: q.answer,
       questionKey: q.answer[0],
     }));
-
-  /*   if (uniqueQuestions.length === 23) {
-    finalQuizQuestions = uniqueQuestions
-      .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
-      .map((q) => ({
-        question: q.question,
-        answer: q.answer,
-        questionKey: q.answer[0],
-      }));
-  } else {
-    finalQuizQuestions = generatedQuiz
-      .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
-      .map((q) => ({
-        question: q.question,
-        answer: q.answer,
-        questionKey: q.answer[0],
-      }));
-  } */
-
   await prisma.quiz.create({
     data: {
       title: "Günün Tıp Soruları - " + new Date().toLocaleDateString("tr-TR"),
@@ -379,3 +403,21 @@ export async function checkGeneratedQuizAndSave() {
     usedFallback: duplicatedQuestions.length > DUPLICATE_TOLERANCE, */
   };
 }
+
+/*   if (uniqueQuestions.length === 23) {
+    finalQuizQuestions = uniqueQuestions
+      .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
+      .map((q) => ({
+        question: q.question,
+        answer: q.answer,
+        questionKey: q.answer[0],
+      }));
+  } else {
+    finalQuizQuestions = generatedQuiz
+      .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
+      .map((q) => ({
+        question: q.question,
+        answer: q.answer,
+        questionKey: q.answer[0],
+      }));
+  } */

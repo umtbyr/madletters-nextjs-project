@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Quiz } from "./models/quiz";
+export const dynamic = "force-dynamic";
 export default async function Page() {
   const dbTodaysQuiz = await prisma.quiz.findFirst({
     orderBy: {
