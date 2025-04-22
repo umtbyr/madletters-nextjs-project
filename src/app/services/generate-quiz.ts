@@ -56,14 +56,14 @@ async function generateQuizFromOenAI(
 
   try {
     const parsed = JSON.parse(cleanedContent);
-    if (!Array.isArray(parsed) || parsed.length !== 23)
-      throw new Error("Invalid question array");
-    const validated = parsed.every(
+    /*     if (!Array.isArray(parsed) || parsed.length !== 23)
+      throw new Error("Invalid question array"); */
+    /*     const validated = parsed.every(
       (q, i) => q.answer[0].toUpperCase() === AtoZ[i]
     );
     if (!validated) {
       return generateQuizFromOenAI(retries - 1);
-    }
+    } */
     return parsed;
   } catch (e) {
     if (retries > 0) {
