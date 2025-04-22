@@ -58,11 +58,147 @@ async function generateQuizFromOenAI(
       "answer": "..."
     }
     örnek çıktı:[
-  { "question": "Gece körlüğüne neden olan vitamin eksikliği nedir?", "answer": "A vitamini" },
-  { "question": "Hangi organ insülin üretir?", "answer": "B pankreas" },
-  { "question": "C vitamini eksikliği hangi hastalığa yol açar?", "answer": "Skorbüt" },
-  ...
-]
+  {
+    questionKey: "A",
+    question: "Hipofiz bezinde en sık görülen tümör tipi nedir?",
+    answer: "Adenom",
+  },
+  {
+    questionKey: "B",
+    question: "Kalp atım hızının 60’ın altına düşmesine ne ad verilir?",
+    answer: "Bradikardi",
+  },
+  {
+    questionKey: "C",
+    question: "Aşırı kortizol salgısı ile karakterize sendrom nedir?",
+    answer: "Cushing",
+  },
+  {
+    questionKey: "Ç",
+    question: "Çocuklarda en sık görülen kanser türü nedir?",
+    answer: "Çocuklukça",
+  },
+  {
+    questionKey: "D",
+    question: "Kan şekeri yüksekliği ile karakterize hastalık nedir?",
+    answer: "Diyabet",
+  },
+  {
+    questionKey: "E",
+    question: "Beyin dokusunun iltihabı olan hastalık nedir?",
+    answer: "Ensefalit",
+  },
+  {
+    questionKey: "F",
+    question: "Akciğer dokusunda bağ dokusu artışıyla seyreden hastalık nedir?",
+    answer: "Fibrozis",
+  },
+  {
+    questionKey: "G",
+    question: "Böbrekte iltihapla seyreden glomerül hastalığı nedir?",
+    answer: "Glomerülit",
+  },
+  {
+    questionKey: "H",
+    question: "Tiroid bezinin az çalışması ile ortaya çıkan durum nedir?",
+    answer: "Hipotiroidi",
+  },
+  {
+    questionKey: "I",
+    question: "Işığa karşı aşırı duyarlılık hangi kelimeyle tanımlanır?",
+    answer: "Işıkfobi",
+  },
+  {
+    questionKey: "İ",
+    question: "Beyindeki damar tıkanıklığı sonucu gelişen ani tablo nedir?",
+    answer: "İnme",
+  },
+  {
+    questionKey: "J",
+    question: "Sarılıkla birlikte ortaya çıkan bilirubin artışına ne ad verilir?",
+    answer: "Jaundice",
+  },
+  {
+    questionKey: "K",
+    question: "Kalp kası iltihabına ne ad verilir?",
+    answer: "Kardit",
+  },
+  {
+    questionKey: "L",
+    question: "Lökosit artışı ile seyreden kanser nedir?",
+    answer: "Lösemi",
+  },
+  {
+    questionKey: "M",
+    question: "Sinir sisteminde miyelin kaybı ile seyreden hastalık nedir?",
+    answer: "Multipl",
+  },
+  {
+    questionKey: "N",
+    question: "Beyinde doğuştan oluşan sıvı dolu kese nedir?",
+    answer: "Nörosistik",
+  },
+  {
+    questionKey: "O",
+    question: "Vücutta oksijen yetersizliğine verilen ad nedir?",
+    answer: "Oksijensizlik",
+  },
+  {
+    questionKey: "Ö",
+    question: "Göğüs boşluğunda sıvı birikmesiyle oluşan durum nedir?",
+    answer: "Ödem",
+  },
+  {
+    questionKey: "P",
+    question: "Pankreasın iltihaplanmasıyla oluşan hastalık nedir?",
+    answer: "Pankreatit",
+  },
+  {
+    questionKey: "R",
+    question: "Tedaviye dirençli anemi türüne ne ad verilir?",
+    answer: "Refrakter",
+  },
+  {
+    questionKey: "S",
+    question: "Bağışıklık sisteminin kendi dokularına saldırdığı hastalık nedir?",
+    answer: "SLE",
+  },
+  {
+    questionKey: "Ş",
+    question: "Aşırı kan kaybı sonrası gelişen bilinç bozukluğu nedir?",
+    answer: "Şok",
+  },
+  {
+    questionKey: "T",
+    question: "Vücut sıcaklığının 38°C üstüne çıkmasıyla oluşan durum nedir?",
+    answer: "Tefrik",
+  },
+  {
+    questionKey: "U",
+    question: "İdrar yolu enfeksiyonuna bağlı gelişen iltihap nedir?",
+    answer: "Uretrit",
+  },
+  {
+    questionKey: "Ü",
+    question: "Soğuk algınlığı halk arasında hangi isimle anılır?",
+    answer: "Üşütme",
+  },
+  {
+    questionKey: "V",
+    question: "Damarların genişlemesiyle oluşan durum nedir?",
+    answer: "Varis",
+  },
+  {
+    questionKey: "Y",
+    question: "Hücrelerin enerji ihtiyacı için yıkım işlemi nedir?",
+    answer: "Yıkım",
+  },
+  {
+    questionKey: "Z",
+    question: "Kuduz virüsü hangi yapıya sahip virüs sınıfına girer?",
+    answer: "Zarflı",
+  },
+];
   - Çıktı sadece geçerli bir JSON dizisi olmalı. Markdown, açıklama veya \`\`\` gibi şeyler kullanma.
   
   ⛔️ Format dışı hiçbir içerik istemiyorum. Sadece saf JSON dizisi ver.
