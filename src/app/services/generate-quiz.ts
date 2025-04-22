@@ -137,8 +137,9 @@ Kurallar:
 
 export async function checkGeneratedQuizAndSave() {
   const generatedQuiz = await generateQuizFromOenAI();
+  console.log(generatedQuiz);
 
-  const lastTenQuizes: Quiz[] = await prisma.quiz.findMany({
+  /* const lastTenQuizes: Quiz[] = await prisma.quiz.findMany({
     orderBy: { date: "desc" },
     take: 10,
     include: { questions: true },
@@ -190,10 +191,16 @@ export async function checkGeneratedQuizAndSave() {
       console.warn("⚠️ Still missing keys after retries:", missingKeys);
     }
   }
+ */
+  let finalQuizQuestions = generatedQuiz
+    .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
+    .map((q) => ({
+      question: q.question,
+      answer: q.answer,
+      questionKey: q.answer[0],
+    }));
 
-  let finalQuizQuestions;
-
-  if (uniqueQuestions.length === 23) {
+  /*   if (uniqueQuestions.length === 23) {
     finalQuizQuestions = uniqueQuestions
       .sort((a, b) => a.answer[0].localeCompare(b.answer[0]))
       .map((q) => ({
@@ -209,7 +216,7 @@ export async function checkGeneratedQuizAndSave() {
         answer: q.answer,
         questionKey: q.answer[0],
       }));
-  }
+  } */
 
   await prisma.quiz.create({
     data: {
@@ -224,7 +231,7 @@ export async function checkGeneratedQuizAndSave() {
     success: true,
     createdAt: new Date(),
     questionCount: finalQuizQuestions.length,
-    duplicatedCount: duplicatedQuestions.length,
-    usedFallback: duplicatedQuestions.length > DUPLICATE_TOLERANCE,
+    /*     duplicatedCount: duplicatedQuestions.length,
+    usedFallback: duplicatedQuestions.length > DUPLICATE_TOLERANCE, */
   };
 }
