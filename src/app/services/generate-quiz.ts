@@ -1,7 +1,7 @@
 import { openai } from "@/lib/openai";
 import { prisma } from "@/lib/prisma";
 import type { ChatCompletionMessageParam } from "openai/resources";
-import { Quiz } from "../models/quiz";
+/* import { Quiz } from "../models/quiz"; */
 
 const AtoZ = [..."ABCDEFGHIJKLMNOPRSTUVYZ"];
 
