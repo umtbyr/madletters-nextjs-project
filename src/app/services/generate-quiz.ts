@@ -78,6 +78,98 @@ async function generateQuizFromOenAI(
     question: "...?",
     answer: "D...",
   },
+    {
+    question: "...?",
+    answer: "E...",
+  },
+    {
+    question: "...?",
+    answer: "F...",
+  },
+    {
+    question: "...?",
+    answer: "G...",
+  },
+    {
+    question: "...?",
+    answer: "H...",
+  },
+    {
+    question: "...?",
+    answer: "I...",
+  },
+    {
+    question: "...?",
+    answer: "İ...",
+  },
+    {
+    question: "...?",
+    answer: "J...",
+  },
+    {
+    question: "...?",
+    answer: "K...",
+  },
+    {
+    question: "...?",
+    answer: "L...",
+  },
+    {
+    question: "...?",
+    answer: "M...",
+  },
+    {
+    question: "...?",
+    answer: "N...",
+  },
+    {
+    question: "...?",
+    answer: "O...",
+  },
+    {
+    question: "...?",
+    answer: "Ö...",
+  },
+    {
+    question: "...?",
+    answer: "P...",
+  },
+    {
+    question: "...?",
+    answer: "R...",
+  },
+    {
+    question: "...?",
+    answer: "S...",
+  },
+    {
+    question: "...?",
+    answer: "Ş...",
+  },
+    {
+    question: "...?",
+    answer: "T...",
+  },
+    {
+    question: "...?",
+    answer: "U...",
+  },
+    {
+    question: "...?",
+    answer: "Ü...",
+  },
+    {
+    question: "...?",
+    answer: "V...",
+  },
+    {
+    question: "...?",
+    answer: "Y...",
+  },  {
+    question: "...?",
+    answer: "Z...",
+  },
+
   ...
 ];
   - Çıktı sadece geçerli bir JSON dizisi olmalı. Markdown, açıklama veya \`\`\` gibi şeyler kullanma.
