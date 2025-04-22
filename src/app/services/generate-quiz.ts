@@ -1,6 +1,7 @@
 import { openai } from "@/lib/openai";
 import { prisma } from "@/lib/prisma";
 import type { ChatCompletionMessageParam } from "openai/resources";
+import { Quiz } from "../models/quiz";
 
 const AtoZ = [..."ABCDEFGHIJKLMNOPRSTUVYZ"];
 
@@ -137,7 +138,7 @@ Kurallar:
 export async function checkGeneratedQuizAndSave() {
   const generatedQuiz = await generateQuizFromOenAI();
 
-  const lastTenQuizes = await prisma.quiz.findMany({
+  const lastTenQuizes: Quiz[] = await prisma.quiz.findMany({
     orderBy: { date: "desc" },
     take: 10,
     include: { questions: true },

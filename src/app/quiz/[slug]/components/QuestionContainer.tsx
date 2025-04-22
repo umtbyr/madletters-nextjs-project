@@ -44,8 +44,6 @@ export function QuestionContainer(props: QuestionCardProps) {
       ? tempQuestions[currentQuestionIndex]
       : questions[currentQuestionIndex];
 
-  console.log("current Index :", currentQuestion);
-
   const handleAnswerQuestion = (answer: string) => {
     setUserAnswer("");
     if (answer === "" || answer === null) {

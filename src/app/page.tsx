@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 export default async function Page() {
-  //database call to get the latest quiz-id...
-
   const todaysQuiz = await prisma.quiz.findFirst({
     orderBy: {
       date: "desc",
