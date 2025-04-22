@@ -139,6 +139,7 @@ Kurallar:
 }
 
 export async function checkGeneratedQuizAndSave() {
+  console.log("🟢 Calling OpenAI...");
   const generatedQuiz = await generateQuizFromOenAI();
   console.log(generatedQuiz);
 
