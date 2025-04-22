@@ -17,25 +17,24 @@ async function generateQuizFromOenAI(
     {
       role: "user",
       content: `
-  Aşağıdaki kurallara uygun olarak **23 adet benzersiz tıbbi bilgi sorusu ve cevabı** üret:
+  Aşağıdaki kurallara göre **23 adet Türkçe tıbbi bilgi sorusu** üret ve çıktıyı sadece JSON formatında ver:
   
   Kurallar:
   - Her soru yalnızca **tek bir doğru cevaba** sahip olmalıdır.
-  - İlk cevabın "A", ikinci "B", üçüncü "C" harfiyle başlamalı... 23. soru "Z" harfiyle başlamalıdır.
-  - Türk alfabesinde olmayan karakterler (örneğin "Q", "W", "X") kullanılmamalıdır.
-  - Tüm içerik **Türkçe** olmalıdır.
-  - Sorular, tıp öğrencileri için uygun zorlukta ve **klinik olarak anlamlı** olmalıdır.
-  - Format: **Sadece JSON dizisi**, örneğin:
-  
+  - Cevaplar **yalnızca 1 ya da 2 kelime** uzunluğunda olmalıdır.
+  - Cevapların ilk harfi sırasıyla A-Z (Türk alfabesine göre) harfleri ile başlamalıdır: A, B, C, Ç, D, E, F, G, H, I, İ, J, K, L, M, N, O, Ö, P, R, S, Ş, T, U, Ü, V, Y, Z.
+  - Her sorunun "question" ve "answer" alanı olmalıdır.
+  - Format: **SADECE JSON DİZİSİ**, açıklama veya markdown biçimlendirmesi (örneğin \\\`\\\`\\\`) OLMAMALI.
+  - Örnek format:
   [
     {
-      "question": "Hipofiz bezinde en sık görülen tümör tipi nedir?",
-      "answer": "Adenom"
+      "question": "Akciğer grafisinde en sık görülen patoloji nedir?",
+      "answer": "Atelektazi"
     },
     ...
   ]
   
-   **Açıklama ekleme. Sadece JSON çıktısı ver.**
+  ⛔️ Açıklama ekleme. Markdown, \\\`\\\`\\\`, kod bloğu, anlatım veya başka hiçbir şey ekleme. Sadece JSON çıktısı üret.
       `.trim(),
     },
   ];
@@ -47,12 +46,16 @@ async function generateQuizFromOenAI(
     max_tokens: 3000,
   });
 
-  const content = res.choices[0]?.message?.content;
+  const content = res.choices[0]?.message?.content ?? "";
+  const cleanedContent = content
+    .replace(/^```json\s*/, "")
+    .replace(/^```\s*/, "")
+    .replace(/```$/, "");
 
-  if (!content) throw new Error("No content returned from OpenAI");
+  if (!cleanedContent) throw new Error("No content returned from OpenAI");
 
   try {
-    const parsed = JSON.parse(content);
+    const parsed = JSON.parse(cleanedContent);
     if (!Array.isArray(parsed) || parsed.length !== 23)
       throw new Error("Invalid question array");
     const validated = parsed.every(
