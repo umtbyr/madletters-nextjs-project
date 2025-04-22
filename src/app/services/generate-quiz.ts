@@ -12,7 +12,7 @@ async function generateQuizFromOenAI(
     {
       role: "system",
       content:
-        "Sen tıp öğrencileri için günlük bilgi yarışması soruları hazırlayan deneyimli bir profesörsün.",
+        "Sen tıp öğrencileri için günlük bilgi yarışması soruları hazırlayan deneyimli bir profesörsün fakat soruları bazı kurallar çerçevesinde hazırlaman gerek.",
     },
     {
       role: "user",
@@ -22,10 +22,39 @@ async function generateQuizFromOenAI(
   Kurallar:
   - Her soru yalnızca **tek bir doğru cevaba** sahip olmalıdır.
   - Cevaplar **yalnızca 1 ya da 2 kelime** uzunluğunda olmalıdır.
-  - en önemli şey her harften yanlızca 1 cevap olması (A harfiyle başlayan 2 cevap OLMAMALIDIR).
+  - Cevabı aynı harfle başlayan 2 veya daha fazla cevap olmamalıdır Örnek olarak: Atelektazi ve Adrenalin cevaplarından yalnızca biri bulunmalıdır. soruların farklı olmasının haricinde cevapların ilk harfleri de birbirinden farklı olmalıdır.
   - Her sorunun cevabı şu harflerle başlamalıdır ve ALFABETİK sırayla olmalıdır:
-  1. A, 2. B, 3. C, 4. Ç, 5. D, 6. E, 7. F, 8. G, 9. H, 10. I, 11. İ, 12. J,
-  13. K, 14. L, 15. M, 16. N, 17. O, 18. Ö, 19. P, 20. R, 21. S, 22. Ş, 23. T, 24. U, 25. Ü, 26. V, 27. Y, 28. Z
+  - Her cevabın **ilk harfi aşağıdaki sıraya uygun olmalıdır**:
+
+  1. A ile başlayan cevap  
+  2. B ile başlayan cevap  
+  3. C ile başlayan cevap  
+  4. Ç ile başlayan cevap  
+  5. D ile başlayan cevap  
+  6. E ile başlayan cevap  
+  7. F ile başlayan cevap  
+  8. G ile başlayan cevap  
+  9. H ile başlayan cevap  
+  10. I ile başlayan cevap  
+  11. İ ile başlayan cevap  
+  12. J ile başlayan cevap  
+  13. K ile başlayan cevap  
+  14. L ile başlayan cevap  
+  15. M ile başlayan cevap  
+  16. N ile başlayan cevap  
+  17. O ile başlayan cevap  
+  18. Ö ile başlayan cevap  
+  19. P ile başlayan cevap  
+  20. R ile başlayan cevap  
+  21. S ile başlayan cevap  
+  22. Ş ile başlayan cevap  
+  23. T ile başlayan cevap  
+  24. U ile başlayan cevap  
+  25. Ü ile başlayan cevap  
+  26. V ile başlayan cevap  
+  27. Y ile başlayan cevap  
+  28. Z ile başlayan cevap 
+  bu sırayı asla bozmamalısın.
   - Her sorunun "question" ve "answer" alanı olmalıdır.
   - Format: **SADECE JSON DİZİSİ**, açıklama veya markdown biçimlendirmesi (örneğin \\\`\\\`\\\`) OLMAMALI.
   - Örnek format:
