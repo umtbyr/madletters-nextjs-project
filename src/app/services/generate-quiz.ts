@@ -220,8 +220,6 @@ async function generateQuizFromOenAI(
 export async function generateQuestionsForLetters(
   missingKeys: string[]
 ): Promise<{ question: string; answer: string }[]> {
-  const letters = missingKeys.join(", ");
-
   const messages: ChatCompletionMessageParam[] = [
     {
       role: "system",
