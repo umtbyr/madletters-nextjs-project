@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { Quiz } from "./models/quiz";
 export default async function Page() {
-  const todaysQuiz = await prisma.quiz.findFirst({
+  const todaysQuiz = (await prisma.quiz.findFirst({
     orderBy: {
       date: "desc",
     },
-  });
+  })) as Quiz;
 
   if (!todaysQuiz) {
     throw new Error("Quiz not found");

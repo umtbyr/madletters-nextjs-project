@@ -7,14 +7,14 @@ type QuestionPageProps = {
 
 export default async function Page(props: QuestionPageProps) {
   const { slug } = await props.params;
-  const quiz: Quiz = await prisma.quiz.findUnique({
+  const quiz = (await prisma.quiz.findUnique({
     where: {
       id: slug,
     },
     include: {
       questions: true,
     },
-  });
+  })) as Quiz;
 
   if (!quiz) {
     throw new Error("Quiz not found");
