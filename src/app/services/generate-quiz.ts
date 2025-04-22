@@ -8,44 +8,6 @@ import type { ChatCompletionMessageParam } from "openai/resources";
 async function generateQuizFromOenAI(
   retries = 1
 ): Promise<{ question: string; answer: string }[]> {
-  const alphabet = [
-    "A",
-    "B",
-    "C",
-    "Ç",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "İ",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "Ö",
-    "P",
-    "R",
-    "S",
-    "Ş",
-    "T",
-    "U",
-    "Ü",
-    "V",
-    "Y",
-    "Z",
-  ];
-
-  const instructions = alphabet
-    .map(
-      (letter, index) =>
-        `${index + 1}. sorunun cevabı "${letter}" harfiyle başlamalı.`
-    )
-    .join("\n");
-
   const messages: ChatCompletionMessageParam[] = [
     {
       role: "system",
@@ -55,24 +17,28 @@ async function generateQuizFromOenAI(
     {
       role: "user",
       content: `
-Aşağıdaki kurallara göre 29 adet Türkçe tıbbi bilgi sorusu üret ve çıktıyı SADECE JSON formatında ver:
-
-Kurallar:
-- Her soru yalnızca TEK bir doğru cevaba sahip olmalıdır.
-- Cevaplar sadece 1 veya 2 kelime uzunluğunda olmalıdır.
-- ${instructions}
-- Her soruda "question" ve "answer" alanı olmalıdır.
-- Format: SADECE JSON dizisi. Açıklama, markdown (\`\`\`), anlatım OLMAMALI.
-- Örnek:
-[
-  {
-    "question": "Akciğer grafisinde en sık görülen patoloji nedir?",
-    "answer": "Atelektazi"
-  }
-]
-
-⛔️ Açıklama yazma. SADECE JSON çıktısı üret.
-`.trim(),
+  Aşağıdaki kurallara göre **28 adet Türkçe tıbbi bilgi sorusu** üret ve çıktıyı sadece JSON formatında ver:
+  
+  Kurallar:
+  - Her soru yalnızca **tek bir doğru cevaba** sahip olmalıdır.
+  - Cevaplar **yalnızca 1 ya da 2 kelime** uzunluğunda olmalıdır.
+  - en önemli şey her harften yanlızca 1 cevap olması (A harfiyle başlayan 2 cevap OLMAMALIDIR).
+  - Her sorunun cevabı şu harflerle başlamalıdır ve ALFABETİK sırayla olmalıdır:
+  1. A, 2. B, 3. C, 4. Ç, 5. D, 6. E, 7. F, 8. G, 9. H, 10. I, 11. İ, 12. J,
+  13. K, 14. L, 15. M, 16. N, 17. O, 18. Ö, 19. P, 20. R, 21. S, 22. Ş, 23. T, 24. U, 25. Ü, 26. V, 27. Y, 28. Z
+  - Her sorunun "question" ve "answer" alanı olmalıdır.
+  - Format: **SADECE JSON DİZİSİ**, açıklama veya markdown biçimlendirmesi (örneğin \\\`\\\`\\\`) OLMAMALI.
+  - Örnek format:
+  [
+    {
+      "question": "Akciğer grafisinde en sık görülen patoloji nedir?",
+      "answer": "Atelektazi"
+    },
+    ...
+  ]
+  
+  ⛔️ Açıklama ekleme. Markdown, \\\`\\\`\\\`, kod bloğu, anlatım veya başka hiçbir şey ekleme. Sadece JSON çıktısı üret.
+      `.trim(),
     },
   ];
 
@@ -80,7 +46,7 @@ Kurallar:
     model: "gpt-4o",
     messages,
     temperature: 0.7,
-    max_tokens: 5000,
+    max_tokens: 3000,
   });
 
   const content = res.choices[0]?.message?.content ?? "";
