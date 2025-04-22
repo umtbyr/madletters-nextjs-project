@@ -235,7 +235,12 @@ Aşağıdaki kurallara uygun olarak **${
 
 Kurallar:
  - Her cevabın baş harfi sırasıyla aşağıdaki harflerle başlamalı:
-  ${missingKeys.map((char, index) => `${index + 1}. ${char}`).join(", ")}
+  ${missingKeys
+    .map(
+      (char, index) =>
+        `${index + 1} numaralı sorunun cevabının ilk harfi: ${char}`
+    )
+    .join(", ")}
   - Cevaplar sadece 1-2 kelime uzunluğunda olmalı.
   - Her soru nesnesi şu formatta olmalı:
     {
@@ -356,7 +361,7 @@ export async function checkGeneratedQuizAndSave() {
     });
   }
 
-  const quizWithUniqueQuestions = removeDuplicatesByFirstWord(generatedQuiz);
+  let quizWithUniqueQuestions = removeDuplicatesByFirstWord(generatedQuiz);
   let missingKeys = alphabet.filter(
     (key) => !quizWithUniqueQuestions.some((quiz) => quiz.answer[0] === key)
   );
@@ -364,12 +369,24 @@ export async function checkGeneratedQuizAndSave() {
   let retires = 0;
   const MAX_RETRIES = 3;
   while (missingKeys.length > 0 && retires < MAX_RETRIES) {
+    console.log(missingKeys);
+
     const regeneratedQuestions = await generateQuestionsForLetters(missingKeys);
+    console.log(retires, regeneratedQuestions);
 
-    quizWithUniqueQuestions.push(...regeneratedQuestions);
+    quizWithUniqueQuestions = [
+      ...quizWithUniqueQuestions,
+      ...regeneratedQuestions,
+    ];
+    console.log("birleştirilmiş :", quizWithUniqueQuestions);
 
-    missingKeys = alphabet.filter((key) =>
-      quizWithUniqueQuestions.some((question) => question.answer[0] === key)
+    quizWithUniqueQuestions = removeDuplicatesByFirstWord(
+      quizWithUniqueQuestions
+    );
+
+    missingKeys = alphabet.filter(
+      (key) =>
+        !quizWithUniqueQuestions.some((question) => question.answer[0] === key)
     );
     retires++;
   }
@@ -384,6 +401,11 @@ export async function checkGeneratedQuizAndSave() {
       answer: q.answer,
       questionKey: q.answer[0],
     }));
+  console.log(
+    "sorted array",
+    finalQuizQuestions.map((question) => question.answer[0])
+  );
+
   await prisma.quiz.create({
     data: {
       title: "Günün Tıp Soruları - " + new Date().toLocaleDateString("tr-TR"),
