@@ -2,15 +2,21 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Quiz } from "./models/quiz";
 export default async function Page() {
-  const todaysQuiz = (await prisma.quiz.findFirst({
+  const dbTodaysQuiz = (await prisma.quiz.findFirst({
     orderBy: {
       date: "desc",
     },
   })) as Quiz;
 
-  if (!todaysQuiz) {
+  if (!dbTodaysQuiz) {
     throw new Error("Quiz not found");
   }
+
+  const todaysQuiz: Quiz = {
+    id: dbTodaysQuiz.id,
+    title: dbTodaysQuiz.title,
+    questions: [],
+  };
 
   return (
     <main className="flex flex-col items-center justify-center h-screen gap-4">
