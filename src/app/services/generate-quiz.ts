@@ -8,6 +8,44 @@ import type { ChatCompletionMessageParam } from "openai/resources";
 async function generateQuizFromOenAI(
   retries = 1
 ): Promise<{ question: string; answer: string }[]> {
+  const alphabet = [
+    "A",
+    "B",
+    "C",
+    "Ç",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "İ",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "Ö",
+    "P",
+    "R",
+    "S",
+    "Ş",
+    "T",
+    "U",
+    "Ü",
+    "V",
+    "Y",
+    "Z",
+  ];
+
+  const instructions = alphabet
+    .map(
+      (letter, index) =>
+        `${index + 1}. sorunun cevabı "${letter}" harfiyle başlamalı.`
+    )
+    .join("\n");
+
   const messages: ChatCompletionMessageParam[] = [
     {
       role: "system",
@@ -17,25 +55,24 @@ async function generateQuizFromOenAI(
     {
       role: "user",
       content: `
-  Aşağıdaki kurallara göre **23 adet Türkçe tıbbi bilgi sorusu** üret ve çıktıyı sadece JSON formatında ver:
-  
-  Kurallar:
-  - Her soru yalnızca **tek bir doğru cevaba** sahip olmalıdır.
-  - Cevaplar **yalnızca 1 ya da 2 kelime** uzunluğunda olmalıdır.
-  - Cevapların ilk harfi sırasıyla A-Z (Türk alfabesine göre) harfleri ile başlamalıdır: A, B, C, Ç, D, E, F, G, H, I, İ, J, K, L, M, N, O, Ö, P, R, S, Ş, T, U, Ü, V, Y, Z.
-  - Her sorunun "question" ve "answer" alanı olmalıdır.
-  - Format: **SADECE JSON DİZİSİ**, açıklama veya markdown biçimlendirmesi (örneğin \\\`\\\`\\\`) OLMAMALI.
-  - Örnek format:
-  [
-    {
-      "question": "Akciğer grafisinde en sık görülen patoloji nedir?",
-      "answer": "Atelektazi"
-    },
-    ...
-  ]
-  
-  ⛔️ Açıklama ekleme. Markdown, \\\`\\\`\\\`, kod bloğu, anlatım veya başka hiçbir şey ekleme. Sadece JSON çıktısı üret.
-      `.trim(),
+Aşağıdaki kurallara göre 29 adet Türkçe tıbbi bilgi sorusu üret ve çıktıyı SADECE JSON formatında ver:
+
+Kurallar:
+- Her soru yalnızca TEK bir doğru cevaba sahip olmalıdır.
+- Cevaplar sadece 1 veya 2 kelime uzunluğunda olmalıdır.
+- ${instructions}
+- Her soruda "question" ve "answer" alanı olmalıdır.
+- Format: SADECE JSON dizisi. Açıklama, markdown (\`\`\`), anlatım OLMAMALI.
+- Örnek:
+[
+  {
+    "question": "Akciğer grafisinde en sık görülen patoloji nedir?",
+    "answer": "Atelektazi"
+  }
+]
+
+⛔️ Açıklama yazma. SADECE JSON çıktısı üret.
+`.trim(),
     },
   ];
 
@@ -43,7 +80,7 @@ async function generateQuizFromOenAI(
     model: "gpt-4o",
     messages,
     temperature: 0.7,
-    max_tokens: 3000,
+    max_tokens: 5000,
   });
 
   const content = res.choices[0]?.message?.content ?? "";
