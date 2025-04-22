@@ -4,6 +4,36 @@ import type { ChatCompletionMessageParam } from "openai/resources";
 /* import { Quiz } from "../models/quiz"; */
 
 /* const AtoZ = [..."ABCDEFGHIJKLMNOPRSTUVYZ"]; */
+const alphabet = [
+  "A",
+  "B",
+  "C",
+  "Ç",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "İ",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "Ö",
+  "P",
+  "R",
+  "S",
+  "Ş",
+  "T",
+  "U",
+  "Ü",
+  "V",
+  "Y",
+  "Z",
+];
 
 async function generateQuizFromOenAI(
   retries = 1
@@ -17,56 +47,25 @@ async function generateQuizFromOenAI(
     {
       role: "user",
       content: `
-  Aşağıdaki kurallara göre **28 adet Türkçe tıbbi bilgi sorusu** üret ve çıktıyı sadece JSON formatında ver:
-  
+  Aşağıda 28 adet Türkçe tıbbi bilgi sorusu ve cevabı üret.
   Kurallar:
-  - Her soru yalnızca **tek bir doğru cevaba** sahip olmalıdır.
-  - Cevaplar **yalnızca 1 ya da 2 kelime** uzunluğunda olmalıdır.
-  - Cevabı aynı harfle başlayan 2 veya daha fazla cevap olmamalıdır Örnek olarak: Atelektazi ve Adrenalin cevaplarından yalnızca biri bulunmalıdır. soruların farklı olmasının haricinde cevapların ilk harfleri de birbirinden farklı olmalıdır.
-  - Her sorunun cevabı şu harflerle başlamalıdır ve ALFABETİK sırayla olmalıdır:
-  - Her cevabın **ilk harfi aşağıdaki sıraya uygun olmalıdır**:
-
-  1. A ile başlayan cevap  
-  2. B ile başlayan cevap  
-  3. C ile başlayan cevap  
-  4. Ç ile başlayan cevap  
-  5. D ile başlayan cevap  
-  6. E ile başlayan cevap  
-  7. F ile başlayan cevap  
-  8. G ile başlayan cevap  
-  9. H ile başlayan cevap  
-  10. I ile başlayan cevap  
-  11. İ ile başlayan cevap  
-  12. J ile başlayan cevap  
-  13. K ile başlayan cevap  
-  14. L ile başlayan cevap  
-  15. M ile başlayan cevap  
-  16. N ile başlayan cevap  
-  17. O ile başlayan cevap  
-  18. Ö ile başlayan cevap  
-  19. P ile başlayan cevap  
-  20. R ile başlayan cevap  
-  21. S ile başlayan cevap  
-  22. Ş ile başlayan cevap  
-  23. T ile başlayan cevap  
-  24. U ile başlayan cevap  
-  25. Ü ile başlayan cevap  
-  26. V ile başlayan cevap  
-  27. Y ile başlayan cevap  
-  28. Z ile başlayan cevap 
-  bu sırayı asla bozmamalısın.
-  - Her sorunun "question" ve "answer" alanı olmalıdır.
-  - Format: **SADECE JSON DİZİSİ**, açıklama veya markdown biçimlendirmesi (örneğin \\\`\\\`\\\`) OLMAMALI.
-  - Örnek format:
-  [
+  - Her cevabın baş harfi sırasıyla aşağıdaki harflerle başlamalı:
+  ${alphabet.map((char, index) => `${index + 1}. ${char}`).join(", ")}
+  - Cevaplar sadece 1-2 kelime uzunluğunda olmalı.
+  - Her soru nesnesi şu formatta olmalı:
     {
-      "question": "Akciğer grafisinde en sık görülen patoloji nedir?",
-      "answer": "Atelektazi"
-    },
-    ...
-  ]
+      "question": "......?",
+      "answer": "..."
+    }
+    örnek çıktı:[
+  { "question": "Gece körlüğüne neden olan vitamin eksikliği nedir?", "answer": "A vitamini" },
+  { "question": "Hangi organ insülin üretir?", "answer": "B pankreas" },
+  { "question": "C vitamini eksikliği hangi hastalığa yol açar?", "answer": "Skorbüt" },
+  ...
+]
+  - Çıktı sadece geçerli bir JSON dizisi olmalı. Markdown, açıklama veya \`\`\` gibi şeyler kullanma.
   
-  ⛔️ Açıklama ekleme. Markdown, \\\`\\\`\\\`, kod bloğu, anlatım veya başka hiçbir şey ekleme. Sadece JSON çıktısı üret.
+  ⛔️ Format dışı hiçbir içerik istemiyorum. Sadece saf JSON dizisi ver.
       `.trim(),
     },
   ];
@@ -75,7 +74,7 @@ async function generateQuizFromOenAI(
     model: "gpt-4o",
     messages,
     temperature: 0.7,
-    max_tokens: 3000,
+    max_tokens: 2000,
   });
 
   const content = res.choices[0]?.message?.content ?? "";
