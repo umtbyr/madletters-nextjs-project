@@ -1,4 +1,4 @@
-/* import { checkGeneratedQuizAndSave } from "@/app/services/generate-quiz"; */
+import { checkGeneratedQuizAndSave } from "@/app/services/generate-quiz";
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -6,9 +6,9 @@ export const runtime = "nodejs";
 export async function GET(request: NextRequest) {
   console.log(request);
 
-  /*   const authHeader = request.headers.get("authorization"); */
-  return NextResponse.json({ message: "✅ Cron route is working!" });
-  /* if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  const authHeader = request.headers.get("authorization");
+  /* return NextResponse.json({ message: "✅ Cron route is working!" }); */
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
@@ -20,5 +20,5 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Error during quiz generation", error);
     return new NextResponse("Internal Server Error", { status: 500 });
-  } */
+  }
 }
