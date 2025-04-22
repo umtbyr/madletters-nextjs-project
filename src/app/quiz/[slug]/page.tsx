@@ -16,6 +16,10 @@ export default async function Page(props: QuestionPageProps) {
     },
   });
 
+  if (!quiz) {
+    throw new Error("Quiz not found");
+  }
+
   return (
     <main className="flex flex-col items-center h-screen gap-4 my-12">
       <section>

@@ -7,6 +7,10 @@ export default async function Page() {
     },
   });
 
+  if (!todaysQuiz) {
+    throw new Error("Quiz not found");
+  }
+
   return (
     <main className="flex flex-col items-center justify-center h-screen gap-4">
       <h1>Welcome to Quiz App</h1>
