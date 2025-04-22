@@ -68,15 +68,15 @@ async function generateQuizFromOenAI(
   },
   {
     question: "Aşırı kortizol salgısı ile karakterize sendrom nedir?",
-    answer: "Cushing",
+    answer: "C...",
   },
   {
     question: "Çocuklarda en sık görülen kanser türü nedir?",
-    answer: "Çocuklukça",
+    answer: "Ç...",
   },
   {
-    question: "Kan şekeri yüksekliği ile karakterize hastalık nedir?",
-    answer: "Diyabet",
+    question: "...?",
+    answer: "D...",
   },
   ...
 ];
