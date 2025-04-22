@@ -1,10 +1,10 @@
-import { checkGeneratedQuizAndSave } from "@/app/services/generate-quiz";
+/* import { checkGeneratedQuizAndSave } from "@/app/services/generate-quiz"; */
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
+  /*   const authHeader = request.headers.get("authorization"); */
   return NextResponse.json({ message: "✅ Cron route is working!" });
   /* if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
