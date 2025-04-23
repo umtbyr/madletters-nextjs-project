@@ -1,9 +1,5 @@
 import { Quiz } from "@/app/models/quiz";
-import {
-  QuestionKeyBox,
-  QuestionContainer,
-  QuestionKeyContainer,
-} from "./components";
+import { QuestionContainer, QuestionKeyContainer } from "./components";
 import { prisma } from "@/lib/prisma";
 type QuestionPageProps = {
   params: Promise<{ slug: string }>;

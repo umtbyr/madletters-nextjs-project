@@ -2,17 +2,13 @@
 
 import { useQuizStore } from "@/app/store/quizStore";
 import { QuestionKeyBox } from "./QuestionKeyBox";
-type QuestionKeyContainerProps = {
+/* type QuestionKeyContainerProps = {
   children?: React.ReactNode;
 };
-
-export function QuestionKeyContainer(props: QuestionKeyContainerProps) {
+ */
+export function QuestionKeyContainer() {
   const questions = useQuizStore((state) => state.questions);
   const currentQuestion = useQuizStore((state) => state.currentQuestion);
-  const indexOfCurrentQuestion = questions.findIndex(
-    (question) => question.id === currentQuestion?.id
-  );
-  const windowSize = 5;
 
   const filteredQuestions = questions.filter((question) => {
     if (
