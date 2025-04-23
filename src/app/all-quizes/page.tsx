@@ -3,7 +3,7 @@ import { QuizListItem } from "../models/quiz";
 import { Card } from "@/components/components";
 import Link from "next/link";
 import { SquareArrowOutUpRight } from "lucide-react";
-
+export const dynamic = "force-dynamic";
 export default async function Page() {
   const quizes = (await prisma.quiz.findMany({
     orderBy: {

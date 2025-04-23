@@ -15,10 +15,11 @@ datasource db {
 }
 
 model Quiz {
-  id        String     @id @default(cuid())
-  title     String
-  date      DateTime   @default(now())
-  questions Question[] @relation("QuizToQuestions")
+  id                 String               @id @default(cuid())
+  title              String
+  date               DateTime             @default(now())
+  questions          Question[]           @relation("QuizToQuestions")
+  UserQuizStatistics UserQuizStatistics[]
 }
 
 model Question {
@@ -29,4 +30,23 @@ model Question {
   answer        String
   questionState String?
   quiz          Quiz    @relation("QuizToQuestions", fields: [quizId], references: [id])
+}
+
+model UserQuizStatistics {
+  id       String  @id @default(cuid())
+  userId   String
+  quizId   String
+  isSolved Boolean
+
+  user User @relation(fields: [userId], references: [id])
+  quiz Quiz @relation(fields: [quizId], references: [id])
+
+  @@unique([userId, quizId])
+}
+
+model User {
+  id                 String               @id @default(cuid())
+  userName           String
+  date               DateTime             @default(now())
+  UserQuizStatistics UserQuizStatistics[]
 }
