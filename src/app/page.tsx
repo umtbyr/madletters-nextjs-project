@@ -23,7 +23,7 @@ export default async function Page() {
     <main className="flex flex-col p-4">
       <div className="mt-2 mb-16">
         <h1 className="font-bold text-6xl px-2 py-4 m-4">
-          Tıp Tıp{"'"}a Hoşgeldin!
+          TıpTıp{"'"}a Hoşgeldin!
         </h1>
         <h3 className="font-bold text-4xl px-2 py-4 m-4 text-amber-500">
           Her gün yepyeni quizlerle bilgilerini pekiştir.

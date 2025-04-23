@@ -12,13 +12,13 @@ export function AnswerQuestionButton({
 }: AnwswerButtonProps) {
   return (
     <button
-      className="min-w-[156px] border-black border-3 shadow-2xl text-3xl rounded-2xl p-4 bg-amber-400 font-bold "
+      className="flex-1 w-full max-w-full border-black border-3 shadow-2xl text-xl rounded-2xl p-4 bg-amber-400 font-bold "
       onClick={() => {
         answerHandler(answer);
         clearAnswerHandler();
       }}
     >
-      {answer !== "" ? "Gönder" : "Geç"}
+      {answer !== "" ? "Cevapla" : "Geç"}
     </button>
   );
 }

@@ -20,7 +20,7 @@ export function UserInput(props: UserInputProps) {
   };
 
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-6 w-full max-w-full items-start">
       <input
         value={userAnswer}
         onKeyDown={(e) => {
@@ -30,7 +30,7 @@ export function UserInput(props: UserInputProps) {
           }
         }}
         onChange={(event) => handleUserInput(event)}
-        className="text-2xl border-4 border-black rounded-2xl p-4 bg-white font-bold"
+        className="flex-5 w-full max-w-full text-xl border-4 border-black rounded-2xl p-4 bg-white font-bold"
         type="text"
         id="user-input"
       />

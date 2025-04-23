@@ -21,7 +21,7 @@ export default async function Page(props: QuestionPageProps) {
   }
 
   return (
-    <main className="flex flex-col px-2 py-4 items-center">
+    <main className="flex flex-col px-2 py-4 items-center w-full">
       <section>
         <header>
           <h1 className="text-center mb-6 font-bold text-4xl">Timer</h1>
@@ -32,7 +32,7 @@ export default async function Page(props: QuestionPageProps) {
           <QuestionKeyContainer />
         </div>
       </section>
-      <section className="m-4 flex flex-col px-4">
+      <section className="w-full max-w-full px-4">
         <QuestionContainer questions={quiz?.questions ?? []} />
       </section>
       <section></section>

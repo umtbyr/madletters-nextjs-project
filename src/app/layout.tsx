@@ -30,7 +30,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-red-600 overflow-x-hidden antialiased w-full h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full`}
       >
         <header className="w-full">
           <Navbar />

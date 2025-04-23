@@ -24,7 +24,7 @@ export function QuestionKeyContainer() {
   console.log(filteredQuestions.map((item) => item.questionKey));
 
   return (
-    <ul className="flex justify-center gap-4 mx-2">
+    <ul className="flex justify-center gap-4 mx-2 mb-12">
       {filteredQuestions.map((item) => (
         <QuestionKeyBox key={item.id} question={item} />
       ))}

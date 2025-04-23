@@ -94,7 +94,10 @@ export function QuestionContainer(props: QuestionCardProps) {
   return (
     <>
       <QuestionCard question={currentQuestion} />
-      <div className="flex justify-between items-start max-w-5xl min-w-[320px] h-[40vh] py-8 mx-auto rounded-2xl mt-8">
+      <div
+        className="flex justify-between items-startw-full max-w-full px-4
+       h-[40vh] py-8 mx-auto rounded-2xl mt-8"
+      >
         <UserInput answerHandler={handleAnswerQuestion} />
       </div>
       <div></div>

@@ -35,7 +35,7 @@ export function QuestionKeyBox(props: { question: Question }) {
 
   return (
     <li
-      className={`border-3 border-black text-white text-2xl shadow-2xl rounded-2xl flex justify-center items-center font-extrabold w-[4rem] h-[4rem]  ${
+      className={`border-3 border-black text-white text-2xl shadow-2xl rounded-2xl flex justify-center items-center font-extrabold w-[3rem] h-[3rem]  ${
         isCurrent
           ? "border-amber-white bg-amber-400 animate-bounce "
           : `custom-animate ${keyBoxClass.current}`
