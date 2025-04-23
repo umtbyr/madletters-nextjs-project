@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
-import Head from "next/head";
 
 import "./globals.css";
 
@@ -26,12 +25,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="w-full h-full">
-      <Head>
+    <html lang="en" className="w-full h-full overflow-x-hidden">
+      <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-red-600 overflow-x-hidden antialiased w-full h-full`}
       >
         <header className="w-full">
           <Navbar />
