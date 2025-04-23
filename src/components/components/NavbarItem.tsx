@@ -1,14 +1,15 @@
 import Link from "next/link";
 
-export function NavbarItem(props: { link: string; label: string }) {
+type NavbarProps = {
+  children?: React.ReactNode;
+  link: string;
+  label: string;
+};
+
+export function NavbarItem(props: NavbarProps) {
   return (
-    <li className="flex-1 text-center">
-      <Link
-        href={props.link}
-        className="block py-2 w-full hover:underline text-2xl font-bold text-amber-400"
-      >
-        {props.label}
-      </Link>
+    <li className="flex justify-center">
+      <Link href={props.link}>{props.children}</Link>
     </li>
   );
 }

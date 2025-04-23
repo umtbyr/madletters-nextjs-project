@@ -20,14 +20,23 @@ export default async function Page() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center h-screen gap-4">
-      <h1>Welcome to Quiz App</h1>
-      <Link
-        href={`/quiz/${todaysQuiz?.id}`}
-        className="bg-amber-400 rounded-4xl p-4 text-2xl"
-      >
-        <p>Start today{"'"}s quiz!</p>
-      </Link>
+    <main className="flex flex-col p-4">
+      <div className="my-8">
+        <h1 className="font-bold text-6xl px-2 py-4 m-4">
+          Tıp Tıp'a Hoşgeldin!
+        </h1>
+        <h3 className="font-bold text-4xl px-2 py-4 m-4 text-amber-500">
+          Her gün yepyeni quizlerle bilgilerini pekiştir.
+        </h3>
+      </div>
+      <div className="flex justify-center">
+        <Link
+          href={`/quiz/${todaysQuiz?.id}`}
+          className="bg-amber-400 rounded-4xl py-8 px-6 text-center animate-bounce "
+        >
+          <p className="text-3xl font-extrabold">Günün Quizine Başla</p>
+        </Link>
+      </div>
     </main>
   );
 }

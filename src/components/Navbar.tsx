@@ -1,12 +1,18 @@
 import { NavbarItem } from "./components/NavbarItem";
-
+import { ListIcon, HomeIcon, UserIcon } from "lucide-react";
 export function Navbar() {
   return (
-    <nav className="w-full bg-stone-50 border-b p-3">
-      <ul className="flex w-full">
-        <NavbarItem link="/all-quizes" label="All Quizes" />
-        <NavbarItem link="/" label="Home" />
-        <NavbarItem link="profile" label="Profile" />
+    <nav className=" bg-amber-400 p-5">
+      <ul className="flex justify-between gap-3">
+        <NavbarItem link="/all-quizes" label="All Quizes">
+          <ListIcon className="w-8 h-8" />
+        </NavbarItem>
+        <NavbarItem link="/" label="home-page">
+          <HomeIcon className="w-8 h-8" />
+        </NavbarItem>
+        <NavbarItem link="/profile" label="profile">
+          <UserIcon className="w-8 h-8" />
+        </NavbarItem>
       </ul>
     </nav>
   );

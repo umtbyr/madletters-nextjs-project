@@ -1,6 +1,5 @@
 import { openai } from "@/lib/openai";
 import { prisma } from "@/lib/prisma";
-import type { ChatCompletionMessageParam } from "openai/resources";
 import { alphabet, generateMissingKeysPrompt } from "./constants";
 import { initialGetQuizPrompt } from "./constants";
 import { removeDuplicatesByFirstWord } from "./utils";
