@@ -25,11 +25,11 @@ export function QuestionKeyBox(props: { question: Question }) {
       keyBoxClass.current = "bg-red-600";
       break;
     case QuestionStatus.SKIPPED:
-      keyBoxClass.current = "bg-gray-600";
+      keyBoxClass.current = "bg-blue-500";
       break;
     case QuestionStatus.UNANSWERED:
     default:
-      keyBoxClass.current = "bg-gray-400";
+      keyBoxClass.current = "bg-gray-600";
       break;
   }
 

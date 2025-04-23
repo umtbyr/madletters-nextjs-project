@@ -25,6 +25,9 @@ type Quiz = {
   id: string;
   questions: Question[];
 };
+
+type QuizListItem = Omit<Quiz, "questions">;
+
 type NewQuestionInput = Omit<Question, "id" | "quizId">;
 
 type NewQuizInput = {
@@ -33,4 +36,4 @@ type NewQuizInput = {
   questions: NewQuestionInput[];
 };
 
-export type { Question, Quiz, NewQuizInput };
+export type { Question, Quiz, NewQuizInput, QuizListItem };
