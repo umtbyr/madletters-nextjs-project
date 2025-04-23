@@ -48,7 +48,6 @@ const initialGetQuizPrompt = (
     - Her cevabın baş harfi sırasıyla aşağıdaki harflerle başlamalı:
     ${alphabet.map((char, index) => `${index + 1}. ${char}`).join(", ")}
     - Cevaplar sadece 1-2 kelime uzunluğunda olmalı.
-    - Cevap kesinlikle soruyla uyumlu ve bilimsel olarak doğru olmalıdır.
     - Her soru nesnesi şu formatta olmalı:
       {
         "question": "......?",

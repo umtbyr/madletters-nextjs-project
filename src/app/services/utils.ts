@@ -11,4 +11,11 @@ function removeDuplicatesByFirstWord(
   });
 }
 
-export { removeDuplicatesByFirstWord };
+function isDuplicate(text: string, RecentQuestionsSet: Set<string>): boolean {
+  const normalized = text.toLowerCase().trim();
+  return [...RecentQuestionsSet].some(
+    (prev) => prev.includes(normalized) || normalized.includes(prev)
+  );
+}
+
+export { removeDuplicatesByFirstWord, isDuplicate };

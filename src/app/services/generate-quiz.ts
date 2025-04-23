@@ -11,7 +11,7 @@ async function generateQuizFromOenAI(
   const res = await openai.chat.completions.create({
     model: "gpt-4.1",
     messages,
-    temperature: 0.3,
+    temperature: 0.7,
     max_tokens: 2000,
   });
 
@@ -46,7 +46,7 @@ export async function generateQuestionsForLetters(
   const res = await openai.chat.completions.create({
     model: "gpt-4.1",
     messages,
-    temperature: 0.3,
+    temperature: 0.7,
     max_tokens: 1000,
   });
 
@@ -163,8 +163,6 @@ export async function checkGeneratedQuizAndSave() {
       answer: q.answer,
       questionKey: q.answer[0],
     }));
-
-  console.log(finalQuizQuestions);
 
   await prisma.quiz.create({
     data: {
