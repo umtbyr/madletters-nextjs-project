@@ -1,184 +1,14 @@
 import { openai } from "@/lib/openai";
 import { prisma } from "@/lib/prisma";
 import type { ChatCompletionMessageParam } from "openai/resources";
-/* import { Quiz } from "../models/quiz"; */
-
-/* const AtoZ = [..."ABCDEFGHIJKLMNOPRSTUVYZ"]; */
-const alphabet = [
-  "A",
-  "B",
-  "C",
-  "Ç",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "İ",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "Ö",
-  "P",
-  "R",
-  "S",
-  "Ş",
-  "T",
-  "U",
-  "Ü",
-  "V",
-  "Y",
-  "Z",
-];
+import { alphabet, generateMissingKeysPrompt } from "./constants";
+import { initialGetQuizPrompt } from "./constants";
+import { removeDuplicatesByFirstWord } from "./utils";
 
 async function generateQuizFromOenAI(
   retries = 1
 ): Promise<{ question: string; answer: string }[]> {
-  const messages: ChatCompletionMessageParam[] = [
-    {
-      role: "system",
-      content:
-        "Sen tıp öğrencileri için günlük bilgi yarışması soruları hazırlayan deneyimli bir profesörsün fakat soruları bazı kurallar çerçevesinde hazırlaman gerek.",
-    },
-    {
-      role: "user",
-      content: `
-  Aşağıda 28 adet Türkçe tıbbi bilgi sorusu ve cevabı üret.
-  Kurallar:
-  - Her cevabın baş harfi sırasıyla aşağıdaki harflerle başlamalı:
-  ${alphabet.map((char, index) => `${index + 1}. ${char}`).join(", ")}
-  - Cevaplar sadece 1-2 kelime uzunluğunda olmalı.
-  - Her soru nesnesi şu formatta olmalı:
-    {
-      "question": "......?",
-      "answer": "..."
-    }
-    örnek çıktı:[
-  {
-    question: "Hipofiz bezinde en sık görülen tümör tipi nedir?",
-    answer: "Adenom",
-  },
-  {
-    question: "Kalp atım hızının 60’ın altına düşmesine ne ad verilir?",
-    answer: "Bradikardi",
-  },
-  {
-    question: "Aşırı kortizol salgısı ile karakterize sendrom nedir?",
-    answer: "C...",
-  },
-  {
-    question: "Çocuklarda en sık görülen kanser türü nedir?",
-    answer: "Ç...",
-  },
-  {
-    question: "...?",
-    answer: "D...",
-  },
-    {
-    question: "...?",
-    answer: "E...",
-  },
-    {
-    question: "...?",
-    answer: "F...",
-  },
-    {
-    question: "...?",
-    answer: "G...",
-  },
-    {
-    question: "...?",
-    answer: "H...",
-  },
-    {
-    question: "...?",
-    answer: "I...",
-  },
-    {
-    question: "...?",
-    answer: "İ...",
-  },
-    {
-    question: "...?",
-    answer: "J...",
-  },
-    {
-    question: "...?",
-    answer: "K...",
-  },
-    {
-    question: "...?",
-    answer: "L...",
-  },
-    {
-    question: "...?",
-    answer: "M...",
-  },
-    {
-    question: "...?",
-    answer: "N...",
-  },
-    {
-    question: "...?",
-    answer: "O...",
-  },
-    {
-    question: "...?",
-    answer: "Ö...",
-  },
-    {
-    question: "...?",
-    answer: "P...",
-  },
-    {
-    question: "...?",
-    answer: "R...",
-  },
-    {
-    question: "...?",
-    answer: "S...",
-  },
-    {
-    question: "...?",
-    answer: "Ş...",
-  },
-    {
-    question: "...?",
-    answer: "T...",
-  },
-    {
-    question: "...?",
-    answer: "U...",
-  },
-    {
-    question: "...?",
-    answer: "Ü...",
-  },
-    {
-    question: "...?",
-    answer: "V...",
-  },
-    {
-    question: "...?",
-    answer: "Y...",
-  },  {
-    question: "...?",
-    answer: "Z...",
-  },
-
-  ...
-];
-  - Çıktı sadece geçerli bir JSON dizisi olmalı. Markdown, açıklama veya \`\`\` gibi şeyler kullanma.
-  
-  ⛔️ Format dışı hiçbir içerik istemiyorum. Sadece saf JSON dizisi ver.
-      `.trim(),
-    },
-  ];
-
+  const messages = initialGetQuizPrompt(alphabet);
   const res = await openai.chat.completions.create({
     model: "gpt-4.1",
     messages,
@@ -196,14 +26,6 @@ async function generateQuizFromOenAI(
 
   try {
     const parsed = JSON.parse(cleanedContent);
-    /*     if (!Array.isArray(parsed) || parsed.length !== 23)
-      throw new Error("Invalid question array"); */
-    /*     const validated = parsed.every(
-      (q, i) => q.answer[0].toUpperCase() === AtoZ[i]
-    );
-    if (!validated) {
-      return generateQuizFromOenAI(retries - 1);
-    } */
     return parsed;
   } catch (e) {
     if (retries > 0) {
@@ -220,51 +42,7 @@ async function generateQuizFromOenAI(
 export async function generateQuestionsForLetters(
   missingKeys: string[]
 ): Promise<{ question: string; answer: string }[]> {
-  const messages: ChatCompletionMessageParam[] = [
-    {
-      role: "system",
-      content:
-        "Sen tıp öğrencileri için günlük bilgi yarışması soruları hazırlayan deneyimli bir profesörsün.",
-    },
-    {
-      role: "user",
-      content: `
-Aşağıdaki kurallara uygun olarak **${
-        missingKeys.length
-      } adet benzersiz tıbbi bilgi sorusu ve cevabı** üret:
-
-Kurallar:
- - Her cevabın baş harfi sırasıyla aşağıdaki harflerle başlamalı:
-  ${missingKeys
-    .map(
-      (char, index) =>
-        `${index + 1} numaralı sorunun cevabının ilk harfi: ${char}`
-    )
-    .join(", ")}
-  - Cevaplar sadece 1-2 kelime uzunluğunda olmalı.
-  - Her soru nesnesi şu formatta olmalı:
-    {
-      "question": "......?",
-      "answer": "..."
-    }
-    örnek çıktı:[
-  {
-    "question": "Hipofiz bezinde en sık görülen tümör tipi nedir?",
-    "answer": "Adenom"
-  },
-  ...
-]
-- Türk alfabesinde olmayan karakterler (örneğin "Q", "W", "X") kullanılmamalıdır.
-- Tüm içerik **Türkçe** olmalıdır.
-- Sorular, tıp öğrencileri için uygun zorlukta ve **klinik olarak anlamlı** olmalıdır.
-- Format: **Sadece JSON dizisi**, örneğin:
-
-
-
-⛔️ **Açıklama ekleme. Sadece JSON çıktısı ver.**
-      `.trim(),
-    },
-  ];
+  const messages = generateMissingKeysPrompt(missingKeys);
 
   const res = await openai.chat.completions.create({
     model: "gpt-4.1",
@@ -292,7 +70,7 @@ Kurallar:
 export async function checkGeneratedQuizAndSave() {
   console.log("🟢 Calling OpenAI...");
   const generatedQuiz = await generateQuizFromOenAI();
-  console.log(generatedQuiz);
+  console.log("initial quiz generated");
 
   /* const lastTenQuizes: Quiz[] = await prisma.quiz.findMany({
     orderBy: { date: "desc" },
@@ -348,28 +126,15 @@ export async function checkGeneratedQuizAndSave() {
   }
  */
 
-  function removeDuplicatesByFirstWord(
-    arr: { question: string; answer: string }[]
-  ) {
-    const seen = new Set<string>();
-
-    return arr.filter((item) => {
-      const firstWord = item.answer[0].toLowerCase();
-      if (seen.has(firstWord)) return false;
-      seen.add(firstWord);
-      return true;
-    });
-  }
-
   let quizWithUniqueQuestions = removeDuplicatesByFirstWord(generatedQuiz);
   let missingKeys = alphabet.filter(
     (key) => !quizWithUniqueQuestions.some((quiz) => quiz.answer[0] === key)
   );
 
   let retires = 0;
-  const MAX_RETRIES = 3;
+  const MAX_RETRIES = 4;
   while (missingKeys.length > 0 && retires < MAX_RETRIES) {
-    console.log(missingKeys);
+    console.log(`iteration ${retires}: `, missingKeys);
 
     const regeneratedQuestions = await generateQuestionsForLetters(missingKeys);
     console.log(retires, regeneratedQuestions);
@@ -378,8 +143,6 @@ export async function checkGeneratedQuizAndSave() {
       ...quizWithUniqueQuestions,
       ...regeneratedQuestions,
     ];
-    console.log("birleştirilmiş :", quizWithUniqueQuestions);
-
     quizWithUniqueQuestions = removeDuplicatesByFirstWord(
       quizWithUniqueQuestions
     );
@@ -401,10 +164,6 @@ export async function checkGeneratedQuizAndSave() {
       answer: q.answer,
       questionKey: q.answer[0],
     }));
-  console.log(
-    "sorted array",
-    finalQuizQuestions.map((question) => question.answer[0])
-  );
 
   await prisma.quiz.create({
     data: {
