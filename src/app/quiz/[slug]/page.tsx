@@ -1,5 +1,9 @@
 import { Quiz } from "@/app/models/quiz";
-import { QuestionKeyBox, QuestionContainer } from "./components";
+import {
+  QuestionKeyBox,
+  QuestionContainer,
+  QuestionKeyContainer,
+} from "./components";
 import { prisma } from "@/lib/prisma";
 type QuestionPageProps = {
   params: Promise<{ slug: string }>;
@@ -21,22 +25,18 @@ export default async function Page(props: QuestionPageProps) {
   }
 
   return (
-    <main className="flex flex-col items-center h-screen gap-4 my-12">
+    <main className="flex flex-col px-2 py-4 items-center">
       <section>
         <header>
-          <h1 className="text-center mb-6 font-bold text-4xl">Quesitons</h1>
+          <h1 className="text-center mb-6 font-bold text-4xl">Timer</h1>
         </header>
       </section>
       <section>
         <div>
-          <ul className="grid grid-cols-6 gap-8 mx-4">
-            {quiz?.questions.map((item) => (
-              <QuestionKeyBox key={item.id} question={item} />
-            ))}
-          </ul>
+          <QuestionKeyContainer />
         </div>
       </section>
-      <section className="m-8 px-4 sm:px-6 md:px-8 w-full ">
+      <section className="m-4 flex flex-col px-4">
         <QuestionContainer questions={quiz?.questions ?? []} />
       </section>
       <section></section>

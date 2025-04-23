@@ -32,7 +32,7 @@ export default async function Page() {
       <div className="flex justify-center">
         <Link
           href={`/quiz/${todaysQuiz?.id}`}
-          className="bg-amber-400 rounded-4xl py-8 px-6 text-center animate-bounce "
+          className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce "
         >
           <p className="text-3xl font-extrabold">Günün Quizine Başla</p>
         </Link>
