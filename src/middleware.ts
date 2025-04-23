@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
-  if (!request.cookies.get("userId")?.value) {
+  if (!request.cookies.get("userId")) {
     response.cookies.set("userId", createId(), {
       path: "/",
       httpOnly: true,
