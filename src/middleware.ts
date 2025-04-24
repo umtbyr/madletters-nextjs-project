@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 365,
     });
     response.cookies.set("isCreated", "true", {
-      maxAge: 15,
+      maxAge: 60 * 30,
       path: "/",
     });
   } else {
