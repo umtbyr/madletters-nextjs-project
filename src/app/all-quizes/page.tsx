@@ -1,8 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { QuizListItem } from "../models/quiz";
-import { Card } from "@/components/components";
-import Link from "next/link";
-import { SquareArrowOutUpRight } from "lucide-react";
 import { ListItem } from "@/components/components/ListItem";
 export const dynamic = "force-dynamic";
 export default async function Page() {
