@@ -31,20 +31,25 @@ export default async function Page() {
             width={96}
             height={56}
           />
-          <h1 className="font-bold text-6xl my-4">TıpTıp{"'"}a</h1>
+          <h1 className="font-bold text-7xl my-4">
+            TıpTıp{"'"}
+            <p className="font-bold text-6xl inline">a</p>
+          </h1>
         </div>
-        <h1 className="font-bold text-6xl   break-words">Hoşgeldin!</h1>
-        <h3 className="font-bold text-4xl px-2 py-4 m-2 text-amber-500">
-          Her gün yepyeni quizlerle bilgilerini pekiştir.
-        </h3>
-      </div>
-      <div className="flex justify-center">
-        <Link
-          href={`/quiz/${todaysQuiz?.id}`}
-          className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce "
-        >
-          <p className="text-2xl font-extrabold">Günün Quizine Başla</p>
-        </Link>
+        <h1 className="font-bold text-6xl pl-16 break-words">Hoşgeldin!</h1>
+        <div className="flex flex-col items-center gap-10">
+          <h3 className="font-bold text-4xl px-2 py-4 m-2 text-amber-500 text-center">
+            Her gün yepyeni quizlerle bilgilerini pekiştir.
+          </h3>
+          <div className="flex justify-center">
+            <Link
+              href={`/quiz/${todaysQuiz?.id}`}
+              className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce "
+            >
+              <p className="text-2xl font-extrabold">Günün Quizine Başla</p>
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );
