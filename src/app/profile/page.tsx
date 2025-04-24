@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
 import Image from "next/image";
 export default async function Page() {
-  let userId = (await cookies()).get("userId")?.value;
+  const userId = (await cookies()).get("userId")?.value;
 
   if (!userId) {
     console.log("kullanıcı bulunamadı");
