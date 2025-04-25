@@ -33,10 +33,15 @@ model Question {
 }
 
 model UserQuizStatistics {
-  id       String  @id @default(cuid())
-  userId   String
-  quizId   String
-  isSolved Boolean
+  id        String   @id @default(cuid())
+  userId    String
+  quizId    String
+  isSolved  Boolean
+  score     Int
+  total     Int
+  answers   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id])
   quiz Quiz @relation(fields: [quizId], references: [id])

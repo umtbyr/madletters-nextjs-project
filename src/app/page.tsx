@@ -36,7 +36,7 @@ export default async function Page() {
             <p className="font-bold text-6xl inline">a</p>
           </h1>
         </div>
-        <h1 className="font-bold text-6xl pl-16 break-words">Hoşgeldin!</h1>
+        <h1 className="font-bold text-6xl pl-14 break-words">Hoşgeldin!</h1>
         <div className="flex flex-col items-center gap-10">
           <h3 className="font-bold text-4xl px-2 py-4 m-2 text-amber-500 text-center">
             Her gün yepyeni quizlerle bilgilerini pekiştir.

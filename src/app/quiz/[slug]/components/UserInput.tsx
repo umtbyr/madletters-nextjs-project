@@ -22,7 +22,7 @@ export function UserInput(props: UserInputProps) {
   return (
     <div className="flex gap-6 w-full max-w-full items-start">
       <input
-        value={userAnswer}
+        value={userAnswer ?? ""}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             props.answerHandler(userAnswer ?? "");

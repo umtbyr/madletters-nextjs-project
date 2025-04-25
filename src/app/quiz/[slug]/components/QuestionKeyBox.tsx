@@ -12,7 +12,7 @@ export function QuestionKeyBox(props: { question: Question }) {
   const isCurrent = currentQuestion?.id === id;
 
   const keyBoxStatus = useMemo(() => {
-    return questions.find((item) => item.id === id)?.status;
+    return questions.find((item) => item.id === id)?.questionState;
   }, [id, questions]);
 
   const keyBoxClass = useRef("white");

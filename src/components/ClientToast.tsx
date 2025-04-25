@@ -10,10 +10,10 @@ export function ClientToast() {
 
     if (cookies.isCreated === "true") {
       toast.success(`🎉 Hoşgeldiniz! kullanıcı oluşturuldu.`);
-      destroyCookie(null, "isCreated");
+      destroyCookie(null, "isCreated", { path: "/" });
     } else if (cookies.isCreated === "false") {
       toast.success(`🎉 Hoşgeldiniz!`);
-      destroyCookie(null, "isCreated");
+      destroyCookie(null, "isCreated", { path: "/" });
     }
   }, []);
 

@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
-  console.log(request);
-
   const authHeader = request.headers.get("authorization");
   /* return NextResponse.json({ message: "✅ Cron route is working!" }); */
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {

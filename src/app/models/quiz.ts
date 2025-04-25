@@ -15,9 +15,9 @@ type Question = {
   quizId: string;
   question: string;
   answer: string;
+  userAnswer?: string | null;
   questionKey: string;
-  user_answer?: string | null;
-  status?: QuestionStatus;
+  questionState?: QuestionStatus;
 };
 
 type Quiz = {
@@ -36,4 +36,25 @@ type NewQuizInput = {
   questions: NewQuestionInput[];
 };
 
-export type { Question, Quiz, NewQuizInput, QuizListItem };
+type UserAnswer = {
+  userAnswer: string | null;
+  status: QuestionStatus;
+  answer: string;
+};
+
+type QuizResultPayload = {
+  quizStatistics: UserAnswer[];
+  userId: string;
+  quizId: string;
+  score: number;
+  total: number;
+};
+
+export type {
+  Question,
+  Quiz,
+  NewQuizInput,
+  QuizListItem,
+  UserAnswer,
+  QuizResultPayload,
+};

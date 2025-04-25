@@ -10,8 +10,6 @@ export default async function Page() {
     take: 30,
   })) as QuizListItem[];
 
-  console.log(quizes);
-
   return (
     <main className="flex flex-col w-full max-w-full p-2 items-center">
       <h1 className="text-2xl mt-6 font-extrabold ">GEÇMİŞ QUİZLER</h1>

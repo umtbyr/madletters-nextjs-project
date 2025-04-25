@@ -1,43 +1,69 @@
 "use client";
-
-import { Question } from "@/app/models/quiz";
-import { usePathname, useRouter } from "next/navigation";
+import { Question, QuizResultPayload } from "@/app/models/quiz";
+import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useQuizStore } from "@/app/store/quizStore";
-import { useShallow } from "zustand/shallow"; // ✅ this is Zustand's selector comparator
+import { useShallow } from "zustand/shallow";
 import { QuestionStatus } from "@/app/models/quiz";
 import { QuestionCard } from "./QuestionCard";
 import { UserInput } from "./UserInput";
+import { UserAnswer } from "@/app/models/quiz";
+import Link from "next/link";
+
 type QuestionCardProps = {
   questions: Question[];
+  quizId: string;
+  userId: string;
+  saveResults: (data: QuizResultPayload) => Promise<void>;
 };
 
-export function QuestionContainer(props: QuestionCardProps) {
+export function QuestionContainer({
+  questions: intialQuestions,
+  quizId,
+  userId,
+  saveResults,
+}: QuestionCardProps) {
   const {
+    isTimerExpired,
+    setQuestion,
     currentQuestionIndex,
     setCurrentQuestionIndex,
     questions,
+    setQuizId,
     setCurrentQuestion,
     setQuestions,
     setQuestionStatus,
+    resetQuiz,
+    setIsQuizFinished,
   } = useQuizStore(
     useShallow((state) => ({
       setCurrentQuestionIndex: state.setCurrentQuestionIndex,
       questions: state.questions,
+      setUserAnsers: state.setUserAnsers,
       setQuestions: state.setQuestions,
       currentQuestionIndex: state.currentQuestionIndex,
       setCurrentQuestion: state.setCurrentQuestion,
       setQuestionStatus: state.setQuestionStatus,
+      resetQuiz: state.resetQuiz,
+      setQuizId: state.setQuizId,
+      setQuestion: state.setQuestion,
+      isTimerExpired: state.isTimerExpired,
+      setIsQuizFinished: state.setIsQuizFinished,
     }))
   );
 
   const router = useRouter();
-  const pathname = usePathname();
-
   useLayoutEffect(() => {
-    setQuestions(props.questions);
+    setQuestions(intialQuestions);
+    setQuizId(quizId);
   }, []);
-
+  const isQuizFinishedByUser =
+    questions.length > 0 &&
+    questions?.every(
+      (question) =>
+        question.questionState !== QuestionStatus.SKIPPED &&
+        question.questionState !== null
+    );
   const [tempQuestions, setTempQuestions] = useState<Question[]>([]);
   const [isRounding, setIsRounding] = useState(false);
   const currentQuestion =
@@ -46,6 +72,8 @@ export function QuestionContainer(props: QuestionCardProps) {
       : questions[currentQuestionIndex];
 
   const handleAnswerQuestion = (answer: string) => {
+    currentQuestion.userAnswer = answer;
+    setQuestion(currentQuestion);
     if (answer === "" || answer === null) {
       setQuestionStatus(currentQuestion.id, QuestionStatus.SKIPPED);
     } else if (
@@ -62,7 +90,7 @@ export function QuestionContainer(props: QuestionCardProps) {
   useEffect(() => {
     if (isRounding && currentQuestionIndex === tempQuestions.length) {
       const newFilteredQuestions = questions.filter((item) => {
-        return item.status === QuestionStatus.SKIPPED;
+        return item.questionState === QuestionStatus.SKIPPED;
       });
 
       setCurrentQuestionIndex(0);
@@ -76,31 +104,76 @@ export function QuestionContainer(props: QuestionCardProps) {
   }, [currentQuestion]);
 
   useEffect(() => {
-    if (!isRounding && currentQuestionIndex === props.questions.length) {
+    if (!isRounding && currentQuestionIndex === intialQuestions.length) {
       const newFilteredQuestions = questions.filter(
-        (item) => item.status === QuestionStatus.SKIPPED
+        (item) => item.questionState === QuestionStatus.SKIPPED
       );
-
       setIsRounding(true);
       setTempQuestions(newFilteredQuestions);
       setCurrentQuestionIndex(0);
     }
-
-    const newParams = new URLSearchParams(window.location.search);
-    newParams.set("currentQuestion", String(currentQuestionIndex));
-    router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
   }, [currentQuestionIndex]);
 
+  useEffect(() => {
+    if (isQuizFinishedByUser || isTimerExpired) {
+      setIsQuizFinished(true);
+      const userAnswers = questions.map(
+        (question) =>
+          ({
+            answer: question.answer,
+            status: question.questionState,
+            userAnswer: question.userAnswer,
+          } as UserAnswer)
+      );
+      let score = 0;
+      questions.forEach((question) => {
+        if (question.questionState === QuestionStatus.CORRECT) {
+          score++;
+        }
+      });
+
+      const total = questions.length;
+      saveResults({
+        quizStatistics: userAnswers,
+        userId,
+        quizId,
+        score,
+        total,
+      });
+      /*    router.replace(`/profile/quiz-istatistikleri/${quizId}`); */
+    }
+  }, [isQuizFinishedByUser, isTimerExpired]);
+
+  //runs user leaves page.
+  useEffect(() => {
+    return () => {
+      console.log("Leaving quiz → reset");
+      resetQuiz();
+    };
+  }, []);
+
   return (
-    <>
-      <QuestionCard question={currentQuestion} />
-      <div
-        className="flex justify-between items-startw-full max-w-full px-4
+    <div>
+      {isQuizFinishedByUser || isTimerExpired ? (
+        <div className="flex justify-center">
+          <Link
+            href={`/profile/quiz-istatistikleri/${quizId}`}
+            className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce "
+          >
+            <p className="text-2xl font-extrabold">Quiz Sonuçları</p>
+          </Link>
+        </div>
+      ) : (
+        <>
+          <QuestionCard question={currentQuestion} />
+          <div
+            className="flex justify-between items-startw-full max-w-full px-4
        h-[40vh] py-8 mx-auto rounded-2xl mt-8"
-      >
-        <UserInput answerHandler={handleAnswerQuestion} />
-      </div>
-      <div></div>
-    </>
+          >
+            <UserInput answerHandler={handleAnswerQuestion} />
+          </div>
+        </>
+      )}
+    </div>
   );
 }

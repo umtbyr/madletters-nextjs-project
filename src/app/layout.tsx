@@ -38,8 +38,6 @@ export default async function RootLayout({
     },
   });
 
-  console.log(user);
-
   return (
     <html lang="en" className="w-full h-full overflow-x-hidden">
       <head>
