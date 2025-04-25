@@ -1,6 +1,5 @@
 "use client";
 import { Question, QuizResultPayload } from "@/app/models/quiz";
-import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useQuizStore } from "@/app/store/quizStore";
 import { useShallow } from "zustand/shallow";
@@ -52,7 +51,6 @@ export function QuestionContainer({
     }))
   );
 
-  const router = useRouter();
   useLayoutEffect(() => {
     setQuestions(intialQuestions);
     setQuizId(quizId);

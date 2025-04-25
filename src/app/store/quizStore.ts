@@ -46,11 +46,11 @@ export const useQuizStore = create<QuizStore>((set) => ({
       };
     }),
   setIsTimerExpired: (isExpired) =>
-    set((state) => ({
+    set(() => ({
       isTimerExpired: isExpired,
     })),
   setIsQuizFinished: (isQuizFinished) =>
-    set((state) => ({ isQuizFinished: isQuizFinished })),
+    set(() => ({ isQuizFinished: isQuizFinished })),
   setQuizId: (id) =>
     set(() => ({
       quizId: id,

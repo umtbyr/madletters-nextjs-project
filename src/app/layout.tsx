@@ -29,7 +29,7 @@ export default async function RootLayout({
 }>) {
   const userId = (await cookies()).get("userId")?.value;
 
-  const user = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { id: userId },
     update: {},
     create: {

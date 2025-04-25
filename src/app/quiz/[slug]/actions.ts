@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 const saveQuizResults = async (data: QuizResultPayload) => {
   const { userId, quizId, quizStatistics, score, total } = data;
-  const res = await prisma.userQuizStatistics.upsert({
+  await prisma.userQuizStatistics.upsert({
     where: {
       userId_quizId: {
         quizId: quizId,
