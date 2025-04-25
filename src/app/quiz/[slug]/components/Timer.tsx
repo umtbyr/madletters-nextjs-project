@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuizStore } from "@/app/store/quizStore";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function Timer({ duration = 10 }: { duration?: number }) {
