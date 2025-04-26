@@ -72,17 +72,48 @@ export function QuestionContainer({
   const handleAnswerQuestion = (answer: string) => {
     currentQuestion.userAnswer = answer;
     setQuestion(currentQuestion);
+    const userAnswer = answer.toLocaleLowerCase().trim();
+    const systemAnswer = currentQuestion?.answer.toLocaleLowerCase().trim();
     if (answer === "" || answer === null) {
       setQuestionStatus(currentQuestion.id, QuestionStatus.SKIPPED);
-    } else if (
-      currentQuestion?.answer.toLocaleLowerCase().trim() ===
-      answer.toLocaleLowerCase().trim()
-    ) {
-      setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      return;
     } else {
+      const userSubanswer = userAnswer.split(" ");
+      const systemSubAnswers = systemAnswer.split(" ");
+      if (systemSubAnswers.length === 1) {
+        if (userSubanswer[0] === systemAnswer[0]) {
+          setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
+          setCurrentQuestionIndex(currentQuestionIndex + 1);
+          return;
+        }
+      } else if (systemSubAnswers.length === 2) {
+        if (userSubanswer[0] === systemSubAnswers[0]) {
+          const isFirstTreeMatched =
+            userSubanswer[1].slice(0, 3) === systemSubAnswers[1].slice(0, 3);
+          if (isFirstTreeMatched) {
+            setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            return;
+          }
+        }
+      } else if (systemSubAnswers.length === 3) {
+        if (
+          userSubanswer[0] === systemSubAnswers[0] &&
+          userSubanswer[1] === systemSubAnswers[1]
+        ) {
+          const isFirstTreeMatched =
+            userSubanswer[2].slice(0, 3) === systemSubAnswers[2].slice(0, 3);
+          if (isFirstTreeMatched) {
+            setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            return;
+          }
+        }
+      }
       setQuestionStatus(currentQuestion.id, QuestionStatus.INCORRECT);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
   useEffect(() => {
