@@ -31,7 +31,8 @@ export default async function Page() {
           height={56}
         />
         <h1 className="w-full font-bold text-7xl my-4 mx-2 break-words">
-          TıpTıp'<span className="font-bold text-6xl">a</span>
+          TıpTıp{"'"}
+          <span className="font-bold text-6xl">a</span>
         </h1>
       </div>
       <h1 className="font-bold text-6xl break-words">Hoşgeldin!</h1>
