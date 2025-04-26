@@ -165,7 +165,7 @@ export function QuestionContainer({
         <>
           <QuestionCard question={currentQuestion} />
           <div
-            className="flex justify-between items-startw-full max-w-full px-4
+            className="flex justify-between items-start w-full max-w-full px-4
        h-[40vh] py-8 mx-auto rounded-2xl mt-8"
           >
             <UserInput answerHandler={handleAnswerQuestion} />

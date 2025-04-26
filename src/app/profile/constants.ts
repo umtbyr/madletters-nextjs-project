@@ -1,3 +1,12 @@
-const profileMenu = ["Geçmiş Quizlerim", "Ayarlar"];
+const profileMenu = [
+  {
+    label: "Geçmiş Quizlerim",
+    href: "/profile/quizlerim",
+  },
+  {
+    label: "Ayarlar",
+    href: "/",
+  },
+];
 
 export { profileMenu };

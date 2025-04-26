@@ -25,29 +25,24 @@ export default async function Page(props: QuestionPageProps) {
   }
 
   return (
-    <main className="flex flex-col px-2 py-4 items-center w-full">
-      <section>
-        <header>
-          <div className="flex items-center px-4 py-2 mb-4 ">
-            <h2 className="font-semibold text-lg"></h2>
-            <Timer duration={60} />
-          </div>
-        </header>
-      </section>
+    <main className="flex flex-col px-2 py-4 items-center w-full max-w-full">
+      <header>
+        <div className="flex items-center px-4 py-2  ">
+          <h2 className="font-semibold text-lg"></h2>
+          <Timer duration={10} />
+        </div>
+      </header>
       <section>
         <div>
           <QuestionKeyContainer />
         </div>
       </section>
-      <section className="w-full max-w-full px-4">
-        <QuestionContainer
-          userId={userId ?? ""}
-          saveResults={saveQuizResults}
-          questions={quiz?.questions ?? []}
-          quizId={slug}
-        />
-      </section>
-      <section></section>
+      <QuestionContainer
+        userId={userId ?? ""}
+        saveResults={saveQuizResults}
+        questions={quiz?.questions ?? []}
+        quizId={slug}
+      />
     </main>
   );
 }

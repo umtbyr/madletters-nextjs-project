@@ -12,7 +12,7 @@ export function AnswerQuestionButton({
 }: AnwswerButtonProps) {
   return (
     <button
-      className="flex-1 w-full max-w-full border-black border-3 shadow-2xl text-xl rounded-2xl p-4 bg-amber-400 font-bold "
+      className="flex-1 w-full max-w-full border-black border-2 shadow-2xl text-xl rounded-2xl py-4 px-4 bg-amber-400 font-extrabold "
       onClick={() => {
         answerHandler(answer);
         clearAnswerHandler();

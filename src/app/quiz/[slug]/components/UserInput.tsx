@@ -30,7 +30,7 @@ export function UserInput(props: UserInputProps) {
           }
         }}
         onChange={(event) => handleUserInput(event)}
-        className="flex-5 w-full max-w-full text-xl border-4 border-black rounded-2xl p-4 bg-white font-bold"
+        className="flex-4 w-full max-w-full text-lg border-2 border-black rounded-2xl p-4 bg-white font-bold"
         type="text"
         id="user-input"
       />

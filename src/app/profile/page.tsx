@@ -28,10 +28,10 @@ export default async function Page() {
       <ul className=" w-full max-w-full p-4 mt-8 gap-2">
         {profileMenu.map((menuItem) => (
           <li
-            key={menuItem}
+            key={menuItem.label}
             className="w-full max-w-full px-4 border-b-4 border-amber-500 py-1 mb-8"
           >
-            <ListItem href="/" label={menuItem} />
+            <ListItem href={menuItem.href} label={menuItem.label} />
           </li>
         ))}
       </ul>
