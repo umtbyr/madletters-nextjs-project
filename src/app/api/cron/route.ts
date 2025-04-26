@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
         },
       },
     });
+    return new NextResponse("Internal Server Error", { status: 200 });
   } catch (error) {
     console.error("Error during quiz generation", error);
     return new NextResponse("Internal Server Error", { status: 500 });
