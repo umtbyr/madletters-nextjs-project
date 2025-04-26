@@ -1,13 +1,14 @@
-import { QuizQuestionsPayload } from '@/app/models/quiz';
-import { NextRequest, NextResponse } from 'next/server';
-import { data } from '../../../../data/questions';
-export const runtime = 'nodejs';
+import { QuizQuestionsPayload } from "@/app/models/quiz";
+import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
+import { data } from "../../../../data/questions";
+export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get('authorization');
+  const authHeader = request.headers.get("authorization");
 
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
     const quizQuestions = [] as QuizQuestionsPayload[];
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
 
     await prisma.quiz.create({
       data: {
-        title: 'Günün Tıp Soruları - ' + new Date().toLocaleDateString('tr-TR'),
+        title: "Günün Tıp Soruları - " + new Date().toLocaleDateString("tr-TR"),
         date: new Date(),
         questions: {
           create: quizQuestions,
@@ -33,7 +34,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error during quiz generation', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    console.error("Error during quiz generation", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
