@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
-import { CircleCheckIcon, CircleXIcon } from "lucide-react";
 import {
   QuestionStatus,
   QuizStatisticsRespone,
