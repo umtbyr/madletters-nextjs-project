@@ -1,10 +1,10 @@
 //İncelenecek...
 
 export const QuestionStatus = {
-  CORRECT: 'correct',
-  INCORRECT: 'incorrect',
-  UNANSWERED: 'unanswered',
-  SKIPPED: 'skipped',
+  CORRECT: "correct",
+  INCORRECT: "incorrect",
+  UNANSWERED: "unanswered",
+  SKIPPED: "skipped",
 } as const;
 
 export type QuestionStatus =
@@ -26,9 +26,9 @@ type Quiz = {
   questions: Question[];
 };
 
-type QuizListItem = Omit<Quiz, 'questions'>;
+type QuizListItem = Omit<Quiz, "questions">;
 
-type NewQuestionInput = Omit<Question, 'id' | 'quizId'>;
+type NewQuestionInput = Omit<Question, "id" | "quizId">;
 
 type NewQuizInput = {
   title: string;
@@ -56,7 +56,20 @@ type QuizQuestionsPayload = {
   questionKey: string;
 };
 
+type QuizStatisticsRespone = {
+  id: string;
+  quizId: string;
+  userId: string;
+  isSolved: boolean;
+  score: number;
+  total: number;
+  answers: UserAnswer[];
+  createdAt: Date;
+  updatedAt: Date;
+} | null;
+
 export type {
+  QuizStatisticsRespone,
   QuizQuestionsPayload,
   Question,
   Quiz,

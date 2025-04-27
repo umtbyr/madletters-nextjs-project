@@ -1,7 +1,16 @@
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { CircleCheckIcon, CircleXIcon } from "lucide-react";
-import { QuestionStatus, UserAnswer } from "@/app/models/quiz";
+import {
+  QuestionStatus,
+  QuizStatisticsRespone,
+  UserAnswer,
+} from "@/app/models/quiz";
+import {
+  QuizStatisticsProgressCirlce,
+  QuizResults,
+  QuestionCard,
+} from "../../components";
 type StatisticsPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -14,58 +23,77 @@ export default async function Page(props: StatisticsPageProps) {
   if (!userId) {
     throw Error("userId Bulunamadı.");
   }
-  const quizStatistics = await prisma.userQuizStatistics.findUnique({
-    where: {
-      userId_quizId: {
-        userId: userId,
-        quizId: quizId,
+
+  const [quizStatistics, quiz] = await Promise.all([
+    prisma.userQuizStatistics.findUnique({
+      where: {
+        userId_quizId: {
+          userId: userId,
+          quizId: quizId,
+        },
       },
-    },
-  });
+    }),
+    prisma.quiz.findUnique({
+      where: {
+        id: quizId,
+      },
+      include: {
+        questions: true,
+      },
+    }),
+  ]);
+
+  const questions = quiz?.questions ?? [];
+
+  const quizData: QuizStatisticsRespone = quizStatistics
+    ? {
+        ...quizStatistics,
+        answers: (quizStatistics.answers ?? []) as UserAnswer[],
+      }
+    : null;
+
   const typedAnswers = quizStatistics?.answers as UserAnswer[] | undefined;
 
-  return (
-    <main className="flex flex-col w-full max-w-full p-2 items-center">
-      <h1 className="text-2xl mt-4 mb-2 font-extrabold text-amber-500 ">
-        QUiZ SONUÇLARI
-      </h1>
-      <h2 className="text-xl font-black">
-        {quizStatistics?.score}/{quizStatistics?.total}
-      </h2>
-      <ul className=" w-full max-w-full p-4 mt-4 gap-2 ">
-        <div className="flex justify-between font-extrabold mb-4 text-amber-500 ">
-          <li className="w-full max-w-full px-2 border-b-4 py-1 shadow-2xl border-black">
-            <h1>DOĞRU CEVAPLAR</h1>
-          </li>
-          <li className="w-full max-w-full px-2 border-b-4 py-1 shadow-2xl text-end border-black">
-            <h1>SENİN CEVAPLARIN</h1>
-          </li>
-        </div>
-        {typedAnswers?.map((answer) => (
-          <li
-            key={answer.answer}
-            className="w-full max-w-full px-4 border-b-4 border-amber-500 py-1 mb-8 shadow-2xl"
-          >
-            <div className="flex justify-between w-full max-w-full">
-              <div className="flex gap-2 items-center">
-                {answer.status === QuestionStatus.CORRECT ? (
-                  <CircleCheckIcon className="w-6 h-6 text-green-500" />
-                ) : (
-                  <CircleXIcon className="w-6 h-6 text-red-600" />
-                )}
+  const answersWithQuestions = typedAnswers?.map((answer, index) => ({
+    ...answer,
+    question: questions[index].question,
+  }));
 
-                <p className="font-medium text-lg">{answer.answer}</p>
-              </div>
-              {answer.status === QuestionStatus.CORRECT ? (
-                <CircleCheckIcon className="w-6 h-6 text-green-500" />
-              ) : (
-                <div className="flex gap-2 items-center">
-                  <p className="font-medium text-lg">{answer.userAnswer}</p>
-                </div>
-              )}
-            </div>
-          </li>
-        ))}
+  console.log(answersWithQuestions?.map((item) => item.status));
+  return (
+    <main className="flex flex-col  w-full max-w-full p-4 items-center bg-gray-50">
+      <div className="bg-white w-full max-w-full shadow-xl p-2 rounded-2xl mt-4 mb-2 flex items-center justify-center">
+        <div className="flex p-8 w-full max-w-4xl gap-8 items-center justify-between ">
+          <div className="w-3/4 justify-center flex">
+            <QuizStatisticsProgressCirlce quizData={quizData} />
+          </div>
+          <QuizResults answers={quizData?.answers ?? []} />
+        </div>
+      </div>
+      <ul className=" w-full max-w-full py-4 mt-4 gap-2 ">
+        {answersWithQuestions?.map((answer) => {
+          let bgColor = "";
+          switch (answer.status) {
+            case QuestionStatus.CORRECT:
+              bgColor = "bg-green-500/20";
+              break;
+            case QuestionStatus.INCORRECT:
+              bgColor = "bg-red-600/20";
+              break;
+            default:
+              bgColor = "bg-blue-500/20";
+              break;
+          }
+
+          return (
+            <li
+              key={answer.answer}
+              className={`w-full max-w-full mb-8 shadow-xl rounded-2xl ${bgColor}`}
+            >
+              <QuestionCard answer={answer} />
+            </li>
+          );
+        })}
       </ul>
     </main>
   );

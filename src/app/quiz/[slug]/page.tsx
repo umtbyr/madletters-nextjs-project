@@ -29,7 +29,7 @@ export default async function Page(props: QuestionPageProps) {
       <header>
         <div className="flex items-center px-4 py-2  ">
           <h2 className="font-semibold text-lg"></h2>
-          <Timer duration={60 * 12} />
+          <Timer duration={60 * 2} />
         </div>
       </header>
       <section>

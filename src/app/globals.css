@@ -130,17 +130,29 @@ body {
   }
 }
 
-@keyframes custom-animate {
+/* @keyframes accordion-open {
   0% {
     opacity: 0;
-    transform: translateX(10px);
+    transform: scaleY(0);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: scaleY(1);
+  }
+} */
+
+@keyframes accordion-open {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
   }
 }
 
-.custom-animate {
-  animation: custom-animate 0.4s ease-in-out;
+.accordion-open {
+  animation: accordion-open 0.4s ease-out;
 }

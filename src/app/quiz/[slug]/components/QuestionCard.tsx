@@ -7,7 +7,7 @@ type QuestionCardProps = {
 
 export function QuestionCard(props: QuestionCardProps) {
   return (
-    <Card style="mx-2 border-black border-2 shadow-2xl">
+    <Card style="mx-2  shadow-xl">
       <p className="text-2xl font-medium break-words w-full max-w-full">
         {props.question?.question}
       </p>

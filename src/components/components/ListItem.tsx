@@ -9,9 +9,9 @@ type ListItemProps = {
 export function ListItem(props: ListItemProps) {
   return (
     <Link href={props.href}>
-      <div className="flex justify-between w-full max-w-full">
+      <div className="flex justify-between w-full max-w-full items-center">
         <p className="font-medium text-lg">{props.label}</p>
-        <CircleArrowRightIcon className="w-6 h-6" />
+        <CircleArrowRightIcon className="w-6 h-6 text-amber-600" />
       </div>
     </Link>
   );

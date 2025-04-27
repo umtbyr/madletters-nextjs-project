@@ -2058,7 +2058,7 @@ export const data = {
     {
       question:
         "Beyinde süngerimsi dejenerasyon ve hızlı ilerleyen demans ile seyreden nadir nörodejeneratif hastalık nedir?",
-      answer: "Creutzfeldt-Jakob hastalığı",
+      answer: "Creutzfeldt Jakob hastalığı",
     },
     {
       question:

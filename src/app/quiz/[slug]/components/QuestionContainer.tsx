@@ -79,18 +79,34 @@ export function QuestionContainer({
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       return;
     } else {
-      const userSubanswer = userAnswer.split(" ");
+      const userSubAnswers = userAnswer.split(" ");
       const systemSubAnswers = systemAnswer.split(" ");
+
+      const lastSubAnswer = systemSubAnswers[systemSubAnswers.length - 1];
+
+      if (
+        (systemSubAnswers.length > 1 && lastSubAnswer.includes("(")) ||
+        lastSubAnswer.includes(")")
+      ) {
+        const indexOfDeleteRemain = systemSubAnswers.findIndex((item) =>
+          item.includes("(")
+        );
+        const popTimes = systemSubAnswers.length - indexOfDeleteRemain + 1;
+
+        for (let index = 0; index < popTimes; index++) {
+          systemSubAnswers.pop();
+        }
+      }
       if (systemSubAnswers.length === 1) {
-        if (userSubanswer[0] === systemAnswer[0]) {
+        if (userSubAnswers[0] === systemSubAnswers[0]) {
           setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
           setCurrentQuestionIndex(currentQuestionIndex + 1);
           return;
         }
       } else if (systemSubAnswers.length === 2) {
-        if (userSubanswer[0] === systemSubAnswers[0]) {
+        if (userSubAnswers[0] === systemSubAnswers[0]) {
           const isFirstTreeMatched =
-            userSubanswer[1].slice(0, 3) === systemSubAnswers[1].slice(0, 3);
+            userSubAnswers[1].slice(0, 3) === systemSubAnswers[1].slice(0, 3);
           if (isFirstTreeMatched) {
             setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
             setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -99,11 +115,13 @@ export function QuestionContainer({
         }
       } else if (systemSubAnswers.length === 3) {
         if (
-          userSubanswer[0] === systemSubAnswers[0] &&
-          userSubanswer[1] === systemSubAnswers[1]
+          userSubAnswers[0] === systemSubAnswers[0] &&
+          userSubAnswers[1] === systemSubAnswers[1]
         ) {
-          const isFirstTreeMatched =
-            userSubanswer[2].slice(0, 3) === systemSubAnswers[2].slice(0, 3);
+          //karar veremedim
+          const isFirstTreeMatched = true;
+          //userSubanswer[userSubanswer.length - 1].slice(0, 3) ===
+          //systemSubAnswers[systemSubAnswers.length - 1].slice(0, 3);
           if (isFirstTreeMatched) {
             setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
             setCurrentQuestionIndex(currentQuestionIndex + 1);
