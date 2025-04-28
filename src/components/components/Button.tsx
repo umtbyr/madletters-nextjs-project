@@ -1,0 +1,21 @@
+import clsx from "clsx";
+
+type ButtonWrapperProps = {
+  children?: React.ReactNode;
+  onClick: () => void;
+  className?: string;
+};
+
+export function Button({ children, onClick, className }: ButtonWrapperProps) {
+  return (
+    <button
+      className={clsx(
+        "w-full max-w-full  shadow-xl text-xl rounded-2xl py-4 px-4 bg-amber-400 font-extrabold cursor-pointer",
+        className
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}

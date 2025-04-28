@@ -1,9 +1,11 @@
 import { Quiz } from "@/app/models/quiz";
-import { QuestionContainer, QuestionKeyContainer } from "./components";
 import { prisma } from "@/lib/prisma";
 import { Timer } from "./components/Timer";
 import { saveQuizResults } from "./actions";
 import { cookies } from "next/headers";
+import { QuestionContainer } from "./QuestionContainer";
+import { QuestionKeyContainer } from "./QuestionKeysContainer";
+import { FinishQuizButton } from "./components";
 type QuestionPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -26,18 +28,24 @@ export default async function Page(props: QuestionPageProps) {
 
   return (
     <main className="flex flex-col px-2 py-4 items-center w-full max-w-full">
-      <header>
-        <div className="flex items-center px-4 py-2  ">
-          <h2 className="font-semibold text-lg"></h2>
-          <Timer duration={60 * 2} />
+      <div className="flex w-full px-2 items-center">
+        <div className="w-1/3"></div>
+        <div className=" flex w-1/3 justify-center ">
+          <Timer duration={60 * 2 * 10} />
         </div>
-      </header>
+        <div className="w-1/3">
+          <FinishQuizButton />
+        </div>
+      </div>
+      <div className=""></div>
+
       <section>
         <div>
           <QuestionKeyContainer />
         </div>
       </section>
       <QuestionContainer
+        quizName={quiz.title}
         userId={userId ?? ""}
         saveResults={saveQuizResults}
         questions={quiz?.questions ?? []}

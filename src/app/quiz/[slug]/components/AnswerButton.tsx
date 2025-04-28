@@ -1,3 +1,5 @@
+import { Button } from "@/components/components/Button";
+
 type AnwswerButtonProps = {
   children?: React.ReactNode;
   answerHandler: (answer: string) => void;
@@ -11,14 +13,14 @@ export function AnswerQuestionButton({
   answerHandler,
 }: AnwswerButtonProps) {
   return (
-    <button
-      className="flex-1 w-full max-w-full  shadow-xl text-xl rounded-2xl py-4 px-4 bg-amber-400 font-extrabold "
+    <Button
+      className="flex-1"
       onClick={() => {
         answerHandler(answer);
         clearAnswerHandler();
       }}
     >
       {answer !== "" ? "Cevapla" : "Geç"}
-    </button>
+    </Button>
   );
 }

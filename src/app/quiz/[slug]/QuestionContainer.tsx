@@ -4,14 +4,15 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { useQuizStore } from "@/app/store/quizStore";
 import { useShallow } from "zustand/shallow";
 import { QuestionStatus } from "@/app/models/quiz";
-import { QuestionCard } from "./QuestionCard";
-import { UserInput } from "./UserInput";
+import { QuestionCard } from "./components/QuestionCard";
+import { UserInput } from "./components/UserInput";
 import { UserAnswer } from "@/app/models/quiz";
 import Link from "next/link";
 
 type QuestionCardProps = {
   questions: Question[];
   quizId: string;
+  quizName: string;
   userId: string;
   saveResults: (data: QuizResultPayload) => Promise<void>;
 };
@@ -19,11 +20,13 @@ type QuestionCardProps = {
 export function QuestionContainer({
   questions: intialQuestions,
   quizId,
+  quizName,
   userId,
   saveResults,
 }: QuestionCardProps) {
   const {
     isTimerExpired,
+    setIsRounding: setIsRoundingStore,
     setQuestion,
     currentQuestionIndex,
     setCurrentQuestionIndex,
@@ -48,6 +51,7 @@ export function QuestionContainer({
       setQuestion: state.setQuestion,
       isTimerExpired: state.isTimerExpired,
       setIsQuizFinished: state.setIsQuizFinished,
+      setIsRounding: state.setIsRounding,
     }))
   );
 
@@ -156,6 +160,7 @@ export function QuestionContainer({
         (item) => item.questionState === QuestionStatus.SKIPPED
       );
       setIsRounding(true);
+      setIsRoundingStore(true);
       setTempQuestions(newFilteredQuestions);
       setCurrentQuestionIndex(0);
     }
@@ -181,6 +186,7 @@ export function QuestionContainer({
 
       const total = questions.length;
       saveResults({
+        quizName,
         quizStatistics: userAnswers,
         userId,
         quizId,
@@ -202,7 +208,7 @@ export function QuestionContainer({
   return (
     <div>
       {isQuizFinishedByUser || isTimerExpired ? (
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center">
           <Link
             href={`/profile/quiz-istatistikleri/${quizId}`}
             className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce "

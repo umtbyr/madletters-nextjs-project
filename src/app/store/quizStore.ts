@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { Question, UserAnswer } from "../models/quiz";
 import { QuestionStatus } from "../models/quiz";
 export type QuizStore = {
+  isRounding: boolean;
   isQuizFinished: boolean;
   isTimerExpired: boolean;
   userAnswers: UserAnswer[];
@@ -12,6 +13,7 @@ export type QuizStore = {
   setCurrentQuestion: (question: Question) => void;
   questions: Question[];
   setCurrentQuestionIndex: (index: number) => void;
+  setIsRounding: (isRounding: boolean) => void;
   setQuestions: (questions: Question[]) => void;
   setQuestionStatus: (questionId: number, status: QuestionStatus) => void;
   resetQuiz: () => void;
@@ -22,6 +24,7 @@ export type QuizStore = {
 };
 
 export const useQuizStore = create<QuizStore>((set) => ({
+  isRounding: false,
   isQuizFinished: false,
   isTimerExpired: false,
   userAnswers: [],
@@ -45,6 +48,10 @@ export const useQuizStore = create<QuizStore>((set) => ({
         currentQuestion: question,
       };
     }),
+  setIsRounding: (isRounding) =>
+    set(() => ({
+      isRounding: isRounding,
+    })),
   setIsTimerExpired: (isExpired) =>
     set(() => ({
       isTimerExpired: isExpired,
@@ -75,6 +82,7 @@ export const useQuizStore = create<QuizStore>((set) => ({
     })),
   resetQuiz: () =>
     set(() => ({
+      isRounding: false,
       isQuizFinished: false,
       isTimerExpired: false,
       userAnswers: [],

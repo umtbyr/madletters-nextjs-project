@@ -10,6 +10,7 @@ import {
   QuizResults,
   QuestionCard,
 } from "../../components";
+import Link from "next/link";
 type StatisticsPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -61,6 +62,13 @@ export default async function Page(props: StatisticsPageProps) {
   console.log(answersWithQuestions?.map((item) => item.status));
   return (
     <main className="flex flex-col  w-full max-w-full p-4 items-center bg-gray-50">
+      <div className="flex my-2 shadow-xl">
+        <Link href={`/quiz/${quizStatistics?.quizId}`}>
+          <div className="bg-amber-400 p-4 rounded-2xl cursor-pointer ">
+            <p className="text-xl font-extrabold  ">TEKRAR DENE!</p>
+          </div>
+        </Link>
+      </div>
       <div className="bg-white w-full max-w-full shadow-xl p-2 rounded-2xl mt-4 mb-2 flex items-center justify-center">
         <div className="flex p-8 w-full max-w-4xl gap-8 items-center justify-between ">
           <div className="w-3/4 justify-center flex">

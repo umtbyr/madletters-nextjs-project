@@ -36,6 +36,7 @@ model UserQuizStatistics {
   id        String   @id @default(cuid())
   userId    String
   quizId    String
+  quizName  String
   isSolved  Boolean
   score     Int
   total     Int
@@ -52,6 +53,7 @@ model UserQuizStatistics {
 model User {
   id                 String               @id @default(cuid())
   userName           String
+  userPoint          Int
   date               DateTime             @default(now())
   UserQuizStatistics UserQuizStatistics[]
 }

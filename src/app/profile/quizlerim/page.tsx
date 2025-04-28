@@ -1,5 +1,6 @@
-import { ListItem } from "@/components/components/ListItem";
+import { ListContainer } from "@/components/components/ListContainer";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import { cookies } from "next/headers";
 
 export default async function Page() {
@@ -18,20 +19,34 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col w-full max-w-full p-2 items-center">
-      <h1 className="text-2xl mt-6 font-extrabold ">GEÇMİŞ QUİZLER</h1>
-      <ul className=" w-full max-w-full p-4 mt-4 gap-2 ">
-        {myQuizes.map((quiz) => (
-          <li
-            key={quiz.id}
-            className="w-full max-w-full px-4 border-b-4 border-amber-500 py-1 mb-8 shadow-2xl"
-          >
-            <ListItem
-              href={`/quiz/${quiz.quizId}`}
-              label={`${quiz.score}/${quiz.total}`}
-            />
-          </li>
-        ))}
-      </ul>
+      <ListContainer
+        data={myQuizes}
+        renderItem={(quiz) => (
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-2xl font-extrabold">{`${quiz.score}/${quiz.total}`}</p>
+            </div>
+            <div className="flex gap-10">
+              <Link href={`/profile/quiz-istatistikleri/${quiz.quizId}`}>
+                <div className="bg-amber-400 p-4 rounded-2xl cursor-pointer">
+                  <p className="text-sm font-bold ">İSTATİSTİKLER</p>
+                </div>
+              </Link>
+              <Link href={`/quiz/${quiz.quizId}`}>
+                <div className="bg-amber-400 p-4 rounded-2xl cursor-pointer ">
+                  <p className="text-sm font-bold  ">TEKRAR ÇÖZ</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
+      ></ListContainer>
     </main>
   );
+}
+{
+  /* <ListItem
+  href={`/profile/quiz-istatistikleri/${quiz.quizId}`}
+  label={`${quiz.score}/${quiz.total}`}
+/> */
 }

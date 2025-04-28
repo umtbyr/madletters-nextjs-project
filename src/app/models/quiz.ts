@@ -45,6 +45,7 @@ type UserAnswer = {
 type QuizResultPayload = {
   quizStatistics: UserAnswer[];
   userId: string;
+  quizName: string;
   quizId: string;
   score: number;
   total: number;

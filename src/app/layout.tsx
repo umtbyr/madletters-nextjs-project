@@ -33,6 +33,7 @@ export default async function RootLayout({
     where: { id: userId },
     update: {},
     create: {
+      userPoint: 0,
       id: userId,
       userName: `Kullanıcı${Math.floor(1000 + Math.random() * 9000)}`,
     },

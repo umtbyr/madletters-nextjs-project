@@ -15,11 +15,6 @@ export async function middleware(request: NextRequest) {
       maxAge: 60 * 30,
       path: "/",
     });
-  } else {
-    response.cookies.set("isCreated", "false", {
-      maxAge: 15,
-      path: "/",
-    });
   }
 
   return response;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuizStore } from "@/app/store/quizStore";
-import { QuestionKeyBox } from "./QuestionKeyBox";
+import { QuestionKeyBox } from "./components";
 
 export function QuestionKeyContainer() {
   const questions = useQuizStore((state) => state.questions);
@@ -20,7 +20,7 @@ export function QuestionKeyContainer() {
   });
 
   return (
-    <ul className="flex justify-center gap-4 mx-2 mb-6">
+    <ul className="flex justify-center gap-4 mx-2 m-10">
       {!isQuizFinished &&
         filteredQuestions.map((item) => (
           <QuestionKeyBox key={item.id} question={item} />
