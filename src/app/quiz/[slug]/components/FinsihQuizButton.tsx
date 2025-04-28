@@ -11,7 +11,7 @@ export function FinishQuizButton() {
     <div className="flex w-1/2 ml-auto ">
       {!isQuizFinished && isRounding && (
         <Button
-          className="bg-red-500 text-white "
+          className="bg-red-600 text-white"
           onClick={() => {
             setTimerExpired(true);
           }}

@@ -61,15 +61,15 @@ export default async function Page(props: StatisticsPageProps) {
 
   console.log(answersWithQuestions?.map((item) => item.status));
   return (
-    <main className="flex flex-col  w-full max-w-full p-4 items-center bg-gray-50">
-      <div className="flex my-2 shadow-xl">
-        <Link href={`/quiz/${quizStatistics?.quizId}`}>
-          <div className="bg-amber-400 p-4 rounded-2xl cursor-pointer ">
-            <p className="text-xl font-extrabold  ">TEKRAR DENE!</p>
-          </div>
-        </Link>
-      </div>
-      <div className="bg-white w-full max-w-full shadow-xl p-2 rounded-2xl mt-4 mb-2 flex items-center justify-center">
+    <main className="flex flex-col  w-full max-w-full p-4 items-center  md:max-w-5xl mx-auto">
+      <Link
+        className="bg-amber-400 p-4 rounded-2xl cursor-pointer flex my-2 shadow-xl "
+        href={`/quiz/${quizStatistics?.quizId}`}
+      >
+        <p className="text-xl font-extrabold  ">TEKRAR DENE!</p>
+      </Link>
+
+      <div className="bg-white w-full max-w-full shadow-xl p-2 rounded-2xl mt-4 mb-2 flex items-center justify-center md:max-w-5xl">
         <div className="flex p-8 w-full max-w-4xl gap-8 items-center justify-between ">
           <div className="w-3/4 justify-center flex">
             <QuizStatisticsProgressCirlce quizData={quizData} />
@@ -77,7 +77,7 @@ export default async function Page(props: StatisticsPageProps) {
           <QuizResults answers={quizData?.answers ?? []} />
         </div>
       </div>
-      <ul className=" w-full max-w-full py-4 mt-4 gap-2 ">
+      <ul className=" w-full max-w-full py-4 mt-4 gap-2 md:max-w-5xl">
         {answersWithQuestions?.map((answer) => {
           let bgColor = "";
           switch (answer.status) {
@@ -95,7 +95,7 @@ export default async function Page(props: StatisticsPageProps) {
           return (
             <li
               key={answer.answer}
-              className={`w-full max-w-full mb-8 shadow-xl rounded-2xl ${bgColor}`}
+              className={` mb-8 shadow-xl rounded-2xl ${bgColor}`}
             >
               <QuestionCard answer={answer} />
             </li>

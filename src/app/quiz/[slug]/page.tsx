@@ -27,7 +27,7 @@ export default async function Page(props: QuestionPageProps) {
   }
 
   return (
-    <main className="flex flex-col px-2 py-4 items-center w-full max-w-full">
+    <main className="flex flex-col px-2 py-4 items-center w-full max-w-full md:max-w-5xl mx-auto">
       <div className="flex w-full px-2 items-center">
         <div className="w-1/3"></div>
         <div className=" flex w-1/3 justify-center ">

@@ -21,11 +21,11 @@ export default async function Page() {
   };
 
   return (
-    <main className="flex flex-col p-6 w-full max-w-full items-center">
-      <div className=" flex items-center justify-center text-center">
+    <main className="flex flex-col p-6 w-full max-w-full items-center md:justify-center md:h-screen ">
+      <div className=" flex items-center justify-center text-center ">
         <Image
           className="align-middle"
-          src={"/logo3.svg"}
+          src={"/logo.svg"}
           alt="logo"
           width={96}
           height={56}
@@ -43,7 +43,7 @@ export default async function Page() {
         <div className="flex justify-center">
           <Link
             href={`/quiz/${todaysQuiz?.id}`}
-            className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce "
+            className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce md:mb-72"
           >
             <p className="text-2xl font-extrabold">Günün Quizine Başla</p>
           </Link>

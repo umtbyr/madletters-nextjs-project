@@ -16,7 +16,7 @@ export default async function Page() {
   });
 
   return (
-    <main className="flex flex-col w-full max-w-full p-5 items-center">
+    <main className="flex flex-col w-full max-w-full p-5 items-center md:max-w-5xl">
       <div className="p-2 w-20 h-20 border-4 border-amber-500 rounded-full shadow-2xl mt-4">
         <Image
           src={"/UserIcon.svg"}
@@ -25,7 +25,10 @@ export default async function Page() {
           height={80}
         />
       </div>
-      <h3 className="font-bold text-l pt-2">@{user?.userName}</h3>
+      <h3 className="font-bold text-xl pt-2">@{user?.userName}</h3>
+      <p className="font-extrabold text-xl text-amber-500">
+        {user?.userPoint} puan
+      </p>
       <ListContainer
         data={profileMenu}
         renderItem={(menuItem) => (

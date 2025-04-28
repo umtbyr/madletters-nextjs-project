@@ -32,7 +32,7 @@ const saveQuizResults = async (data: QuizResultPayload) => {
       },
     });
 
-    tx.user.update({
+    await tx.user.update({
       where: { id: userId },
       data: {
         userPoint: {
