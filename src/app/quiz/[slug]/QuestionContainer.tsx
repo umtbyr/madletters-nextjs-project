@@ -73,6 +73,7 @@ export function QuestionContainer({
       ? tempQuestions[currentQuestionIndex]
       : questions[currentQuestionIndex];
 
+  //sonra tekrar bakılabilir
   const handleAnswerQuestion = (answer: string) => {
     currentQuestion.userAnswer = answer;
     setQuestion(currentQuestion);
@@ -109,9 +110,15 @@ export function QuestionContainer({
         }
       } else if (systemSubAnswers.length === 2) {
         if (userSubAnswers[0] === systemSubAnswers[0]) {
-          const isFirstTreeMatched =
-            userSubAnswers[1].slice(0, 3) === systemSubAnswers[1].slice(0, 3);
-          if (isFirstTreeMatched) {
+          if (userSubAnswers[1]) {
+            const isFirstTreeMatched =
+              userSubAnswers[1].slice(0, 3) === systemSubAnswers[1].slice(0, 3);
+            if (isFirstTreeMatched) {
+              setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
+              setCurrentQuestionIndex(currentQuestionIndex + 1);
+              return;
+            }
+          } else {
             setQuestionStatus(currentQuestion.id, QuestionStatus.CORRECT);
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             return;

@@ -16,7 +16,7 @@ export default async function Page() {
   });
 
   return (
-    <main className="flex flex-col w-full max-w-full p-5 items-center md:max-w-5xl">
+    <main className="flex flex-col w-full max-w-full p-5 items-center md:max-w-5xl mx-auto">
       <div className="p-2 w-20 h-20 border-4 border-amber-500 rounded-full shadow-2xl mt-4">
         <Image
           src={"/UserIcon.svg"}

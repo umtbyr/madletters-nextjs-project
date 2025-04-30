@@ -7,9 +7,5 @@ type NavbarProps = {
 };
 
 export function NavbarItem(props: NavbarProps) {
-  return (
-    <li className="flex justify-center">
-      <Link href={props.link}>{props.children}</Link>
-    </li>
-  );
+  return <Link href={props.link}>{props.children}</Link>;
 }

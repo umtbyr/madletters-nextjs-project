@@ -57,3 +57,33 @@ model User {
   date               DateTime             @default(now())
   UserQuizStatistics UserQuizStatistics[]
 }
+
+model GroupChallengeRoom {
+  id         String   @id @default(cuid())
+  roomCode   String   @unique
+  hostUserId String
+  quizId     String
+  status     String   @default("waiting") //'waiting' | 'playing' | 'finish'
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  participants GroupParticipant[]
+}
+
+model GroupParticipant {
+  id               String    @id @default(cuid())
+  userId           String
+  groupChallengeId String
+  userName         String?
+  ready            Boolean
+  finished         Boolean
+  score            Int       @default(0)
+  answers          Json?
+  startTime        DateTime?
+  endTime          DateTime?
+
+  groupChallenge GroupChallengeRoom @relation(fields: [groupChallengeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

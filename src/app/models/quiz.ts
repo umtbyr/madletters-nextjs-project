@@ -1,5 +1,7 @@
 //İncelenecek...
 
+import { Prisma } from "@prisma/client";
+
 export const QuestionStatus = {
   CORRECT: "correct",
   INCORRECT: "incorrect",
@@ -69,7 +71,57 @@ type QuizStatisticsRespone = {
   updatedAt: Date;
 } | null;
 
+type ParticipantDB = {
+  id: string;
+  userId: string;
+  groupChallengeId: string;
+  userName: string | null;
+  ready: boolean;
+  finished: boolean;
+  score: number;
+  answers?: Prisma.JsonValue | null;
+  startTime: Date | null;
+  endTime: Date | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+};
+
+type RoomInfoDBResponse = {
+  id: string;
+  quizId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  roomCode: string;
+  hostUserId: string;
+  status: string;
+  participants: ParticipantDB[];
+} | null;
+
+type Participant = {
+  userId: string;
+  userName: string;
+  id?: string;
+  ready: boolean;
+  finished: boolean;
+};
+
+type RoomStatus = {
+  roomStatus: string;
+  participants: Participant[];
+} | null;
+
+type CreateRoomResponse = {
+  roomCode: string;
+  quizId: string;
+  roomId: string;
+  participant: Participant[];
+} | null;
+
 export type {
+  RoomStatus,
+  Participant,
+  CreateRoomResponse,
+  RoomInfoDBResponse,
   QuizStatisticsRespone,
   QuizQuestionsPayload,
   Question,
