@@ -3,7 +3,7 @@
 import { QuizListItem } from "@/app/models/quiz";
 import { Button } from "@/components/components/Button";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { QuizList } from "./QuizList";
 import { createRoom } from "../services";
 

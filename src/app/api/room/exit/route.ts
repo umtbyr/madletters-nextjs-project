@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ participant });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "Failed to delete participant" },
       { status: 500 }

@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import { CreateRoom } from "./components";
 import { QuizListItem } from "../models/quiz";
-import { QuizList } from "./components/QuizList";
 export const dynamic = "force-dynamic";
 export default async function Page() {
   const userId = (await cookies()).get("userId")?.value;

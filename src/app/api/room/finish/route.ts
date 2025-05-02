@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ message: "user is fisihed" });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "Failed to delete participant" },
       { status: 500 }
