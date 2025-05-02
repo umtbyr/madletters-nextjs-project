@@ -1,4 +1,4 @@
-import { Participant, RoomStatus } from "@/app/models/quiz";
+import { RoomStatus } from "@/app/models/quiz";
 
 export const joinHandler = async ({
   userId,

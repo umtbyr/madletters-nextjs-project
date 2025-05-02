@@ -1,5 +1,5 @@
 import { Participant } from "@/app/models/quiz";
-import { Ref, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getRoomStatus } from "../services";
 
 export const useGetParticipantsStats = ({
@@ -26,7 +26,7 @@ export const useGetParticipantsStats = ({
     const poolingInterval = setInterval(poolingHandler, 5000);
 
     return () => clearInterval(poolingInterval);
-  }, []);
+  }, [poolingHandler]);
 
   return { participantsStats, setParticipantsStats, isAllReady };
 };

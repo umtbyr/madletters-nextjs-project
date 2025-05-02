@@ -2,7 +2,6 @@
 
 import { Participant } from "@/app/models/quiz";
 import { Button } from "@/components/components/Button";
-import { useState } from "react";
 import { changeStateToReady } from "../services";
 import toast from "react-hot-toast";
 
@@ -23,7 +22,7 @@ export function ReadyButton({
   participant_id,
   roomId,
 }: ReadyButtonProps) {
-  let className = isReady ? "bg-blue-500/50" : "";
+  const className = isReady ? "bg-blue-500/50" : "";
 
   const onClickHandler = async () => {
     setParticipantsStats((prev) =>
@@ -35,6 +34,8 @@ export function ReadyButton({
       setParticipantsStats((prev) =>
         prev.map((p) => (p.id === participant_id ? { ...p, ready: false } : p))
       );
+      console.log(error);
+
       toast.error("Hazır olunamadı tekrar deneyiniz.");
     }
   };
