@@ -1,54 +1,61 @@
 "use client";
 
-import { RoomInfoDBResponse } from "@/app/models/quiz";
+import { QuizListItem } from "@/app/models/quiz";
 import { Button } from "@/components/components/Button";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { QuizList } from "./QuizList";
+import { createRoom } from "../services";
 
 type CreateRoomProps = {
   userId: string;
-  quizId: string;
+  quizes: QuizListItem[];
 };
 
-export function CreateRoom({ userId, quizId }: CreateRoomProps) {
+export function CreateRoom({ userId, quizes }: CreateRoomProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  const userName = localStorage.getItem("userName");
+  const [quizId, setQuizId] = useState<string | null>(null);
 
   const handleCreateRoom = async () => {
+    const userName = localStorage.getItem("userName") ?? "";
     try {
-      const roomInfoResponse = await fetch("/api/room/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ hostUserId: userId, quizId, userName }),
-      });
-
-      if (!roomInfoResponse.ok) {
-        throw new Error("Oda kurulamadı.");
-        return;
-      }
-
-      const roomInfo = await roomInfoResponse.json();
-      console.log(roomInfo);
-      router.push(`/room/${roomInfo.roomCode}`);
+      const roomInfo = await createRoom({ userId, userName, quizId });
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("quizId", quizId ?? "");
+      router.push(`/room/${roomInfo.roomCode}?${params.toString()}`);
     } catch (error) {
       console.error("An unexpected error occurred:", error);
     }
     setIsLoading(false);
   };
 
+  const handleSetQuiz = (quizId: string) => {
+    setQuizId(quizId);
+  };
+
   return (
-    <div>
-      <Button
-        onClick={() => {
-          setIsLoading(true);
-          handleCreateRoom();
-        }}
-      >
-        {isLoading ? "Oda oluşturuluyor..." : "Oda Oluştur"}
-      </Button>
-    </div>
+    <>
+      <div className="w-full">
+        <div className="max-h-72 overflow-y-auto w-full max-w-full ">
+          <QuizList
+            selectedQuiz={quizId}
+            handleSetQuiz={handleSetQuiz}
+            quizes={quizes}
+          />
+        </div>
+      </div>
+      <div className="my-6">
+        <Button
+          onClick={() => {
+            setIsLoading(true);
+            handleCreateRoom();
+          }}
+        >
+          {isLoading ? "Oda oluşturuluyor..." : "Oda Oluştur"}
+        </Button>
+      </div>
+    </>
   );
 }

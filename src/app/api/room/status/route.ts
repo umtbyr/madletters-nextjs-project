@@ -2,7 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  console.log("✅ API HIT: /api/room/status");
   const searchParams = request.nextUrl.searchParams;
   const roomCode = searchParams.get("roomCode");
 

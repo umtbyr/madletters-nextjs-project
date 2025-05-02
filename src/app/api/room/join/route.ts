@@ -2,9 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const { userId, roomId, userName } = await request.json();
+  const { userId, roomCode, userName } = await request.json();
 
-  if (!userId || !roomId) {
+  if (!userId || !roomCode) {
     return NextResponse.json({ error: "Oda bulunamadı" }, { status: 400 });
   }
 
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       finished: false,
       ready: false,
       userId,
-      groupChallengeId: roomId,
+      groupChallengeId: roomCode,
     },
   });
 

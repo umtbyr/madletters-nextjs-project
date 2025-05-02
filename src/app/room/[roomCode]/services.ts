@@ -2,21 +2,24 @@ import { Participant, RoomStatus } from "@/app/models/quiz";
 
 export const joinHandler = async ({
   userId,
-  roomId,
+  roomCode,
   userName,
 }: {
   userId: string;
-  roomId: string | undefined;
+  roomCode: string | undefined;
   userName: string | null;
 }) => {
   const response = await fetch("/api/room/join", {
     method: "POST",
-    body: JSON.stringify({ userId: userId, roomId, userName }),
+    body: JSON.stringify({ userId: userId, roomCode, userName }),
   });
 
   if (!response.ok) {
-    throw new Error("Failed to join the room");
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Failed to delete participant.");
   }
+
+  return response.json();
 };
 
 export const getRoomStatus = async (roomCode: string) => {
@@ -48,3 +51,43 @@ export const changeStateToReady = async ({
     throw new Error(`Failed to update readiness`);
   }
 };
+
+export async function deleteParticipant(
+  participant_id: string,
+  isHost = false,
+  roomCode: string
+) {
+  const respnose = await fetch("/api/room/exit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ participant_id, isHost, roomCode }),
+  });
+
+  if (!respnose.ok) {
+    const errorData = await respnose.json();
+    throw new Error(errorData.error || "Failed to delete participant.");
+  }
+}
+
+export async function finishQuiz({
+  participant_id,
+  score,
+}: {
+  participant_id: string;
+  score: number;
+}) {
+  const respnose = await fetch("/api/room/finish", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ participant_id, score }),
+  });
+
+  if (!respnose.ok) {
+    const errorData = await respnose.json();
+    throw new Error(errorData.error || "Failed to finish quiz!");
+  }
+}

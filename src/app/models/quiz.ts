@@ -103,6 +103,7 @@ type Participant = {
   id?: string;
   ready: boolean;
   finished: boolean;
+  score?: number;
 };
 
 type RoomStatus = {

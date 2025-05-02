@@ -8,8 +8,11 @@ import { QuestionCard } from "./components/QuestionCard";
 import { UserInput } from "./components/UserInput";
 import { UserAnswer } from "@/app/models/quiz";
 import Link from "next/link";
+import { finishQuiz } from "@/app/room/[roomCode]/services";
 
 type QuestionCardProps = {
+  participant_id?: string;
+  isOnline?: boolean;
   questions: Question[];
   quizId: string;
   quizName: string;
@@ -21,6 +24,8 @@ export function QuestionContainer({
   questions: intialQuestions,
   quizId,
   quizName,
+  participant_id,
+  isOnline,
   userId,
   saveResults,
 }: QuestionCardProps) {
@@ -173,6 +178,22 @@ export function QuestionContainer({
     }
   }, [currentQuestionIndex]);
 
+  const onLineFinishQuizHandler = async ({
+    score,
+    participant_id,
+  }: {
+    score: number;
+    participant_id: string;
+  }) => {
+    console.log(participant_id, "worked");
+
+    try {
+      await finishQuiz({ score, participant_id });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (isQuizFinishedByUser || isTimerExpired) {
       setIsQuizFinished(true);
@@ -200,6 +221,12 @@ export function QuestionContainer({
         score,
         total,
       });
+      if (isOnline)
+        onLineFinishQuizHandler({
+          score,
+          participant_id: participant_id ?? "",
+        });
+
       /*    router.replace(`/profile/quiz-istatistikleri/${quizId}`); */
     }
   }, [isQuizFinishedByUser, isTimerExpired]);

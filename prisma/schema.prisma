@@ -82,7 +82,7 @@ model GroupParticipant {
   startTime        DateTime?
   endTime          DateTime?
 
-  groupChallenge GroupChallengeRoom @relation(fields: [groupChallengeId], references: [id])
+  groupChallenge GroupChallengeRoom @relation(fields: [groupChallengeId], references: [roomCode])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

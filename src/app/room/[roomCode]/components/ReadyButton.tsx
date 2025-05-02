@@ -25,9 +25,6 @@ export function ReadyButton({
 }: ReadyButtonProps) {
   let className = isReady ? "bg-blue-500/50" : "";
 
-  console.log("userId", userId);
-  console.log("participant", participantUserId);
-
   const onClickHandler = async () => {
     setParticipantsStats((prev) =>
       prev.map((p) => (p.id === participant_id ? { ...p, ready: true } : p))

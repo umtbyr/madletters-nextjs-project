@@ -1,5 +1,5 @@
 import { Participant } from "@/app/models/quiz";
-import { useEffect, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 import { getRoomStatus } from "../services";
 
 export const useGetParticipantsStats = ({
@@ -11,11 +11,14 @@ export const useGetParticipantsStats = ({
 }) => {
   const [participantsStats, setParticipantsStats] =
     useState(initialParticipants);
+  const [isAllReady, setIsAllReady] = useState(false);
+
   const poolingHandler = async () => {
-    if (document.visibilityState === "visible") {
+    if (document.visibilityState === "visible" && !isAllReady) {
       const roomStatus = await getRoomStatus(roomCode ?? "");
       if (roomStatus?.participants) {
         setParticipantsStats(roomStatus?.participants);
+        setIsAllReady(roomStatus.participants.every((p) => p.ready === true));
       }
     }
   };
@@ -25,5 +28,5 @@ export const useGetParticipantsStats = ({
     return () => clearInterval(poolingInterval);
   }, []);
 
-  return { participantsStats, setParticipantsStats };
+  return { participantsStats, setParticipantsStats, isAllReady };
 };
