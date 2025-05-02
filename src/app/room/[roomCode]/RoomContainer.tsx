@@ -1,7 +1,7 @@
 "use client";
 
 import { Participant, Quiz } from "@/app/models/quiz";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { joinHandler } from "./services";
 import { ListContainer } from "@/components/components/ListContainer";
 import { useGetParticipantsStats } from "./hooks/useGetParticipantsStats";
@@ -66,6 +66,7 @@ export function RoomContainer({
             userName: userName,
           });
         } catch (error) {
+          console.log(error);
           setParticipantsStats((prev) =>
             prev.filter((p) => p.userId === userId)
           );
