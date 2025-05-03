@@ -1,8 +1,12 @@
 {
   "crons": [
     {
-      "path": "/api/cron",
+      "path": "/api/cronAddQuiz",
       "schedule": "40 1 * * *"
+    },
+    {
+      "path": "/api/cronCleanRooms",
+      "schedule": "0 */6 * * *" 
     }
   ]
 }

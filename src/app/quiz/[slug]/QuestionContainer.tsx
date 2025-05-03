@@ -17,6 +17,9 @@ type QuestionCardProps = {
   quizId: string;
   quizName: string;
   userId: string;
+  setIsFinishedHandler?: () => void;
+
+  roomCode?: string;
   saveResults: (data: QuizResultPayload) => Promise<void>;
 };
 
@@ -26,7 +29,10 @@ export function QuestionContainer({
   quizName,
   participant_id,
   isOnline,
+  setIsFinishedHandler,
   userId,
+
+  roomCode,
   saveResults,
 }: QuestionCardProps) {
   const {
@@ -188,7 +194,7 @@ export function QuestionContainer({
     console.log(participant_id, "worked");
 
     try {
-      await finishQuiz({ score, participant_id });
+      await finishQuiz({ score, participant_id, roomCode: roomCode ?? "" });
     } catch (error) {
       console.log(error);
     }
@@ -227,6 +233,9 @@ export function QuestionContainer({
           participant_id: participant_id ?? "",
         });
 
+      if (setIsFinishedHandler) {
+        setIsFinishedHandler();
+      }
       /*    router.replace(`/profile/quiz-istatistikleri/${quizId}`); */
     }
   }, [isQuizFinishedByUser, isTimerExpired]);

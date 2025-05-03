@@ -8,7 +8,6 @@ import {
   RoomInfoDBResponse,
 } from "@/app/models/quiz";
 import { cookies } from "next/headers";
-
 type RoomPageProps = {
   params: Promise<{ roomCode: string }>;
   searchParams: Promise<{ quizId: string }>;

@@ -1,7 +1,7 @@
 "use client";
 
 import { Participant, Quiz } from "@/app/models/quiz";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { joinHandler } from "./services";
 import { ListContainer } from "@/components/components/ListContainer";
 import { useGetParticipantsStats } from "./hooks/useGetParticipantsStats";
@@ -32,20 +32,25 @@ export function RoomContainer({
   hostUserId,
   roomCode,
 }: RoomContainerProps) {
+  const [isFinished, setIsFinished] = useState(
+    participantsStatus.find((p) => p.userId === userId)?.finished ?? false
+  );
   const { participantsStats, setParticipantsStats, isAllReady } =
     useGetParticipantsStats({
       initialParticipants: participantsStatus,
       roomCode,
+      isFinished,
     });
 
   const participantId = useRef<string | null>(null);
-
-  const isFinished = participantsStats.find(
-    (p) => p.userId === userId
-  )?.finished;
-
   const participant_id = participantsStats.find((p) => p.userId === userId)?.id;
   console.log("my participantId: ", participant_id);
+
+  const setIsFinishedHandler = () => {
+    setIsFinished(true);
+  };
+
+  console.log(isFinished);
 
   useEffect(() => {
     const joinUserHandler = async () => {
@@ -82,7 +87,7 @@ export function RoomContainer({
   useEffect(() => {
     return () => {
       const id = participant_id;
-      if (id) {
+      if (id && !isAllReady) {
         const isHost = hostUserId === userId;
         deleteParticipant(id, isHost, roomCode);
       }
@@ -91,7 +96,7 @@ export function RoomContainer({
 
   return (
     <div className="w-full max-w-full md:max-w-5xl flex-col items-center">
-      {!isAllReady && (
+      {!isAllReady && !isFinished && (
         <>
           <h1 className="text-2xl text-amber-500 text-center">
             Oda {roomCode}
@@ -147,6 +152,8 @@ export function RoomContainer({
               <QuestionKeyContainer />
             </div>
             <QuestionContainer
+              setIsFinishedHandler={setIsFinishedHandler}
+              roomCode={roomCode}
               isOnline={true}
               participant_id={participant_id}
               quizName={quiz?.title ?? ""}

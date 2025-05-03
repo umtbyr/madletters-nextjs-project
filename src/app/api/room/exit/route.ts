@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
           roomCode: roomCode,
         },
       });
+      console.log("Room and participants deleted.");
 
       return NextResponse.json({ message: "Room and participants deleted." });
     }

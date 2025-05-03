@@ -74,16 +74,18 @@ export async function deleteParticipant(
 export async function finishQuiz({
   participant_id,
   score,
+  roomCode,
 }: {
   participant_id: string;
   score: number;
+  roomCode: string;
 }) {
   const respnose = await fetch("/api/room/finish", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ participant_id, score }),
+    body: JSON.stringify({ participant_id, score, roomCode }),
   });
 
   if (!respnose.ok) {
