@@ -8,17 +8,19 @@ export function FinishQuizButton() {
   const setTimerExpired = useQuizStore((state) => state.setIsTimerExpired);
 
   return (
-    <div className="flex w-1/2 ml-auto ">
-      {!isQuizFinished && isRounding && (
-        <Button
-          className="bg-red-600 text-white"
-          onClick={() => {
-            setTimerExpired(true);
-          }}
-        >
-          Bitir
-        </Button>
-      )}
+    <div className="flex w-1/2 justify-start">
+      <div>
+        {!isQuizFinished && isRounding && (
+          <Button
+            className="bg-red-600 text-white "
+            onClick={() => {
+              setTimerExpired(true);
+            }}
+          >
+            Finish
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

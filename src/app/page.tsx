@@ -51,7 +51,7 @@ export default async function Page() {
             href={`/quiz/${todaysQuiz?.id}`}
             className="bg-amber-400 rounded-4xl py-6 px-4 text-center md:mb-72 text-slate-800"
           >
-            <p className="text-xl font-extrabold">Start Today's quiz!</p>
+            <p className="text-xl font-extrabold">Start Today{"'"}s quiz!</p>
           </Link>
           <Link
             href={`/play-online`}

@@ -20,7 +20,7 @@ export function AnswerQuestionButton({
         clearAnswerHandler();
       }}
     >
-      {answer !== "" ? "Cevapla" : "Geç"}
+      {answer !== "" ? "Answer" : "Skip"}
     </Button>
   );
 }

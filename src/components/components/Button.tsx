@@ -17,7 +17,7 @@ export function Button({
     <button
       disabled={disabled}
       className={clsx(
-        "w-full max-w-full  shadow-xl text-xl rounded-2xl py-4 px-4 bg-amber-400/90 font-extrabold cursor-pointer text-center ",
+        "w-full max-w-full  shadow-xl text-xl rounded-2xl py-4 px-4 bg-amber-400/90 font-extrabold cursor-pointer  ",
         className
       )}
       onClick={onClick}
