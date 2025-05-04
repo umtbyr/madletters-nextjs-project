@@ -257,7 +257,7 @@ export function QuestionContainer({
             href={`/profile/quiz-statistics/${quizId}`}
             className="bg-amber-400 rounded-4xl py-6 px-4 text-center animate-bounce "
           >
-            <p className="text-2xl font-extrabold">Quiz Sonuçları</p>
+            <p className="text-2xl font-extrabold">Quiz Results</p>
           </Link>
         </div>
       ) : (

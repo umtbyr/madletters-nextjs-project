@@ -4,6 +4,9 @@ import Image from "next/image";
 import { profileMenu } from "./constants";
 import { ListItem } from "@/components/components/ListItem";
 import { ListContainer } from "@/components/components/ListContainer";
+import { PencilIcon } from "lucide-react";
+import Form from "next/form";
+import { changeUserName } from "./actions";
 export default async function Page() {
   const userId = (await cookies()).get("userId")?.value;
 
@@ -31,9 +34,35 @@ export default async function Page() {
       </p>
       <ListContainer
         data={profileMenu}
-        renderItem={(menuItem) => (
-          <ListItem href={menuItem.href} label={menuItem.label} />
-        )}
+        renderItem={(menuItem) => {
+          if (menuItem.label === "Change User Name") {
+            return (
+              <Form action={changeUserName}>
+                <div className="flex flex-col items-start">
+                  <label
+                    htmlFor="change_user_name"
+                    className="font-semibold text-lg"
+                  >
+                    Change User Name
+                  </label>
+                  <div className="flex justify-between items-center w-full">
+                    <input
+                      className="border-2 border-amber-500 max-w-fit rounded-xl p-2 text-center font-semibold"
+                      id="change_user_name"
+                      name="change_user_name"
+                      type="text"
+                    />
+                    <input type="hidden" name="user_id" value={userId} />
+                    <button type="submit" className="cursor-pointer">
+                      <PencilIcon />
+                    </button>
+                  </div>
+                </div>
+              </Form>
+            );
+          }
+          return <ListItem href={menuItem.href} label={menuItem.label} />;
+        }}
       />
     </main>
   );

@@ -33,7 +33,7 @@ export default async function Page(props: QuestionPageProps) {
         <div className=" flex w-1/3 justify-center ">
           <Timer duration={60 * 12} />
         </div>
-        <div className="w-1/3">
+        <div className="w-1/3 flex justify-end mr-4">
           <FinishQuizButton />
         </div>
       </div>

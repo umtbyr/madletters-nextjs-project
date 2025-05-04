@@ -8,7 +8,7 @@ export function FinishQuizButton() {
   const setTimerExpired = useQuizStore((state) => state.setIsTimerExpired);
 
   return (
-    <div className="flex w-1/2 justify-start">
+    <div className="flex w-1/2 justify-end">
       <div>
         {!isQuizFinished && isRounding && (
           <Button

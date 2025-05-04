@@ -21,7 +21,7 @@ export default async function Page() {
   };
 
   return (
-    <main className="flex flex-col p-6 w-full max-w-full items-center md:justify-center md:h-screen  ">
+    <main className="flex flex-col p-6 w-full max-w-full items-center  ">
       <div className=" flex flex-col items-center justify-center text-center ">
         <h1 className="font-bold text-5xl break-words">Welcome to</h1>
         <div className="flex">
@@ -49,13 +49,13 @@ export default async function Page() {
         <div className="flex flex-col gap-4 justify-center py-2">
           <Link
             href={`/quiz/${todaysQuiz?.id}`}
-            className="bg-amber-400 rounded-4xl py-6 px-4 text-center md:mb-72 text-slate-800"
+            className="bg-amber-400 rounded-4xl py-6 px-4 text-center  text-slate-800"
           >
             <p className="text-xl font-extrabold">Start Today{"'"}s quiz!</p>
           </Link>
           <Link
             href={`/play-online`}
-            className="bg-amber-400 rounded-4xl py-6 px-4 text-center md:mb-72 text-slate-800"
+            className="bg-amber-400 rounded-4xl py-6 px-4 text-center  text-slate-800"
           >
             <p className="text-xl font-extrabold">Play With Friends!</p>
           </Link>

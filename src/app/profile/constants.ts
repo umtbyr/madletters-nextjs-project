@@ -4,8 +4,8 @@ const profileMenu = [
     href: "/profile/myquizes",
   },
   {
-    label: "Settings",
-    href: "/",
+    label: "Change User Name",
+    href: "/profile/settings",
   },
 ];
 
