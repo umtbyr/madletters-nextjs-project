@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { joinHandler } from "./services";
 import { ListContainer } from "@/components/components/ListContainer";
 import { useGetParticipantsStats } from "./hooks/useGetParticipantsStats";
-import { ReadyButton } from "./components";
+import { ReadyButton, RoomHeader } from "./components";
 import toast from "react-hot-toast";
 import { deleteParticipant } from "./services";
 import { QuestionKeyContainer } from "@/app/quiz/[slug]/QuestionKeysContainer";
@@ -14,6 +14,7 @@ import { saveQuizResults } from "@/app/quiz/[slug]/actions";
 import clsx from "clsx";
 import { Timer } from "@/app/quiz/[slug]/components/Timer";
 import { FinishQuizButton } from "@/app/quiz/[slug]/components";
+import { Button } from "@/components/components/Button";
 
 type RoomContainerProps = {
   participantsStatus: Participant[];
@@ -49,8 +50,6 @@ export function RoomContainer({
   const setIsFinishedHandler = () => {
     setIsFinished(true);
   };
-
-  console.log(isFinished);
 
   useEffect(() => {
     const joinUserHandler = async () => {
@@ -98,25 +97,31 @@ export function RoomContainer({
     <div className="w-full max-w-full md:max-w-5xl flex-col items-center">
       {!isAllReady && !isFinished && (
         <>
-          <h1 className="text-2xl text-amber-500 text-center">
-            Oda {roomCode}
-          </h1>
-          <div>
+          <RoomHeader />
+          <div className="mt-16">
             <ListContainer
+              disablePadding
               data={participantsStats ?? []}
               renderItem={(participant) => {
-                const className =
-                  participant.userId === userId
-                    ? " bg-amber-400/50 rounded-2xl border-2 border-black"
-                    : "";
+                let className =
+                  participant.userId === userId ? " bg-amber-400/80  " : "";
+                className += participant.ready
+                  ? "bg-blue-500/80 text-white"
+                  : "";
                 return (
                   <div
-                    className={clsx(
-                      "flex items-center px-4 py-2 w-full justify-between ",
-                      className
-                    )}
+                    className={
+                      "flex items-center px-4 py-2 w-full justify-between  "
+                    }
                   >
-                    <p className="text-xl font-bold">{participant.userName}</p>
+                    <p
+                      className={clsx(
+                        "text-xl font-extrabold p-4 rounded-2xl shadow-xl",
+                        className
+                      )}
+                    >
+                      @{participant.userName}
+                    </p>
                     <div>
                       <ReadyButton
                         setParticipantsStats={setParticipantsStats}
@@ -141,7 +146,7 @@ export function RoomContainer({
             <div className="flex w-full px-2 items-center">
               <div className="w-1/3"></div>
               <div className=" flex w-1/3 justify-center ">
-                <Timer duration={60 * 2 * 10} />
+                <Timer duration={60 * 12} />
               </div>
               <div className="w-1/3">
                 <FinishQuizButton />
@@ -171,19 +176,25 @@ export function RoomContainer({
                 .filter((p) => p.finished === true)
                 .sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0))}
               renderItem={(participant) => {
-                const className =
-                  participant.userId === userId
-                    ? " bg-amber-400/50 rounded-2xl border-2 border-black"
-                    : "";
+                let className =
+                  participant.userId === userId ? " bg-amber-400/80  " : "";
                 return (
                   <div
-                    className={clsx(
-                      "flex items-center px-4 py-2 w-full justify-between ",
-                      className
-                    )}
+                    className={
+                      "flex items-center px-4 py-2 w-full justify-between  "
+                    }
                   >
-                    <p className="text-xl font-bold">{participant.userName}</p>
-                    <p className="text-xl font-bold">{participant.score}</p>
+                    <p
+                      className={clsx(
+                        "text-xl font-extrabold p-4 rounded-2xl shadow-xl",
+                        className
+                      )}
+                    >
+                      @{participant.userName}
+                    </p>
+                    <p className="text-2xl font-extrabold ">
+                      {participant.score}
+                    </p>
                   </div>
                 );
               }}

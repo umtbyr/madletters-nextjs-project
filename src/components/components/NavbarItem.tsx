@@ -7,5 +7,9 @@ type NavbarProps = {
 };
 
 export function NavbarItem(props: NavbarProps) {
-  return <Link href={props.link}>{props.children}</Link>;
+  return (
+    <Link className="flex flex-col h-full justify-center" href={props.link}>
+      {props.children}
+    </Link>
+  );
 }

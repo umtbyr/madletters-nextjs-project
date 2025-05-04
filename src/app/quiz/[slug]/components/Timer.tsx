@@ -7,11 +7,13 @@ export function Timer({ duration = 10 }: { duration?: number }) {
   const [timeLeft, setTimeLeft] = useState(duration);
   const isQuizFinished = useQuizStore((state) => state.isQuizFinished);
   const setTimerExpired = useQuizStore((state) => state.setIsTimerExpired);
+  const setTimeLeftStore = useQuizStore((state) => state.setTimeLeftStore);
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
     if (isQuizFinished) {
+      setTimeLeftStore(timeLeft);
       clearInterval(interval);
     }
     return () => clearInterval(interval);
@@ -19,6 +21,7 @@ export function Timer({ duration = 10 }: { duration?: number }) {
 
   useEffect(() => {
     if (timeLeft <= 0) {
+      setTimeLeftStore(timeLeft);
       setTimerExpired(true);
     }
   }, [timeLeft]);

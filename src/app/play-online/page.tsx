@@ -12,7 +12,7 @@ export default async function Page() {
     take: 30,
   })) as QuizListItem[];
   return (
-    <main className="flex flex-col items-center w-full max-w-5xl p-4 mx-auto gap-2">
+    <main className="flex flex-col items-center w-full  max-w-5xl p-4 mx-auto gap-2">
       <CreateRoom quizes={quizes} userId={userId ?? ""} />
     </main>
   );

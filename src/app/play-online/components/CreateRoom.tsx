@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { QuizList } from "./QuizList";
 import { createRoom } from "../services";
+import toast from "react-hot-toast";
 
 type CreateRoomProps = {
   userId: string;
@@ -21,6 +22,11 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
   const handleCreateRoom = async () => {
     const userName = localStorage.getItem("userName") ?? "";
     try {
+      if (!quizId) {
+        toast.error("Lütfen quiz seçiniz.");
+        return;
+      }
+
       const roomInfo = await createRoom({ userId, userName, quizId });
       const params = new URLSearchParams(searchParams.toString());
       params.set("quizId", quizId ?? "");
@@ -28,7 +34,6 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
     } catch (error) {
       console.error("An unexpected error occurred:", error);
     }
-    setIsLoading(false);
   };
 
   const handleSetQuiz = (quizId: string) => {
@@ -37,7 +42,7 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full mt-12">
         <div className="max-h-72 overflow-y-auto w-full max-w-full ">
           <QuizList
             selectedQuiz={quizId}
@@ -46,7 +51,7 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
           />
         </div>
       </div>
-      <div className="my-6">
+      <div>
         <Button
           onClick={() => {
             setIsLoading(true);

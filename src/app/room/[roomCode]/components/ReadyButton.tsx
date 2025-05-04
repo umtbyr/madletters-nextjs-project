@@ -22,7 +22,7 @@ export function ReadyButton({
   participant_id,
   roomId,
 }: ReadyButtonProps) {
-  const className = isReady ? "bg-blue-500/50" : "";
+  const className = isReady ? "bg-blue-500/80 text-white" : "";
 
   const onClickHandler = async () => {
     setParticipantsStats((prev) =>

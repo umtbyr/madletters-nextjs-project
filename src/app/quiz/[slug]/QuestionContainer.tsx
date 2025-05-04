@@ -43,6 +43,7 @@ export function QuestionContainer({
     setCurrentQuestionIndex,
     questions,
     setQuizId,
+    timeLeft,
     setCurrentQuestion,
     setQuestions,
     setQuestionStatus,
@@ -63,6 +64,7 @@ export function QuestionContainer({
       isTimerExpired: state.isTimerExpired,
       setIsQuizFinished: state.setIsQuizFinished,
       setIsRounding: state.setIsRounding,
+      timeLeft: state.timeLeft,
     }))
   );
 
@@ -217,6 +219,8 @@ export function QuestionContainer({
           score++;
         }
       });
+
+      score = score * 10;
 
       const total = questions.length;
       saveResults({
