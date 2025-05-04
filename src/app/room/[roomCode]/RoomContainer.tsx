@@ -14,7 +14,6 @@ import { saveQuizResults } from "@/app/quiz/[slug]/actions";
 import clsx from "clsx";
 import { Timer } from "@/app/quiz/[slug]/components/Timer";
 import { FinishQuizButton } from "@/app/quiz/[slug]/components";
-import { Button } from "@/components/components/Button";
 
 type RoomContainerProps = {
   participantsStatus: Participant[];
@@ -176,7 +175,7 @@ export function RoomContainer({
                 .filter((p) => p.finished === true)
                 .sort((a, b) => (b?.score ?? 0) - (a?.score ?? 0))}
               renderItem={(participant) => {
-                let className =
+                const className =
                   participant.userId === userId ? " bg-amber-400/80  " : "";
                 return (
                   <div

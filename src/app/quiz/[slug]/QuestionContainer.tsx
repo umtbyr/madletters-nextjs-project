@@ -43,7 +43,6 @@ export function QuestionContainer({
     setCurrentQuestionIndex,
     questions,
     setQuizId,
-    timeLeft,
     setCurrentQuestion,
     setQuestions,
     setQuestionStatus,
@@ -64,7 +63,6 @@ export function QuestionContainer({
       isTimerExpired: state.isTimerExpired,
       setIsQuizFinished: state.setIsQuizFinished,
       setIsRounding: state.setIsRounding,
-      timeLeft: state.timeLeft,
     }))
   );
 
