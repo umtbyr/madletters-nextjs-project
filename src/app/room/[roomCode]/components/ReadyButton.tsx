@@ -22,7 +22,9 @@ export function ReadyButton({
   participant_id,
   roomId,
 }: ReadyButtonProps) {
-  const className = isReady ? "bg-blue-500/80 text-white" : "";
+  const className = isReady
+    ? "bg-green-500/80 text-white"
+    : "bg-slate-400/80 text-slate-100";
 
   const onClickHandler = async () => {
     setParticipantsStats((prev) =>
@@ -36,19 +38,21 @@ export function ReadyButton({
       );
       console.log(error);
 
-      toast.error("Hazır olunamadı tekrar deneyiniz.");
+      toast.error("Failed to get ready. Please try again.");
     }
   };
 
   return (
-    <Button
-      disabled={userId !== participantUserId || isReady}
-      className={className}
-      onClick={() => {
-        onClickHandler();
-      }}
-    >
-      Ready!
-    </Button>
+    <div>
+      <Button
+        disabled={userId !== participantUserId || isReady}
+        className={className}
+        onClick={() => {
+          onClickHandler();
+        }}
+      >
+        Ready!
+      </Button>
+    </div>
   );
 }

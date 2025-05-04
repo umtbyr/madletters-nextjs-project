@@ -23,10 +23,10 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
     const userName = localStorage.getItem("userName") ?? "";
     try {
       if (!quizId) {
-        toast.error("Lütfen quiz seçiniz.");
+        toast.error("Please select a quiz.");
         return;
       }
-
+      setIsLoading(true);
       const roomInfo = await createRoom({ userId, userName, quizId });
       const params = new URLSearchParams(searchParams.toString());
       params.set("quizId", quizId ?? "");
@@ -42,7 +42,7 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
 
   return (
     <>
-      <div className="w-full mt-12">
+      <div className="w-full mt-12 mb-12">
         <div className="max-h-72 overflow-y-auto w-full max-w-full ">
           <QuizList
             selectedQuiz={quizId}
@@ -53,12 +53,12 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
       </div>
       <div>
         <Button
+          className="text-slate-800"
           onClick={() => {
-            setIsLoading(true);
             handleCreateRoom();
           }}
         >
-          {isLoading ? "Oda oluşturuluyor..." : "Oda Oluştur"}
+          {isLoading ? "Creating Room..." : "Create Room"}
         </Button>
       </div>
     </>

@@ -1,2 +1,2 @@
 export * from "./ReadyButton";
-export * from "./RoomHeader";
+export * from "./ShareButton";

@@ -1,10 +1,10 @@
 const profileMenu = [
   {
-    label: "Geçmiş Quizlerim",
-    href: "/profile/quizlerim",
+    label: "Quiz History",
+    href: "/profile/myquizes",
   },
   {
-    label: "Ayarlar",
+    label: "Settings",
     href: "/",
   },
 ];

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { joinHandler } from "./services";
 import { ListContainer } from "@/components/components/ListContainer";
 import { useGetParticipantsStats } from "./hooks/useGetParticipantsStats";
-import { ReadyButton, RoomHeader } from "./components";
+import { ReadyButton, ShareButton } from "./components";
 import toast from "react-hot-toast";
 import { deleteParticipant } from "./services";
 import { QuestionKeyContainer } from "@/app/quiz/[slug]/QuestionKeysContainer";
@@ -14,6 +14,7 @@ import { saveQuizResults } from "@/app/quiz/[slug]/actions";
 import clsx from "clsx";
 import { Timer } from "@/app/quiz/[slug]/components/Timer";
 import { FinishQuizButton } from "@/app/quiz/[slug]/components";
+import { CircleCheckIcon, CircleXIcon } from "lucide-react";
 
 type RoomContainerProps = {
   participantsStatus: Participant[];
@@ -42,6 +43,7 @@ export function RoomContainer({
       isFinished,
     });
 
+  const myParticipant = participantsStats.find((p) => p.userId === userId);
   const participantId = useRef<string | null>(null);
   const participant_id = participantsStats.find((p) => p.userId === userId)?.id;
   console.log("my participantId: ", participant_id);
@@ -73,7 +75,7 @@ export function RoomContainer({
           setParticipantsStats((prev) =>
             prev.filter((p) => p.userId === userId)
           );
-          toast.error("Giriş yapılamadı lütfen sayfayı yenileyiniz.");
+          toast.error("Couldn't join the room. Try refreshing the page.");
         }
         participantId.current =
           participantsStats.find((p) => p.userId === userId)?.id ?? "";
@@ -96,41 +98,59 @@ export function RoomContainer({
     <div className="w-full max-w-full md:max-w-5xl flex-col items-center">
       {!isAllReady && !isFinished && (
         <>
-          <RoomHeader />
-          <div className="mt-16">
+          <div className="flex justify-between gap-8 px-6 mt-6 mb-4">
+            <ShareButton />
+            <ReadyButton
+              setParticipantsStats={setParticipantsStats}
+              userId={userId}
+              isReady={myParticipant?.ready ?? false}
+              participant_id={myParticipant?.id ?? ""}
+              participantUserId={myParticipant?.userId ?? ""}
+              roomId={roomId}
+            />
+          </div>
+          <div>
             <ListContainer
               disablePadding
               data={participantsStats ?? []}
               renderItem={(participant) => {
-                let className =
-                  participant.userId === userId ? " bg-amber-400/80  " : "";
-                className += participant.ready
-                  ? "bg-blue-500/80 text-white"
-                  : "";
                 return (
                   <div
                     className={
                       "flex items-center px-4 py-2 w-full justify-between  "
                     }
                   >
-                    <p
-                      className={clsx(
-                        "text-xl font-extrabold p-4 rounded-2xl shadow-xl",
-                        className
-                      )}
-                    >
-                      @{participant.userName}
-                    </p>
-                    <div>
-                      <ReadyButton
-                        setParticipantsStats={setParticipantsStats}
-                        userId={userId}
-                        isReady={participant.ready}
-                        participant_id={participant.id ?? ""}
-                        participantUserId={participant.userId}
-                        roomId={roomId}
-                      />
+                    <div className="flex gap-2 items-center">
+                      <div className="p-2 w-15 h-15 border-4 border-amber-500 rounded-full shadow-2xl">
+                        <img
+                          src={"/UserIcon.svg"}
+                          alt="user-profile-svg"
+                          width={64}
+                          height={64}
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center ">
+                        <p className={"text-lg font-bold leading-none"}>
+                          {participant.userName}
+                        </p>
+                        <p
+                          className={
+                            "text-md  text-gray-400/90 text-shadow-zinc-500"
+                          }
+                        >
+                          score {participant.score ?? 0}
+                        </p>
+                      </div>
                     </div>
+                    {
+                      <div>
+                        {participant.ready ? (
+                          <CircleCheckIcon className="w-10 h-10 text-green-500" />
+                        ) : (
+                          <CircleXIcon className="w-10 h-10 text-red-600" />
+                        )}
+                      </div>
+                    }
                   </div>
                 );
               }}

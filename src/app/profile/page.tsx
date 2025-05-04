@@ -27,7 +27,7 @@ export default async function Page() {
       </div>
       <h3 className="font-bold text-xl pt-2">@{user?.userName}</h3>
       <p className="font-extrabold text-xl text-amber-500">
-        {user?.userPoint} puan
+        {user?.userPoint === 0 ? `0 point` : `${user?.userPoint} points`}
       </p>
       <ListContainer
         data={profileMenu}

@@ -8,7 +8,7 @@ type NavbarProps = {
 
 export function NavbarItem(props: NavbarProps) {
   return (
-    <Link className="flex flex-col h-full justify-center" href={props.link}>
+    <Link className="flex flex-col h-full justify-center " href={props.link}>
       {props.children}
     </Link>
   );

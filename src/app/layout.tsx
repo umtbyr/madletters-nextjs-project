@@ -28,7 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const userId = (await cookies()).get("userId")?.value;
-  const userName = `Kullanıcı${Math.floor(1000 + Math.random() * 9000)}`;
+  const userName = `User${Math.floor(1000 + Math.random() * 9000)}`;
   const dbUser = await prisma.user.upsert({
     where: { id: userId },
     update: {},
@@ -42,12 +42,12 @@ export default async function RootLayout({
   const finalUserName = dbUser.userName;
 
   return (
-    <html lang="en" className="w-full h-full overflow-x-hidden">
+    <html lang="en" className="w-full h-full overflow-x-hidden ">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full bg-amber-50/25`}
       >
         <Toaster position="top-center" reverseOrder={true} />
         <ClientToast name={finalUserName} />

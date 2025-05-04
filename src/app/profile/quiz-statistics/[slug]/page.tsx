@@ -66,7 +66,7 @@ export default async function Page(props: StatisticsPageProps) {
         className="bg-amber-400 p-4 rounded-2xl cursor-pointer flex my-2 shadow-xl "
         href={`/quiz/${quizStatistics?.quizId}`}
       >
-        <p className="text-xl font-extrabold  ">TEKRAR DENE!</p>
+        <p className="text-xl font-extrabold  ">PLAY AGAIN!</p>
       </Link>
 
       <div className="bg-white w-full max-w-full shadow-xl p-2 rounded-2xl mt-4 mb-2 flex items-center justify-center md:max-w-5xl">

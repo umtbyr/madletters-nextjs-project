@@ -26,22 +26,20 @@ export default async function Page() {
 
           return (
             <div className="flex flex-col justify-between items-center gap-2">
-              <div className="flex justify-between gap-2 w-full bg-amber-400/80 px-4 py-2">
+              <div className="flex justify-between gap-2 w-full bg-amber-400/80 px-4 py-2 text-slate-800">
                 <p className="text-xl font-extrabold">{dateOfQuiz}</p>
                 <p className="text-xl font-extrabold">{`${quiz.score}/${quiz.total}`}</p>
               </div>
               <div className="flex gap-5 items-center justify-between w-full p-4">
-                <Link href={`/profile/quiz-istatistikleri/${quiz.quizId}`}>
+                <Link href={`/profile/quiz-statistics/${quiz.quizId}`}>
                   <div className="bg-amber-400 p-4 rounded-2xl cursor-pointer">
-                    <p className="text-sm font-bold text-center">
-                      İSTATİSTİKLER
-                    </p>
+                    <p className="text-md font-bold text-center">Statistics</p>
                   </div>
                 </Link>
                 <Link href={`/quiz/${quiz.quizId}`}>
                   <div className="bg-amber-400 p-4 rounded-2xl cursor-pointer ">
-                    <p className="text-sm font-bold  text-center">
-                      TEKRAR DENE
+                    <p className="text-md font-bold  text-center">
+                      Play Again!
                     </p>
                   </div>
                 </Link>
