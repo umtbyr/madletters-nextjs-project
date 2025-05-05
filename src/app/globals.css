@@ -153,6 +153,22 @@ body {
   }
 }
 
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-30%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.slide-left {
+  animation: slide-left 0.8s reverse;
+}
+
 .accordion-open {
   animation: accordion-open 0.4s ease-out;
 }

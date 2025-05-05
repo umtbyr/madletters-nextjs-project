@@ -27,23 +27,19 @@ export default async function Page(props: QuestionPageProps) {
   }
 
   return (
-    <main className="flex flex-col px-2 py-4 items-center w-full max-w-full md:max-w-5xl mx-auto">
+    <main className="flex flex-col px-2 py-4 items-center w-full max-w-full md:max-w-5xl mx-auto ">
       <div className="flex w-full px-2 items-center">
         <div className="w-1/3"></div>
-        <div className=" flex w-1/3 justify-center ">
+        <div className=" flex w-1/3 justify-center mt-2 ">
           <Timer duration={60 * 12} />
         </div>
-        <div className="w-1/3 flex justify-end mr-4">
+        <div className="w-1/3 flex justify-end">
           <FinishQuizButton />
         </div>
       </div>
-      <div className=""></div>
-
-      <section>
-        <div>
-          <QuestionKeyContainer />
-        </div>
-      </section>
+      <div className=" mx-2 my-8">
+        <QuestionKeyContainer />
+      </div>
       <QuestionContainer
         quizName={quiz.title}
         userId={userId ?? ""}

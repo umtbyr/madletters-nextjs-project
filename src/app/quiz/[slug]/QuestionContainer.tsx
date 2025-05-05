@@ -1,6 +1,6 @@
 "use client";
 import { Question, QuizResultPayload } from "@/app/models/quiz";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useQuizStore } from "@/app/store/quizStore";
 import { useShallow } from "zustand/shallow";
 import { QuestionStatus } from "@/app/models/quiz";
@@ -65,7 +65,7 @@ export function QuestionContainer({
       setIsRounding: state.setIsRounding,
     }))
   );
-
+  const boxRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     setQuestions(intialQuestions);
     setQuizId(quizId);
@@ -86,6 +86,7 @@ export function QuestionContainer({
 
   //sonra tekrar bakılabilir
   const handleAnswerQuestion = (answer: string) => {
+    slideAgain();
     currentQuestion.userAnswer = answer;
     setQuestion(currentQuestion);
     const userAnswer = answer.toLocaleLowerCase().trim();
@@ -249,6 +250,14 @@ export function QuestionContainer({
     };
   }, []);
 
+  function slideAgain() {
+    const el = boxRef.current;
+    if (!el) return;
+    el.classList.remove("slide-left");
+    void el.offsetWidth; // trigger reflow
+    el.classList.add("slide-left");
+  }
+
   return (
     <div>
       {isQuizFinishedByUser || isTimerExpired ? (
@@ -262,11 +271,8 @@ export function QuestionContainer({
         </div>
       ) : (
         <>
-          <QuestionCard question={currentQuestion} />
-          <div
-            className="flex justify-between items-start w-full max-w-full px-4
-       h-[40vh] py-8 mx-auto rounded-2xl mt-8"
-          >
+          <QuestionCard ref={boxRef} question={currentQuestion} />
+          <div className="flex justify-between items-start w-full max-w-full px-4 py-8 mx-auto rounded-2xl mt-6">
             <UserInput answerHandler={handleAnswerQuestion} />
           </div>
         </>

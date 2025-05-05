@@ -7,13 +7,13 @@ export function ShareButton() {
     <div className="flex justify-end items-center rounded-2xl ">
       <div>
         <Button
-          className="bg-rose-600/80 text-white flex gap-2"
+          className="bg-amber-500/80 text-white flex gap-2"
           onClick={async () => {
             await navigator.clipboard.writeText(window.location.href);
             toast.success("Oda Linki kopyalandı");
           }}
         >
-          <p>Share room</p>
+          <p>Share </p>
           <ShareIcon className="text-white" />
         </Button>
       </div>

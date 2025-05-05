@@ -51,7 +51,7 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
           />
         </div>
       </div>
-      <div>
+      <div className="mt-10">
         <Button
           className="text-slate-800"
           onClick={() => {

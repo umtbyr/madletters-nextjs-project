@@ -3,10 +3,10 @@ import { LinkIcon, MailIcon } from "lucide-react";
 
 export default function Footer() {
   return (
-    <div className="bg-slate-800 w-full h-full py-6 px-6 flex justify-between text-slate-200/80 text-sm items-center ">
+    <div className="bg-slate-800 w-full h-full py-4 px-6 flex justify-between text-slate-200/80 text-sm items-center ">
       <div className="flex flex-col gap-2">
         <Link
-          href={"/terms-of-services"}
+          href={"/terms-of-service"}
           className="flex gap-2 items-center cursor-pointer"
         >
           <p className="underline">Terms of use</p>

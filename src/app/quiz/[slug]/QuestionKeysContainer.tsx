@@ -20,7 +20,7 @@ export function QuestionKeyContainer() {
   });
 
   return (
-    <ul className="flex justify-center gap-4 mx-2 m-10">
+    <ul className="flex justify-center gap-4">
       {!isQuizFinished &&
         filteredQuestions.map((item) => (
           <QuestionKeyBox key={item.id} question={item} />

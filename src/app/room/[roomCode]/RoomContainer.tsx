@@ -164,15 +164,14 @@ export function RoomContainer({
           <>
             <div className="flex w-full px-2 items-center">
               <div className="w-1/3"></div>
-              <div className=" flex w-1/3 justify-center ">
+              <div className=" flex w-1/3 justify-center mt-2 ">
                 <Timer duration={60 * 12} />
               </div>
-              <div className="w-1/3">
+              <div className="w-1/3 flex justify-end">
                 <FinishQuizButton />
               </div>
             </div>
-            <div className=""></div>
-            <div>
+            <div className=" mx-2 my-8">
               <QuestionKeyContainer />
             </div>
             <QuestionContainer

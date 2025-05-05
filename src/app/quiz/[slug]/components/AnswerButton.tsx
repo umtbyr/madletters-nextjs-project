@@ -14,7 +14,7 @@ export function AnswerQuestionButton({
 }: AnwswerButtonProps) {
   return (
     <Button
-      className="flex-1"
+      className="flex-1 bg-amber-400"
       onClick={() => {
         answerHandler(answer);
         clearAnswerHandler();
