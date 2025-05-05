@@ -8,7 +8,7 @@ export default function Page() {
 
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By accessing or using our medical quiz game app ("MedLetter"), you agree
+        By accessing or using our medical quiz game app (MedLetter), you agree
         to be bound by these Terms of Use. If you do not agree, you must not use
         our app.
       </p>
