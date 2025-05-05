@@ -1,0 +1,32 @@
+import Link from "next/link";
+import { LinkIcon, MailIcon } from "lucide-react";
+
+export default function Footer() {
+  return (
+    <div className="bg-slate-800 w-full h-full py-6 px-6 flex justify-between text-slate-200/80 text-sm items-center ">
+      <div className="flex flex-col gap-2">
+        <Link
+          href={"/terms-of-services"}
+          className="flex gap-2 items-center cursor-pointer"
+        >
+          <p className="underline">Terms of use</p>
+          <LinkIcon className="w-4 h-4" />
+        </Link>
+        <Link
+          href={"/privacy-policy"}
+          className="flex gap-2 items-center cursor-pointer"
+        >
+          <p className="underline">Privacy policy</p>
+          <LinkIcon className="w-4 h-4" />
+        </Link>
+      </div>
+      <div className="flex flex-col gap-2 items-center">
+        <p>Feel free to contact us </p>
+        <div className="flex gap-2 items-center">
+          <p>MedLetter@gmail.com</p>
+          <MailIcon className="w-4 h-4" />
+        </div>
+      </div>
+    </div>
+  );
+}

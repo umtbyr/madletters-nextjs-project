@@ -41,7 +41,7 @@ export default function PrivacyPolicyPage() {
       <h2>3. Google AdSense</h2>
       <p>
         We use Google AdSense to display ads. It may collect device data and use
-        cookies.{" "}
+        cookies.
         <a
           href="https://policies.google.com/technologies/ads"
           target="_blank"

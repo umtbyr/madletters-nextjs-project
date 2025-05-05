@@ -6,6 +6,7 @@ import { ClientToast } from "@/components/ClientToast";
 import "./globals.css";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,14 +48,17 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full bg-amber-50/25`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full bg-amber-50/25 flex flex-col`}
       >
         <Toaster position="top-center" reverseOrder={true} />
         <ClientToast name={finalUserName} />
         <header className="w-full">
           <Navbar />
         </header>
-        {children}
+        <div className="flex-1">{children}</div>
+        <footer>
+          <Footer />
+        </footer>
       </body>
     </html>
   );

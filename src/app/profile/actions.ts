@@ -10,23 +10,21 @@ export async function changeUserName(formData: FormData) {
     throw new Error("user_id not found");
   }
 
-  if (!newUserName || newUserName.trim() === "") {
-    throw new Error("Username cannot be empty");
-  }
+  if (newUserName) {
+    try {
+      await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          userName: newUserName,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to update username:", error);
+      throw new Error("An error occurred while updating username");
+    }
 
-  try {
-    await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        userName: newUserName,
-      },
-    });
-  } catch (error) {
-    console.error("Failed to update username:", error);
-    throw new Error("An error occurred while updating username");
+    redirect("/profile");
   }
-
-  redirect("/profile");
 }
