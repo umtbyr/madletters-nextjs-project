@@ -166,7 +166,8 @@ body {
 }
 
 .slide-left {
-  animation: slide-left 0.8s reverse;
+  animation: slide-left 1s reverse;
+  will-change: transform;
 }
 
 .accordion-open {

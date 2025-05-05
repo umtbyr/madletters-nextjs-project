@@ -255,7 +255,9 @@ export function QuestionContainer({
     if (!el) return;
     el.classList.remove("slide-left");
     void el.offsetWidth; // trigger reflow
-    el.classList.add("slide-left");
+    requestAnimationFrame(() => {
+      el.classList.add("slide-left");
+    });
   }
 
   return (
