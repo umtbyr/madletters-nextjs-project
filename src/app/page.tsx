@@ -42,7 +42,7 @@ export default async function Page() {
           Master medicine, one letter at a time
         </h3>
         <h3 className="font-bold text-lg px-2 py-4 m-1 text-slate-800/40 text-center">
-          DoctorQuiz is a fast-paced medical quiz game where you guess clinical
+          Madletters is a fast-paced medical quiz game where you guess clinical
           answers starting with each letter of the alphabet — play solo or
           challenge your friends!
         </h3>
