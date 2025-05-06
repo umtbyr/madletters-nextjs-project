@@ -1,4 +1,4 @@
-"import";
+"use client";
 
 import { Cookie } from "lucide-react";
 import Script from "next/script";
