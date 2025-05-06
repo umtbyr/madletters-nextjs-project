@@ -60,6 +60,7 @@ export const metadata = {
     images: ["https://madletters.com/og-image.png"],
   },
 };
+console.log(metadata);
 
 export default async function RootLayout({
   children,

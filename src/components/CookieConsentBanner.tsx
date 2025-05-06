@@ -30,9 +30,9 @@ export function CookieConsentBanner() {
         <p className="font-bold text-md">But first, cookies</p> <Cookie />
       </div>
       <p>
-        We use cookies to make MadLetter work. We'd like to use other cookies to
-        show personalized ads by Google. By clicking 'Accept', you consent to
-        the use of Google advertising cookies.
+        We use cookies to make MadLetter work. We{"'"}d like to use other
+        cookies to show personalized ads by Google. By clicking 'Accept', you
+        consent to the use of Google advertising cookies.
       </p>
       <button
         className="bg-blue-500 px-4 py-2 rounded text-white m-1"

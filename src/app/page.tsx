@@ -33,7 +33,7 @@ export default async function Page() {
             height={72}
           />
           <h1 className="w-full font-bold text-5xl my-4 mx-2 break-words">
-            MadLetter
+            MadLetters
           </h1>
         </div>
       </div>

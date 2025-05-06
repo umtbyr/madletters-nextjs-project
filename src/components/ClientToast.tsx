@@ -13,10 +13,10 @@ export function ClientToast({ name }: { name: string | null }) {
     const cookies = parseCookies();
 
     if (cookies.isCreated === "true") {
-      toast.success(`🎉 Hoşgeldiniz! ${name} oluşturuldu.`);
+      toast.success(`🎉 Welcome! ${name} created.`);
       destroyCookie(null, "isCreated", { path: "/" });
     } else if (cookies.isCreated === "false") {
-      toast.success(`🎉 Hoşgeldiniz!`);
+      toast.success(`🎉 Welcome!`);
       destroyCookie(null, "isCreated", { path: "/" });
     }
   }, []);
