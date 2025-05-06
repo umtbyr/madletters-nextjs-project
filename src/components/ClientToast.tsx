@@ -12,9 +12,6 @@ export function ClientToast({ name }: { name: string | null }) {
     if (cookies.isCreated === "true") {
       toast.success(`🎉 Welcome! ${name} created.`);
       destroyCookie(null, "isCreated", { path: "/" });
-    } else if (cookies.isCreated === "false") {
-      toast.success(`🎉 Welcome!`);
-      destroyCookie(null, "isCreated", { path: "/" });
     }
   }, []);
 
