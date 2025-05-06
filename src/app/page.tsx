@@ -33,7 +33,7 @@ export default async function Page() {
             height={72}
           />
           <h1 className="w-full font-bold text-5xl my-4 mx-2 break-words">
-            MedLetter
+            MadLetter
           </h1>
         </div>
       </div>
@@ -41,8 +41,8 @@ export default async function Page() {
         <h3 className="font-bold text-3xl px-2 pt-4 m-2 text-amber-500 text-center">
           Master medicine, one letter at a time
         </h3>
-        <h3 className="font-bold text-lg px-2 py-4 m-2 text-slate-600/40 text-center">
-          MedLetter is a fast-paced medical quiz game where you guess clinical
+        <h3 className="font-bold text-lg px-2 py-4 m-1 text-slate-800/40 text-center">
+          DoctorQuiz is a fast-paced medical quiz game where you guess clinical
           answers starting with each letter of the alphabet — play solo or
           challenge your friends!
         </h3>

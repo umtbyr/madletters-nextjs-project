@@ -30,10 +30,10 @@ export function Timer({ duration = 10 }: { duration?: number }) {
   const seconds = timeLeft % 60;
 
   return (
-    <div className=" text-2xl font-bold px-4 py-2 rounded-md flex gap-1">
+    <div className=" text-2xl font-bold px-4 py-2 rounded-md flex gap-1 text-slate-800">
       {!isQuizFinished && (
         <>
-          <TimerIcon className="w-8 h-8" />
+          <TimerIcon className="w-8 h-8 " />
           <p>
             {minutes}:{seconds.toString().padStart(2, "0")}
           </p>
