@@ -8,7 +8,6 @@ import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import Footer from "@/components/Footer";
 import { CookieConsentBanner } from "@/components/CookieConsentBanner";
-import { LoadAds } from "@/components/LoadAds";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -92,7 +91,7 @@ export default async function RootLayout({
         <CookieConsentBanner />
         {/* <LoadAds /> */}
         <Toaster position="top-center" reverseOrder={true} />
-        <ClientToast name={finalUserName} />
+        <ClientToast name={finalUserName ?? ""} />
         <header className="w-full">
           <Navbar />
         </header>
