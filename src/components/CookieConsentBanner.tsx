@@ -20,6 +20,8 @@ export function CookieConsentBanner() {
     setLoadAds(true); // Dynamically trigger ads
   };
 
+  console.log(loadAds);
+
   return (
     <>
       {visible && (
@@ -40,7 +42,7 @@ export function CookieConsentBanner() {
           </button>
         </div>
       )}
-
+      {/* 
       {loadAds && (
         <Script
           async
@@ -48,7 +50,7 @@ export function CookieConsentBanner() {
           data-ad-client="YOUR-AD-CLIENT-ID"
           crossOrigin="anonymous"
         />
-      )}
+      )} */}
     </>
   );
 }
