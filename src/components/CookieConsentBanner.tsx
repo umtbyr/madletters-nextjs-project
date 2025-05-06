@@ -21,10 +21,8 @@ export function CookieConsentBanner() {
     setLoadAds(true); // Dynamically trigger ads
   };
 
-  console.log(loadAds);
-
   return (
-    <>
+    <div>
       {visible && (
         <div className="fixed bottom-0 w-full bg-gray-900 text-white text-sm p-4 flex flex-col md:flex-row justify-between items-center z-50 gap-2">
           <div className="flex gap-2 items-center">
@@ -49,9 +47,10 @@ export function CookieConsentBanner() {
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           data-ad-client="ca-pub-7300648788613648"
+          strategy="afterInteractive"
           crossOrigin="anonymous"
         />
       )}
-    </>
+    </div>
   );
 }
