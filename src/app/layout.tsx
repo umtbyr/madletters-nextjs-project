@@ -89,7 +89,6 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full bg-amber-50/25 flex flex-col`}
       >
         <CookieConsentBanner />
-        {/* <LoadAds /> */}
         <Toaster position="top-center" reverseOrder={true} />
         <ClientToast name={finalUserName ?? ""} />
         <header className="w-full">
