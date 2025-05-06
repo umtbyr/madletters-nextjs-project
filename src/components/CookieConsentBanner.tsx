@@ -48,7 +48,7 @@ export function CookieConsentBanner() {
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          data-ad-client="YOUR-AD-CLIENT-ID"
+          data-ad-client="ca-pub-7300648788613648"
           crossOrigin="anonymous"
         />
       )}
