@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  verification: {
-    google: "ca-pub-7300648788613648",
+  other: {
+    "google-adsense-account": "ca-pub-7300648788613648",
   },
   title: "MadLetters – A to Z Medical Quiz Game",
   description:
