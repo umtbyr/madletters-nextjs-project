@@ -85,6 +85,10 @@ export default async function RootLayout({
     <html lang="en" className="w-full h-full overflow-x-hidden ">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-7300648788613648"
+        ></meta>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full bg-amber-50/25 flex flex-col`}
