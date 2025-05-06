@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "MadLetters – A to Z Medical Quiz Game",
   description:
     "Guess medical terms from A to Z! MadLetters is a fun and educational quiz game designed for healthcare enthusiasts, students, and professionals.",
@@ -92,7 +92,7 @@ export default async function RootLayout({
         <CookieConsentBanner />
         <LoadAds />
         <Toaster position="top-center" reverseOrder={true} />
-        <ClientToast name={finalUserName} />
+        <ClientToast name={finalUserName ?? ""} />
         <header className="w-full">
           <Navbar />
         </header>

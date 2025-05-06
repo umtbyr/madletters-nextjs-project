@@ -4,10 +4,7 @@ import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { parseCookies, destroyCookie } from "nookies";
 
-export function ClientToast({ name }: { name: string | null }) {
-  if (!name) {
-    return;
-  }
+export function ClientToast({ name }: { name: string }) {
   useEffect(() => {
     localStorage.setItem("userName", name);
     const cookies = parseCookies();
