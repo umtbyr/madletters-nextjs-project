@@ -92,7 +92,7 @@ export default async function RootLayout({
         <CookieConsentBanner />
         <LoadAds />
         <Toaster position="top-center" reverseOrder={true} />
-        <ClientToast name={finalUserName ?? ""} />
+        {finalUserName && <ClientToast name={finalUserName} />}
         <header className="w-full">
           <Navbar />
         </header>
