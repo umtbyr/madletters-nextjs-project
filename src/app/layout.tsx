@@ -21,6 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: "ca-pub-7300648788613648",
+  },
   title: "MadLetters – A to Z Medical Quiz Game",
   description:
     "Guess medical terms from A to Z! MadLetters is a fun and educational quiz game designed for healthcare enthusiasts, students, and professionals.",
