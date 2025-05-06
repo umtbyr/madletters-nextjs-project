@@ -30,7 +30,7 @@ export const useGetParticipantsStats = ({
     }
   };
   useEffect(() => {
-    const poolingInterval = setInterval(poolingHandler, 2000);
+    const poolingInterval = setInterval(poolingHandler, 3000);
 
     return () => clearInterval(poolingInterval);
   }, [poolingHandler]);
