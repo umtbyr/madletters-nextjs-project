@@ -23,7 +23,7 @@ export default function Footer() {
       <div className="flex  gap-1  justify-between">
         <p>Feel free to contact us via</p>
         <div className="flex gap-2 items-center">
-          <p>MedLetter@gmail.com</p>
+          <p>info@madletters.com</p>
           <MailIcon className="w-4 h-4" />
         </div>
       </div>

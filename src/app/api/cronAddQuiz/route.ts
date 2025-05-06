@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 
     await prisma.quiz.create({
       data: {
-        title: "MedLetter Quiz - " + new Date().toLocaleDateString("en-US"),
+        title: "MadLetter Quiz - " + new Date().toLocaleDateString("en-US"),
         date: new Date(),
         questions: {
           create: quizQuestions,
