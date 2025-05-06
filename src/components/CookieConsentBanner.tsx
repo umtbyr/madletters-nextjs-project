@@ -1,7 +1,8 @@
 "use client";
 
 import { Cookie } from "lucide-react";
-/* import Script from "next/script"; */
+import Script from "next/script";
+
 import { useEffect, useState } from "react";
 
 export function CookieConsentBanner() {
@@ -42,7 +43,7 @@ export function CookieConsentBanner() {
           </button>
         </div>
       )}
-      {/* 
+
       {loadAds && (
         <Script
           async
@@ -50,7 +51,7 @@ export function CookieConsentBanner() {
           data-ad-client="YOUR-AD-CLIENT-ID"
           crossOrigin="anonymous"
         />
-      )} */}
+      )}
     </>
   );
 }
