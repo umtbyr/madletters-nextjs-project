@@ -20,6 +20,7 @@ export function CookieConsentBanner() {
     setVisible(false);
     setLoadAds(true); // Dynamically trigger ads
   };
+  
 
   return (
     <div>

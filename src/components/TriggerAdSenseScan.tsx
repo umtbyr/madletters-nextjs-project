@@ -14,10 +14,17 @@ export function TriggerAdSenseScan() {
   useEffect(() => {
     if (localStorage.getItem("adsConsent") === "true") {
       try {
-        // eslint-disable-next-line no-undef
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        if (typeof window !== "undefined") {
+          // Prevent duplicate push on already-initialized ads
+          const ads = document.querySelectorAll("ins.adsbygoogle");
+          ads.forEach((ad) => {
+            if (!ad.getAttribute("data-ad-status")) {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            }
+          });
+        }
       } catch (e) {
-        console.error("AdSense re-trigger failed", e);
+        console.error("AdSense error:", e);
       }
     }
   }, [pathName]);

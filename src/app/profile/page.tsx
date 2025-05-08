@@ -20,7 +20,7 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col w-full max-w-full p-5 items-center md:max-w-5xl mx-auto">
-      <div className="p-2 w-20 h-20 border-4 border-amber-500 rounded-full shadow-2xl mt-4">
+      <div className="p-2 w-20 h-20 border-4 border-slate-800 rounded-full shadow-2xl mt-4">
         <Image
           src={"/UserIcon.svg"}
           alt="user-profile-svg"
@@ -54,7 +54,7 @@ export default async function Page() {
                     />
                     <input type="hidden" name="user_id" value={userId} />
                     <button type="submit" className="cursor-pointer">
-                      <PencilIcon />
+                      <PencilIcon className="text-slate-800" />
                     </button>
                   </div>
                 </div>

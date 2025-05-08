@@ -5,7 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { joinHandler } from "./services";
 import { ListContainer } from "@/components/components/ListContainer";
 import { useGetParticipantsStats } from "./hooks/useGetParticipantsStats";
-import { ReadyButton, ShareButton } from "./components";
+import {
+  ReadyButton,
+  ShareButton,
+  UserList,
+  WaitingSpinner,
+} from "./components";
 import toast from "react-hot-toast";
 import { deleteParticipant } from "./services";
 import { QuestionKeyContainer } from "@/app/quiz/[slug]/QuestionKeysContainer";
@@ -14,7 +19,7 @@ import { saveQuizResults } from "@/app/quiz/[slug]/actions";
 import clsx from "clsx";
 import { Timer } from "@/app/quiz/[slug]/components/Timer";
 import { FinishQuizButton } from "@/app/quiz/[slug]/components";
-import { CircleCheckIcon, CircleXIcon } from "lucide-react";
+import { CircleCheckIcon, CircleXIcon, LoaderCircleIcon } from "lucide-react";
 
 type RoomContainerProps = {
   participantsStatus: Participant[];
@@ -110,51 +115,10 @@ export function RoomContainer({
             />
           </div>
           <div>
-            <ListContainer
-              disablePadding
-              data={participantsStats ?? []}
-              renderItem={(participant) => {
-                return (
-                  <div
-                    className={
-                      "flex items-center px-4 py-2 w-full justify-between  "
-                    }
-                  >
-                    <div className="flex gap-2 items-center">
-                      <div className="p-2 w-15 h-15 border-4 border-amber-500 rounded-full shadow-2xl">
-                        <img
-                          src={"/UserIcon.svg"}
-                          alt="user-profile-svg"
-                          width={64}
-                          height={64}
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center ">
-                        <p className={"text-lg font-bold leading-none"}>
-                          {participant.userName}
-                        </p>
-                        <p
-                          className={
-                            "text-md  text-gray-400/90 text-shadow-zinc-500"
-                          }
-                        >
-                          score {participant.score ?? 0}
-                        </p>
-                      </div>
-                    </div>
-                    {
-                      <div>
-                        {participant.ready ? (
-                          <CircleCheckIcon className="w-10 h-10 text-green-500" />
-                        ) : (
-                          <CircleXIcon className="w-10 h-10 text-red-600" />
-                        )}
-                      </div>
-                    }
-                  </div>
-                );
-              }}
-            />
+            <UserList participantsStats={participantsStats} />
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            <WaitingSpinner />
           </div>
         </>
       )}

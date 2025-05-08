@@ -8,7 +8,7 @@ export default function Page() {
 
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By accessing or using our medical quiz game app (MedLetter), you agree
+        By accessing or using our medical quiz game app (MadLetters), you agree
         to be bound by these Terms of Use. If you do not agree, you must not use
         our app.
       </p>
@@ -55,7 +55,7 @@ export default function Page() {
       <h2>8. Contact</h2>
       <p>
         If you have questions about these terms, please contact us at:
-        support@medletterapp.com
+        info@madletters.com
       </p>
     </main>
   );

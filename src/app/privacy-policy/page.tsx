@@ -9,7 +9,7 @@ export default function PrivacyPolicyPage() {
       <p>
         Your privacy is important to us. This Privacy Policy explains how we
         collect, use, and protect your personal information when you use our
-        quiz application (“App”).
+        quiz application (“Madletters”).
       </p>
 
       <h2>1. Information We Collect</h2>
@@ -63,8 +63,8 @@ export default function PrivacyPolicyPage() {
 
       <h2>7. Contact Us</h2>
       <p>
-        Email:{" "}
-        <a href="mailto:MedLetterApp@example.com">MedLetterApp@example.com</a>
+        Email:
+        <a href="info@madletters.com">info@madletters.com</a>
       </p>
     </main>
   );

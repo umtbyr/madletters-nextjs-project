@@ -71,14 +71,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const userId = (await cookies()).get("userId")?.value;
-  const userName = `User${Math.floor(1000 + Math.random() * 9000)}`;
+
   const dbUser = await prisma.user.upsert({
     where: { id: userId },
     update: {},
     create: {
       userPoint: 0,
       id: userId,
-      userName: userName,
+      userName: `user${Math.floor(1000 + Math.random() * 9000)}`,
     },
   });
 

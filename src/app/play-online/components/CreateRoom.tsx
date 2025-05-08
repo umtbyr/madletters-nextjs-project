@@ -7,6 +7,7 @@ import { useState } from "react";
 import { QuizList } from "./QuizList";
 import { createRoom } from "../services";
 import toast from "react-hot-toast";
+import { LoaderCircleIcon } from "lucide-react";
 
 type CreateRoomProps = {
   userId: string;
@@ -42,7 +43,7 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
 
   return (
     <>
-      <div className="w-full mt-12 mb-12">
+      <div className="w-full mt-12 mb-12 text-slate-800">
         <div className="max-h-72 overflow-y-auto w-full max-w-full ">
           <QuizList
             selectedQuiz={quizId}
@@ -58,7 +59,14 @@ export function CreateRoom({ userId, quizes }: CreateRoomProps) {
             handleCreateRoom();
           }}
         >
-          {isLoading ? "Creating Room..." : "Create Room"}
+          {isLoading ? (
+            <div className="flex gap-2 items-center">
+              <p>Creating Room</p>
+              <LoaderCircleIcon className="animate-spin w-6 h-6" />
+            </div>
+          ) : (
+            "Create Room"
+          )}
         </Button>
       </div>
     </>
