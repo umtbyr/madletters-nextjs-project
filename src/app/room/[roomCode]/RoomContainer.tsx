@@ -19,7 +19,6 @@ import { saveQuizResults } from "@/app/quiz/[slug]/actions";
 import clsx from "clsx";
 import { Timer } from "@/app/quiz/[slug]/components/Timer";
 import { FinishQuizButton } from "@/app/quiz/[slug]/components";
-import { CircleCheckIcon, CircleXIcon, LoaderCircleIcon } from "lucide-react";
 
 type RoomContainerProps = {
   participantsStatus: Participant[];
