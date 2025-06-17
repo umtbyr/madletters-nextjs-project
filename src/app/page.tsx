@@ -59,18 +59,18 @@ export default async function Page() {
           </a>{" "}
           ☕
         </p>
-        <div className="flex flex-col gap-4 justify-center py-2">
+        <div className="flex gap-4 py-2 justify-between">
           <Link
             href={`/quiz/${todaysQuiz?.id}`}
-            className="bg-amber-400 rounded-4xl py-6 px-4 text-center  text-slate-800"
+            className="bg-amber-400 rounded-4xl py-6 px-4 text-center  text-slate-800 "
           >
-            <p className="text-xl font-extrabold">Play Solo!</p>
+            <p className="text-lg font-extrabold">Play Solo!</p>
           </Link>
           <Link
             href={`/play-online`}
             className="bg-amber-400 rounded-4xl py-6 px-4 text-center  text-slate-800"
           >
-            <p className="text-xl font-extrabold">Play With Friends!</p>
+            <p className="text-lg font-extrabold">Play With Friends!</p>
           </Link>
         </div>
       </div>
