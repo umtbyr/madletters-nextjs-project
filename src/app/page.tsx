@@ -21,7 +21,7 @@ export default async function Page() {
   };
 
   return (
-    <main className="flex flex-col p-6 w-full max-w-full items-center  ">
+    <main className="flex flex-col px-6 py-4 w-full max-w-full items-center  ">
       <div className=" flex flex-col items-center justify-center text-center ">
         <h1 className="font-bold text-5xl break-words">Welcome to</h1>
         <div className="flex">
@@ -38,14 +38,27 @@ export default async function Page() {
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <h3 className="font-bold text-3xl px-2 pt-4 m-2 text-amber-500 text-center">
-          Master medicine, one letter at a time
+        <h3 className="font-bold text-3xl px-2 m-2 text-amber-500 text-center">
+          Learning medicine can be fun
         </h3>
-        <h3 className="font-bold text-lg px-2 py-4 m-1 text-slate-800/40 text-center">
+        <h3 className="font-bold text-lg px-2 m-1 text-slate-800/40 text-center">
           Madletters is a fast-paced medical quiz game where you guess clinical
           answers starting with each letter of the alphabet — play solo or
           challenge your friends!
         </h3>
+        <p className="text-sm font-medium text-slate-600 text-center mt-6 max-w-md pb-1">
+          This project is built with 💛 by an indie developer in Turkey. If
+          you're enjoying it, consider{" "}
+          <a
+            href="https://coff.ee/umutbayar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-amber-500 underline"
+          >
+            supporting it here
+          </a>{" "}
+          ☕
+        </p>
         <div className="flex flex-col gap-4 justify-center py-2">
           <Link
             href={`/quiz/${todaysQuiz?.id}`}
