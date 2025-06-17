@@ -20,7 +20,7 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col w-full max-w-full p-5 items-center md:max-w-5xl mx-auto">
-      <div className="p-2 w-20 h-20 border-4 border-slate-800 rounded-full shadow-2xl mt-4">
+      <div className="p-2 w-20 h-20 border-6 border-amber-500 rounded-full shadow-2xl mt-4">
         <Image
           src={"/UserIcon.svg"}
           alt="user-profile-svg"
@@ -28,8 +28,10 @@ export default async function Page() {
           height={80}
         />
       </div>
-      <h3 className="font-bold text-xl pt-2">@{user?.userName}</h3>
-      <p className="font-extrabold text-xl text-amber-500">
+      <h3 className="font-bold text-xl pt-2 text-slate-800">
+        @{user?.userName}
+      </h3>
+      <p className="font-bold text-xl text-amber-500">
         {user?.userPoint === 0 ? `0 point` : `${user?.userPoint} points`}
       </p>
       <ListContainer

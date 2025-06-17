@@ -20,7 +20,7 @@ export function Navbar() {
             </div>
           </NavbarItem>
         </div>
-        <div className="flex justify-end gap-8 w-1/3">
+        <div className="flex justify-end gap-6 w-1/3">
           <NavbarItem link="/play-online" label="home-page">
             <div className="flex flex-col justify-center items-center">
               <GlobeIcon className="w-8 h-8 text-gray-800" />

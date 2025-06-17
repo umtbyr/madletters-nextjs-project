@@ -7,8 +7,6 @@ import "./globals.css";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import Footer from "@/components/Footer";
-import { CookieConsentBanner } from "@/components/CookieConsentBanner";
-import { AdSenseGuard } from "@/components/AdSenseGuard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,9 +19,6 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  other: {
-    "google-adsense-account": "ca-pub-7300648788613648",
-  },
   title: "MadLetters – A to Z Medical Quiz Game",
   description:
     "Guess medical terms from A to Z! MadLetters is a fun and educational quiz game designed for healthcare enthusiasts, students, and professionals.",
@@ -88,16 +83,10 @@ export default async function RootLayout({
     <html lang="en" className="w-full h-full overflow-x-hidden ">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="google-adsense-account"
-          content="ca-pub-7300648788613648"
-        ></meta>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased w-full h-full bg-amber-50/25 flex flex-col`}
       >
-        <CookieConsentBanner />
-        <AdSenseGuard />
         <Toaster position="top-center" reverseOrder={true} />
         <ClientToast name={finalUserName ?? ""} />
         <header className="w-full">

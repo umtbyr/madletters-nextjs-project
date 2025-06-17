@@ -10,7 +10,7 @@ export function ShareButton() {
           className="bg-amber-500/80 text-white flex gap-2"
           onClick={async () => {
             await navigator.clipboard.writeText(window.location.href);
-            toast.success("Oda Linki kopyalandı");
+            toast.success("Link copied to clipboard!");
           }}
         >
           <p>Share </p>
