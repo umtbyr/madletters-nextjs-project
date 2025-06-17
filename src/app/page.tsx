@@ -47,8 +47,8 @@ export default async function Page() {
           challenge your friends!
         </h3>
         <p className="text-sm font-medium text-slate-600 text-center mt-6 max-w-md pb-1">
-          This project is built with 💛 by an indie developer in Turkey. If
-          you're enjoying it, consider{" "}
+          This project is built with 💛 by an indie developer in Turkey. If you
+          {"'"}re enjoying it, consider{" "}
           <a
             href="https://coff.ee/umutbayar"
             target="_blank"

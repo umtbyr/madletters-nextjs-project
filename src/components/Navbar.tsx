@@ -1,12 +1,6 @@
 import BuyMeACoffeeButton from "./BuyMeACofeeButton";
 import { NavbarItem } from "./components/NavbarItem";
-import {
-  ListIcon,
-  HomeIcon,
-  UserIcon,
-  GlobeIcon,
-  CoffeeIcon,
-} from "lucide-react";
+import { ListIcon, HomeIcon, UserIcon, GlobeIcon } from "lucide-react";
 export function Navbar() {
   return (
     <div className="flex flex-col gap-2">
