@@ -1,7 +1,17 @@
 import { prisma } from "@/lib/prisma";
+import { ratelimit } from "@/lib/ratelimiter";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get("x-forwarded-for") || "anonymous";
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) {
+    return NextResponse.json(
+      { error: "Too many requests. Please wait before creating another room." },
+      { status: 429 }
+    );
+  }
   const { isReady, participant_id, roomId } = await request.json();
 
   if (!participant_id || !roomId) {

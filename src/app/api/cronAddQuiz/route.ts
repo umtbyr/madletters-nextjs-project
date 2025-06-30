@@ -2,9 +2,19 @@ import { QuizQuestionsPayload } from "@/app/models/quiz";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { data } from "../../../../data/questions";
+import { ratelimit } from "@/lib/ratelimiter";
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
+  const ip = request.headers.get("x-forwarded-for") || "anonymous";
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) {
+    return NextResponse.json(
+      { error: "Too many requests. Please wait before creating another room." },
+      { status: 429 }
+    );
+  }
   const authHeader = request.headers.get("authorization");
 
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
