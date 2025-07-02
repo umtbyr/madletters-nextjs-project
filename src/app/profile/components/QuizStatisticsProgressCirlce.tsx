@@ -17,7 +17,7 @@ export function QuizStatisticsProgressCirlce({
   const initialScore = 0;
   const [score, setScore] = useState(initialScore);
   const calculatedScore =
-    ((quizData?.score ?? 0) * 100) / (quizData?.total ?? 100);
+    ((quizData?.score ?? 0) * 10) / (quizData?.total ?? 100);
 
   useEffect(() => {
     const interval = setInterval(() => {
